@@ -16,7 +16,7 @@
      font-size:60px;
    }
   </style>
-  <title>CloudBees au BriezhCamp !</title>
+  <title>CloudBees au BreizhCamp !</title>
 </head>
 <body>
 <h2>Programme du BreizhCamp !</h2>
