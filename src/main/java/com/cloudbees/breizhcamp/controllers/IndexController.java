@@ -19,7 +19,7 @@ public class IndexController {
 	@Autowired
 	private Schedule schedule;
 	
-	@RequestMapping("/")
+	@RequestMapping("/index.htm")
 	public String index(ModelMap model, @RequestParam(defaultValue="Amphi") String room) {
 		
 		model.put("talks", schedule.getSchedule(room));
