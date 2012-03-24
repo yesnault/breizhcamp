@@ -1,5 +1,8 @@
 package com.cloudbees.breizhcamp.domain;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -9,6 +12,7 @@ import java.util.Set;
  * @author: <a hef="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
  */
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Talk {
     
     @Id
@@ -18,6 +22,7 @@ public class Talk {
     private String title;
 
     @Column(name = "abstract")
+    @JsonProperty("abstract")
     private String abstract_;
     
     private Date start;
@@ -85,5 +90,18 @@ public class Talk {
 
     public void setTheme(Theme theme) {
         this.theme = theme;
+    }
+
+    @Override
+    public String toString() {
+        return "Talk{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", abstract_='" + abstract_ + '\'' +
+                ", start=" + start +
+                ", end=" + end +
+                ", room='" + room + '\'' +
+                ", theme=" + theme +
+                '}';
     }
 }

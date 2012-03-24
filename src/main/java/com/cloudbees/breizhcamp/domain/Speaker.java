@@ -1,5 +1,7 @@
 package com.cloudbees.breizhcamp.domain;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.Entity;
@@ -14,6 +16,7 @@ import java.util.Set;
  * @author: <a hef="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
  */
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Speaker {
 
     @Id
@@ -37,8 +40,8 @@ public class Speaker {
         return talks;
     }
 
+    @JsonProperty("first_name")
     public String getFirstName() {
-
         return firstName;
     }
 
@@ -46,6 +49,7 @@ public class Speaker {
         this.firstName = firstName;
     }
 
+    @JsonProperty("last_name")
     public String getLastName() {
         return lastName;
     }
@@ -61,4 +65,15 @@ public class Speaker {
     public void setPicture(URL picture) {
         this.picture = picture;
     }
+
+
+    @Override
+    public String toString() {
+        return "Speaker{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
+
 }
