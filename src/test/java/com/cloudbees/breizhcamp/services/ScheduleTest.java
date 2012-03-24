@@ -22,9 +22,10 @@ public class ScheduleTest extends PersistenceTestCase {
 
     @Autowired
     private Schedule schedule;
+    
 
     @Test
-    public void basicTest() throws Exception {
+    public void should_get_schedule_by_room() throws Exception {
         Speaker speaker = new Speaker();
         speaker.setFirstName("James");
         speaker.setLastName("Gosling");
@@ -47,5 +48,19 @@ public class ScheduleTest extends PersistenceTestCase {
 
         List<Talk> talks = schedule.getSchedule("Amphi");
         assertThat(talks).isNotNull().hasSize(1).containsExactly(talk);
+    }
+    
+    @Test
+    public void should_find_speaker() throws Exception{
+        Speaker speaker = new Speaker();
+        speaker.setFirstName("James");
+        speaker.setLastName("Gosling");
+        speaker.setPicture(new URL("http://upload.wikimedia.org/wikipedia/commons/0/00/James_Gosling_2005.jpg"));
+        
+        em.persist(speaker);
+        em.flush();
+        
+        Speaker result = schedule.getSpeaker(1L);
+        assertThat(result).isNotNull().isEqualTo(speaker);
     }
 }
