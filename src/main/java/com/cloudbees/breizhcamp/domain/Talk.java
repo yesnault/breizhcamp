@@ -1,9 +1,16 @@
 package com.cloudbees.breizhcamp.domain;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import com.google.common.base.Objects;
 
 /**
  * @author: <a hef="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
@@ -29,7 +36,7 @@ public class Talk {
     private Theme theme;
 
     @ManyToMany(mappedBy = "talks")
-    private Set<Speaker> speakers = new HashSet<Speaker>();
+    private final Set<Speaker> speakers = new HashSet<Speaker>();
 
     public long getId() {
         return id;
@@ -86,4 +93,31 @@ public class Talk {
     public void setTheme(Theme theme) {
         this.theme = theme;
     }
+    
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (o instanceof Talk) {
+            Talk other=(Talk)o;
+            // Un talk par salle à un moment donné
+            return Objects.equal(other.room, room)
+            		&& Objects.equal(other.start, start)
+            		&& Objects.equal(other.end, end);
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+    	return Objects.hashCode(room, start, end);
+    }
+    
+    @Override
+    public String toString() {
+    	return Objects.toStringHelper(this).add("id", id).add("title", title).add("theme", theme).add("room", room).add("start", start).add("end", end).toString();
+    }
+    
 }
