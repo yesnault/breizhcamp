@@ -107,7 +107,7 @@ public class Talk {
         }
         if (o instanceof Talk) {
             Talk other=(Talk)o;
-            // Un talk par salle à un moment donné
+            // One talk per room at specified time
             return Objects.equal(other.room, room)
             		&& Objects.equal(other.start, start)
             		&& Objects.equal(other.end, end);
