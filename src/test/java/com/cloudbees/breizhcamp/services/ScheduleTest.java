@@ -60,7 +60,7 @@ public class ScheduleTest extends PersistenceTestCase {
         em.persist(speaker);
         em.flush();
         
-        Speaker result = schedule.getSpeaker(1L);
+        Speaker result = schedule.getSpeaker(speaker.getId());
         assertThat(result).isNotNull().isEqualTo(speaker);
     }
 }
