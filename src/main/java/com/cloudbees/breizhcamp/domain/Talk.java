@@ -1,8 +1,5 @@
 package com.cloudbees.breizhcamp.domain;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 import com.google.common.base.Objects;
 
@@ -107,17 +107,14 @@ public class Talk {
         }
         if (o instanceof Talk) {
             Talk other=(Talk)o;
-            // One talk per room at specified time
-            return Objects.equal(other.room, room)
-            		&& Objects.equal(other.start, start)
-            		&& Objects.equal(other.end, end);
+            return Objects.equal(other.id, id);
         }
         return false;
     }
     
     @Override
     public int hashCode() {
-    	return Objects.hashCode(room, start, end);
+    	return Objects.hashCode(id);
     }
     
     @Override
