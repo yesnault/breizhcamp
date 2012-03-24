@@ -12,6 +12,8 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.google.common.base.Objects;
+
 /**
  * @author: <a hef="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
  */
@@ -30,7 +32,7 @@ public class Speaker {
     private URL picture;
 
     @ManyToMany()
-    private Set<Talk> talks = new HashSet<Talk>();
+    private final Set<Talk> talks = new HashSet<Talk>();
 
     public long getId() {
         return id;
@@ -65,15 +67,27 @@ public class Speaker {
     public void setPicture(URL picture) {
         this.picture = picture;
     }
-
-
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (o instanceof Speaker) {
+            Speaker other=(Speaker)o;
+            return Objects.equal(other.firstName, firstName) &&
+                    Objects.equal(other.lastName, lastName);
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+    	return Objects.hashCode(firstName, lastName);
+    }
+    
     @Override
     public String toString() {
-        return "Speaker{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
+    	return Objects.toStringHelper(this).add("id", id).add("firstname", firstName).add("lastname", lastName).toString();
     }
-
 }
