@@ -19,10 +19,6 @@
 	<!-- Default handlers (with annotations) -->
 	<mvc:annotation-driven />
     
-    <!-- Folder containing static resources to delivery directly to user -->
-    <mvc:resources mapping="/static/**" location="/static/" />
-
-        
     <!-- View resolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
