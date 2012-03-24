@@ -4,11 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -36,8 +32,10 @@ public class Talk {
 
     private Date end;
 
-    private String room;
+    @ManyToOne
+    private Room room;
 
+    @Enumerated(EnumType.STRING)
     private Theme theme;
 
     @ManyToMany(mappedBy = "talks")
@@ -83,11 +81,11 @@ public class Talk {
         this.end = end;
     }
 
-    public String getRoom() {
+    public Room getRoom() {
         return room;
     }
 
-    public void setRoom(String room) {
+    public void setRoom(Room room) {
         this.room = room;
     }
 

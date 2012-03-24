@@ -34,7 +34,6 @@ public class ScheduleTest extends PersistenceTestCase {
         Talk talk = new Talk();
         talk.setTitle("Java and more");
         talk.setAbstract("What's coming in Java 9, 1O, 11");
-        talk.setRoom("Amphi");
         talk.setStart(new Date(123456789012L));
         talk.setEnd(new Date(123456789999L));
         talk.setTheme(Theme.DECOUVRIR);
