@@ -1,22 +1,19 @@
 package com.cloudbees.breizhcamp.services;
 
-import com.cloudbees.breizhcamp.PersistenceTestCase;
-import com.cloudbees.breizhcamp.Schedule;
-import com.cloudbees.breizhcamp.domain.Speaker;
-import com.cloudbees.breizhcamp.domain.Talk;
-import com.cloudbees.breizhcamp.domain.Theme;
-import org.hamcrest.Matcher;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.internal.matchers.IsCollectionContaining;
-import org.springframework.beans.factory.annotation.Autowired;
+import static org.fest.assertions.Assertions.assertThat;
 
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.junit.internal.matchers.IsCollectionContaining.hasItem;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.cloudbees.breizhcamp.PersistenceTestCase;
+import com.cloudbees.breizhcamp.Schedule;
+import com.cloudbees.breizhcamp.domain.Speaker;
+import com.cloudbees.breizhcamp.domain.Talk;
+import com.cloudbees.breizhcamp.domain.Theme;
 
 /**
  * @author: <a hef="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
@@ -49,6 +46,6 @@ public class ScheduleTest extends PersistenceTestCase {
         em.flush();
 
         List<Talk> talks = schedule.getSchedule("Amphi");
-        assertThat(talks, hasItem(talk));
+        assertThat(talks).containsExactly(talk);
     }
 }
