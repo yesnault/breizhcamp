@@ -1,5 +1,6 @@
 package com.cloudbees.breizhcamp.controllers;
 
+import com.cloudbees.breizhcamp.domain.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,7 +22,7 @@ public class IndexController {
 	
 	@RequestMapping("/index.htm")
 	public String index(ModelMap model, @RequestParam(defaultValue="Amphi") String room) {
-		
+
 		model.put("talks", schedule.getSchedule(room));
 		return "index";
 	}

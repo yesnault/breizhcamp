@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
+import com.cloudbees.breizhcamp.domain.Room;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,6 +32,9 @@ public class ScheduleTest extends PersistenceTestCase {
         speaker.setLastName("Gosling");
         speaker.setPicture(new URL("http://upload.wikimedia.org/wikipedia/commons/0/00/James_Gosling_2005.jpg"));
 
+        Room room = new Room();
+        room.setName("Amphi");
+        
         Talk talk = new Talk();
         talk.setTitle("Java and more");
         talk.setAbstract("What's coming in Java 9, 1O, 11");
@@ -39,9 +43,11 @@ public class ScheduleTest extends PersistenceTestCase {
         talk.setTheme(Theme.DECOUVRIR);
 
         talk.getSpeakers().add(speaker);
+        talk.setRoom(room);
         speaker.getTalks().add(talk);
 
         em.persist(speaker);
+        em.persist(room);
         em.persist(talk);
         em.flush();
 
