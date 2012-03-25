@@ -23,7 +23,7 @@ public class IndexController {
 	@RequestMapping("/index.htm")
 	public String index(ModelMap model, @RequestParam(defaultValue="Amphi") String room) {
 
-		model.put("talks", schedule.getSchedule(room));
+		model.put("talks", schedule.getSchedule());
 		return "index";
 	}
 

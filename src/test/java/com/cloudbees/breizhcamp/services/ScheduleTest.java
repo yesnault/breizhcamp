@@ -51,7 +51,7 @@ public class ScheduleTest extends PersistenceTestCase {
         em.persist(talk);
         em.flush();
 
-        List<Talk> talks = schedule.getSchedule("Amphi");
+        List<Talk> talks = schedule.getSchedule();
         assertThat(talks).isNotNull().hasSize(1).containsExactly(talk);
     }
     

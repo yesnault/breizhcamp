@@ -21,9 +21,8 @@ public class Schedule {
     @PersistenceContext
     private EntityManager em;
     
-    public List<Talk> getSchedule(String room) {
-        TypedQuery<Talk> q = em.createQuery("select t from Talk t where t.room.name = :room order by t.start", Talk.class);
-        q.setParameter("room", room);
+    public List<Talk> getSchedule() {
+        TypedQuery<Talk> q = em.createQuery("select t from Talk t order by t.start, t.room", Talk.class);
         return q.getResultList();
     }
     
