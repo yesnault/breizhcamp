@@ -5,7 +5,7 @@
     <resource name="jdbc/breizhcamp" auth="Container" type="javax.sql.DataSource">
         <param name="username" value="${username}" />
         <param name="password" value="${password}" />
-        <param name="url" value="jdbc:cloudbees://breizhcamp" />
+        <param name="url" value="jdbc:cloudbees://${database}" />
         <param name="validationQuery" value="SELECT 1" />
         <param name="testOnBorrow" value="true" />
     </resource>
