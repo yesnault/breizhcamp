@@ -20,19 +20,18 @@ import java.util.Map;
  * @author Guernion Sylvain
  */
 @Controller
-@RequestMapping("/talk")
 public class TalkController {
 
     @Autowired
     private Schedule schedule;
 
-    @RequestMapping(method = RequestMethod.GET, produces="application/json")
+    @RequestMapping(value = "/talks.json",method = RequestMethod.GET, produces="application/json")
     @ResponseBody
     public List<Talk> talks() {
         return schedule.getSchedule();
     }
 
-    @RequestMapping(value = "/get/{id}.json", method = RequestMethod.GET, produces="application/json")
+    @RequestMapping(value = "/talk/get/{id}.json", method = RequestMethod.GET, produces="application/json")
     @ResponseBody
     public Talk get(@PathVariable int id) {
         return schedule.getTalk(id);
