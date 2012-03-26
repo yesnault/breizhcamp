@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/crud/room")
 public class RoomController {
 
+    @RequestMapping("/index.htm")
     public String index(ModelMap model) {
-        return "index";
+        return "crud.room.index";
     }
 }

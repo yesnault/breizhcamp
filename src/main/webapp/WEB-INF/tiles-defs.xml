@@ -21,6 +21,22 @@
         <put-attribute name="content" value="/views/speakers.jsp" />
     </definition>
 
+
+    <!-- CRUD -->
+    <definition name=".crudTemplate" extends=".mainTemplate">
+        <put-attribute name="content" value="/templates/blank.jsp" />
+        <put-attribute name="header" value="/templates/crudHead.jsp" />
+        <put-attribute name="footer" value="/templates/blank.jsp" />
+        <put-attribute name="title" value="BreizhCamp Admin" type="string" />
+    </definition>
+
+    <definition name="crud.room.index" extends=".crudTemplate">
+        <put-attribute name="content" value="/views/crud/room/index.jsp" />
+    </definition>
+
+
+    <!-- ERROR -->
+
     <definition name="error" extends=".mainTemplate">
         <put-attribute name="content" value="/views/error/error.jsp" />
     </definition>
