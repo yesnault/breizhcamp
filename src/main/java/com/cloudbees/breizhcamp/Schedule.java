@@ -25,8 +25,17 @@ public class Schedule {
         TypedQuery<Talk> q = em.createQuery("select t from Talk t order by t.start, t.room", Talk.class);
         return q.getResultList();
     }
+
+    public List<Speaker> getSpeakers() {
+        TypedQuery<Speaker> q = em.createQuery("select s from Speaker s order by s.lastName, s.firstName", Speaker.class);
+        return q.getResultList();
+    }
     
     public Speaker getSpeaker(long id) {
     	return em.find(Speaker.class, id);
+    }
+
+    public Talk getTalk(long id) {
+        return em.find(Talk.class, id);
     }
 }
