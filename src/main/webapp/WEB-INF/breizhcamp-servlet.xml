@@ -4,6 +4,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
        						http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
@@ -20,10 +21,22 @@
 	<mvc:annotation-driven />
     
     <!-- View resolver -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		  p:viewClass="org.springframework.web.servlet.view.JstlView">
+		<property name="order" value="2"/>
         <property name="prefix" value="/views/" />
         <property name="suffix" value=".jsp" />
     </bean>
+	
+	<bean id="tilesConfigurer"
+          class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"
+          p:definitions="/WEB-INF/tiles-defs.xml" />
 
+    <bean id="tilesViewResolver"
+          class="org.springframework.web.servlet.view.UrlBasedViewResolver"
+          p:viewClass="org.springframework.web.servlet.view.tiles2.TilesView" 
+		  >
+		  <property name="order" value="1"/>
+	</bean>
+		  
 </beans>
