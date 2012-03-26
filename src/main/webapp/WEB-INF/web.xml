@@ -8,8 +8,20 @@
   
 	<context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/applicationContext.xml;/WEB-INF/breizhcamp-servlet.xml</param-value>
+        <param-value>/WEB-INF/applicationContext.xml;/WEB-INF/breizhcamp-servlet.xml;/WEB-INF/spring-mvc-security.xml</param-value>
     </context-param>
+
+
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/crud/*</url-pattern>
+    </filter-mapping>
+
 
 	<!-- Servlet Spring MVC -->
 	<servlet>
