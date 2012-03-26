@@ -3,3 +3,7 @@ breizhcamp.db.lock.db
 breizhcamp.db.trace.db
 target
 .*
+
+*.iml
+*.ipr
+*.iws
