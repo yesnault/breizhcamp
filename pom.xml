@@ -1,78 +1,100 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.cloudbees</groupId>
-  <artifactId>breizhcamp</artifactId>
-  <packaging>war</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>breizhcamp Webapp</name>
-  <url>http://www.breizhcamp.org</url>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.cloudbees</groupId>
+    <artifactId>breizhcamp</artifactId>
+    <packaging>war</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>breizhcamp Webapp</name>
+    <url>http://www.breizhcamp.org</url>
 
-  <ciManagement>
-     <system>Jenkins (what else ?)</system>
-     <url>http://breizhcamp.ci.cloudbees.com</url>
-  </ciManagement>
+    <ciManagement>
+        <system>Jenkins (what else ?)</system>
+        <url>http://breizhcamp.ci.cloudbees.com</url>
+    </ciManagement>
 
-  <scm>
-      <url>https://github.com/cloudbees/breizhcamp</url>
-      <developerConnection>scm:git:git@github.com:cloudbees/breizhcamp.git</developerConnection>
-  </scm>
+    <scm>
+        <url>https://github.com/cloudbees/breizhcamp</url>
+        <developerConnection>scm:git:git@github.com:cloudbees/breizhcamp.git</developerConnection>
+    </scm>
 
-  <properties>
-      <maven.compiler.source>1.6</maven.compiler.source>
-      <maven.compiler.target>1.6</maven.compiler.target>
-	  <tiles.version>2.2.2</tiles.version>
-  </properties>
-  
-  <prerequisites>
- 	<maven>3.0.3</maven> 
-  </prerequisites>
+    <properties>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <tiles.version>2.2.2</tiles.version>
+      <spring-security.version>3.0.3.RELEASE</spring-security.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-  <dependencies>
+    <prerequisites>
+        <maven>3.0.3</maven>
+    </prerequisites>
 
-      <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-entitymanager</artifactId>
-          <version>4.1.1.Final</version>
-      </dependency>
-      <dependency>
-          <groupId>javassist</groupId>
-          <artifactId>javassist</artifactId>
-          <version>3.12.1.GA</version>
-      </dependency>
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-webmvc</artifactId>
-          <version>3.1.1.RELEASE</version>
-      </dependency>
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-orm</artifactId>
-          <version>3.1.1.RELEASE</version>
-      </dependency>
-      <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-          <version>1.6.4</version>
-      </dependency>
-       <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
-          <version>1.2</version>
-      </dependency>
-      
-      <dependency>
-          <groupId>org.codehaus.jackson</groupId>
-          <artifactId>jackson-core-asl</artifactId>
-          <version>1.9.4</version>
-      </dependency>
-      <dependency>
-          <groupId>org.codehaus.jackson</groupId>
-          <artifactId>jackson-mapper-asl</artifactId>
-          <version>1.9.4</version>
-      </dependency>
-	  
-	   <dependency>
+    <dependencies>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.1.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.12.1.GA</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>3.1.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>3.1.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.4</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.9.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.4</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-api</artifactId>
             <version>${tiles.version}</version>
@@ -88,81 +110,102 @@
             <version>${tiles.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>11.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>3.1.1.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.3.165</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-assert</artifactId>
+            <version>1.4</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>8.1.0.RC5</version>
+                <configuration>
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <contextXml>src/test/jetty-env.xml</contextXml>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.h2database</groupId>
+                        <artifactId>h2</artifactId>
+                        <version>1.3.165</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>commons-dbcp</groupId>
+                        <artifactId>commons-dbcp</artifactId>
+                        <version>1.4</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+        </plugins>
 
 
-      <dependency>
-	 <groupId>com.google.guava</groupId>
-	 <artifactId>guava</artifactId>
-	 <version>11.0.2</version>
-      </dependency>
-      
-      <dependency>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-          <version>4.10</version>
-          <scope>test</scope>
-      </dependency>
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-test</artifactId>
-          <version>3.1.1.RELEASE</version>
-          <scope>test</scope>
-      </dependency>
-      <dependency>
-          <groupId>com.h2database</groupId>
-          <artifactId>h2</artifactId>
-          <version>1.3.165</version>
-          <scope>test</scope>
-      </dependency>
-      <dependency>
-          <groupId>commons-dbcp</groupId>
-          <artifactId>commons-dbcp</artifactId>
-          <version>1.4</version>
-          <scope>test</scope>
-      </dependency>
-	  <dependency>
-		<groupId>org.easytesting</groupId>
-		<artifactId>fest-assert</artifactId>
-		<version>1.4</version>
-                <scope>test</scope>
-	</dependency>    
-      
-  </dependencies>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.3.2</version>
+                    <configuration>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
-  <build>
-      <plugins>
-          <plugin>
-              <groupId>org.mortbay.jetty</groupId>
-              <artifactId>jetty-maven-plugin</artifactId>
-              <version>8.1.0.RC5</version>
-              <configuration>
-                  <scanIntervalSeconds>10</scanIntervalSeconds>
-                  <contextXml>src/test/jetty-env.xml</contextXml>
-              </configuration>
-              <dependencies>
-                  <dependency>
-                      <groupId>com.h2database</groupId>
-                      <artifactId>h2</artifactId>
-                      <version>1.3.165</version>
-                  </dependency>
-                  <dependency>
-                      <groupId>commons-dbcp</groupId>
-                      <artifactId>commons-dbcp</artifactId>
-                      <version>1.4</version>
-                  </dependency>
-              </dependencies>
-          </plugin>
-      </plugins>
-      <pluginManagement>
-	      <plugins>
-	        <plugin>
-	          <groupId>org.apache.maven.plugins</groupId>
-	          <artifactId>maven-compiler-plugin</artifactId>
-	          <version>2.3.2</version>
-	        </plugin>
-	     </plugins>
-      </pluginManagement>
-  </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <instrumentation>
+                        <excludes>
+                            <exclude>com/cloudbees/**/*PersistenceTestCase.class</exclude>
+                        </excludes>
+                    </instrumentation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 
     <profiles>
         <profile>
