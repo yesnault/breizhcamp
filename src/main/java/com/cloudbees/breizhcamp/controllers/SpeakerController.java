@@ -5,11 +5,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 import com.cloudbees.breizhcamp.Schedule;
 import com.cloudbees.breizhcamp.domain.Speaker;
@@ -20,17 +17,23 @@ import com.cloudbees.breizhcamp.domain.Speaker;
  * @author Alexandre THOMAZO <alex@thomazo.info>
  */
 @Controller
-@RequestMapping("/speaker")
 public class SpeakerController {
 
 	@Autowired
 	private Schedule schedule;
 	
-	@RequestMapping(value = "/get/{id}.json", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/speaker/get/{id}.json", method = RequestMethod.GET, produces="application/json")
 	@ResponseBody
 	public Speaker get(@PathVariable int id) {
 		return schedule.getSpeaker(id);
 	}
+
+    @RequestMapping("/speakers.htm")
+    	public String index(ModelMap model,@RequestParam(defaultValue="0") int id) {
+
+    		model.put("speakers", schedule.getSpeaker(id));
+    		return "speakers";
+    	}
 	
 	/**
 	 * Launched if an error appears

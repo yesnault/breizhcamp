@@ -17,6 +17,10 @@
         <put-attribute name="content" value="/views/index.jsp" />
     </definition>
 
+    <definition name="speakers" extends=".mainTemplate">
+            <put-attribute name="content" value="/views/speakers.jsp" />
+    </definition>
+
     <definition name="error" extends=".mainTemplate">
         <put-attribute name="content" value="/views/error/error.jsp" />
     </definition>

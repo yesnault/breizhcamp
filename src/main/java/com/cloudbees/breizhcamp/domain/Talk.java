@@ -35,7 +35,7 @@ public class Talk {
     @ManyToOne
     private Room room;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private Theme theme;
 
     @ManyToMany(mappedBy = "talks")
