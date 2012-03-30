@@ -1,6 +1,7 @@
 package com.cloudbees.breizhcamp.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +29,18 @@ public class SpeakerController {
 		return schedule.getSpeaker(id);
 	}
 
-    @RequestMapping("/speakers.htm")
-    	public String index(ModelMap model,@RequestParam(defaultValue="0") int id) {
+    @RequestMapping(value = "/speakers.json", method = RequestMethod.GET, produces="application/json")
+    @ResponseBody
+    public List<Speaker> speakers() {
+        return schedule.getSpeakers();
+    }
 
-    		model.put("speakers", schedule.getSpeaker(id));
-    		return "speakers";
-    	}
+
+    @RequestMapping("/speakers.htm")
+    public String index(ModelMap model) {
+        model.put("speakers", schedule.getSpeakers());
+        return "speakers";
+    }
 	
 	/**
 	 * Launched if an error appears
