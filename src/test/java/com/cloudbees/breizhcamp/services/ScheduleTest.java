@@ -68,4 +68,24 @@ public class ScheduleTest extends PersistenceTestCase {
         Speaker result = schedule.getSpeaker(speaker.getId());
         assertThat(result).isNotNull().isEqualTo(speaker);
     }
+
+    @Test
+    public void find_speakers() throws Exception{
+        Speaker speaker = new Speaker();
+        speaker.setFirstName("James");
+        speaker.setLastName("Gosling");
+        speaker.setPicture(new URL("http://upload.wikimedia.org/wikipedia/commons/0/00/James_Gosling_2005.jpg"));
+
+        em.persist(speaker);
+
+        Speaker speakerN = new Speaker();
+        speakerN.setFirstName("Nicolas");
+        speakerN.setLastName("Deloof");
+
+        em.persist(speakerN);
+        em.flush();
+
+        List<Speaker> result = schedule.getSpeakers();
+        assertThat(result).startsWith(speakerN).contains(speakerN,speaker).isNotEmpty();
+    }
 }

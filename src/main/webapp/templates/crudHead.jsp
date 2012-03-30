@@ -19,3 +19,5 @@
   <li id="speakers"><a href="/crud/speaker/index.htm">Speakers</a></li>
 
 </ul>
+
+<a href="/crud/room/index.htm">Rooms</a> - <a href="/crud/talk/index.htm">Talks</a> - <a href="/crud/speaker/index.htm">Speakers</a>

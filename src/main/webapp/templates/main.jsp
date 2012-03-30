@@ -7,26 +7,6 @@
   <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
 
   <link href='http://fonts.googleapis.com/css?family=Sonsie+One' rel='stylesheet' type='text/css'>
-  <link href='/static/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
-  <script href='/static/js/bootstrap.min.js' type='text/javascript' charset='utf-8'></script>
-  <style type="text/css">
-   html {
-     background: url('<c:url value='/static/BreizhCamp.png'/>') no-repeat top center;
-   }
-   body {
-     margin-top:400px;
-   }
-   h2 {
-     font-family: 'Sonsie One', cursive;
-     text-align: center;
-     font-size:60px;
-   }
-    h3 {
-     font-family: 'Sonsie One', cursive;
-     text-align: center;
-     font-size:30px;
-   }
-  </style>
   <title><tiles:getAsString name="title" /></title>
 
 	
