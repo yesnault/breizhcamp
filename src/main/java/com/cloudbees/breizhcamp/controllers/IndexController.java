@@ -25,4 +25,9 @@ public class IndexController {
 		return "index";
 	}
 
+    @RequestMapping("/error/notie.htm")
+    public String index(ModelMap model) {
+        return "error/notie";
+    }
+
 }
