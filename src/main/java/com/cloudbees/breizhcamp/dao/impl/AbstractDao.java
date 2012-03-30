@@ -5,6 +5,7 @@ import com.cloudbees.breizhcamp.domain.Speaker;
 import com.cloudbees.breizhcamp.domain.Talk;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
