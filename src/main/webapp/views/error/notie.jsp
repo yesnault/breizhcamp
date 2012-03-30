@@ -1,0 +1,1 @@
+<h2>T&eacute;l&eacute;chargez un vrai navigateur!</h2>

@@ -60,5 +60,14 @@
 	<definition name="error/404" extends=".mainTemplate">
         <put-attribute name="content" value="/views/error/404.jsp" />
     </definition>
+
+    <definition name=".mainTemplateie" template="/templates/mainie.jsp">
+        <put-attribute name="title" value="Il y a plein d'autre navigateurs !" type="string" />
+        <put-attribute name="header" value="/templates/headie.jsp" />
+        <put-attribute name="content" value="/templates/blank.jsp" />
+    </definition>
+    <definition name="error/notie" extends=".mainTemplateie">
+        <put-attribute name="content" value="/views/error/notie.jsp" />
+    </definition>
     
 </tiles-definitions>

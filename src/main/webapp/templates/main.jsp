@@ -2,6 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <html>
+<script type="text/javascript" language="javascript">
+NavName = navigator.appName;
+if ( NavName == "Microsoft Internet Explorer") {
+    window.location="/error/notie.htm";
+}
+</script>
 <head>
   <link href="/static/css/bootstrap.css" rel="stylesheet">
   <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
