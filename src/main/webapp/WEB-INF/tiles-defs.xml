@@ -34,6 +34,14 @@
         <put-attribute name="content" value="/views/crud/room/index.jsp" />
     </definition>
 
+    <definition name="crud.room.add" extends=".crudTemplate">
+        <put-attribute name="content" value="/views/crud/room/add.jsp" />
+    </definition>
+
+    <definition name="crud.room.edit" extends=".crudTemplate">
+        <put-attribute name="content" value="/views/crud/room/edit.jsp" />
+    </definition>
+
     <definition name="crud.talk.index" extends=".crudTemplate">
         <put-attribute name="content" value="/views/crud/talk/index.jsp" />
     </definition>

@@ -20,4 +20,10 @@ public class RoomDao extends AbstractDao<Room>  implements Dao<Room> {
     public Room find(long id) {
         return em.find(Room.class, id);
     }
+    
+    public Room findByName(String name) {
+        TypedQuery<Room> query = em.createQuery("select r from Room r where r.name = :name", Room.class);
+        return query.setParameter("name", name).getSingleResult();
+    }
+
 }

@@ -1,14 +1,9 @@
-package com.cloudbees.breizhcamp;
+package com.cloudbees.breizhcamp.services;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-
 import com.cloudbees.breizhcamp.dao.impl.SpeakerDao;
 import com.cloudbees.breizhcamp.dao.impl.TalkDao;
-import com.cloudbees.breizhcamp.domain.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.cloudbees.breizhcamp.services.Schedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import com.cloudbees.breizhcamp.Schedule;
 import com.cloudbees.breizhcamp.domain.Speaker;
 
 /**

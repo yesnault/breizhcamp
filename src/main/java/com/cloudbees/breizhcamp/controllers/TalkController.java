@@ -1,7 +1,6 @@
 package com.cloudbees.breizhcamp.controllers;
 
-import com.cloudbees.breizhcamp.Schedule;
-import com.cloudbees.breizhcamp.domain.Speaker;
+import com.cloudbees.breizhcamp.services.Schedule;
 import com.cloudbees.breizhcamp.domain.Talk;
 
 import org.springframework.beans.factory.annotation.Autowired;

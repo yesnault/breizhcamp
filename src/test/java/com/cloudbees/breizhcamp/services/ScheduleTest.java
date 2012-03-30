@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cloudbees.breizhcamp.PersistenceTestCase;
-import com.cloudbees.breizhcamp.Schedule;
 import com.cloudbees.breizhcamp.domain.Speaker;
 import com.cloudbees.breizhcamp.domain.Talk;
 import com.cloudbees.breizhcamp.domain.Theme;

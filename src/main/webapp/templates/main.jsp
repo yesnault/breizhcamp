@@ -5,8 +5,8 @@
 <head>
   <link href="/static/css/bootstrap.css" rel="stylesheet">
   <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
-
   <link href='http://fonts.googleapis.com/css?family=Sonsie+One' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><tiles:getAsString name="title" /></title>
 
 	
@@ -16,8 +16,6 @@
 	<tiles:insertAttribute name="header" />
 	<tiles:insertAttribute name="content" />
 	<tiles:insertAttribute name="footer" />
-
-
     <script src="/static/js/bootstrap-transition.js"></script>
 </body>
 </html>
