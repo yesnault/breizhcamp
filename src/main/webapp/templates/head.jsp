@@ -3,6 +3,11 @@
    html {
      background: url('<c:url value='/static/BreizhCamp.png'/>') no-repeat top center;
    }
+   body {
+     margin-top:350px;
+     margin-left:10px;
+     margin-right:10px;
+   }
    h2 {
      font-family: 'Sonsie One', cursive;
      margin-top:50px;
@@ -20,14 +25,16 @@
                      document.getElementById(id).className='active';
                 }
        </script>
-
-<ul class="nav  nav-tabs" style="margin-top:400px;">
-  <li id="programme">
-    <a href="/index.htm">Programme</a>
-  </li>
+<!-- Onglets -->
+<ul class="nav  nav-tabs">
+  <li id="programme"><a href="/index.htm">Programme</a></li>
   <li id="speakers"><a href="/speakers.htm">Speakers</a></li>
   <li id="rooms"><a href="#">Rooms</a></li>
   <li id="github"><a href="https://github.com/cloudbees/breizhcamp">GitHub</a></li>
-
 </ul>
-  </style>
+
+<!-- Liens de navigation -->
+<div style="position: fixed;top:2px;right:10px">
+<a href="<c:url value='/index.htm'/>">Home</a>&nbsp;&nbsp;
+<a href="<c:url value='/crud/room/index.htm'/>">Admin</a>
+</div>
