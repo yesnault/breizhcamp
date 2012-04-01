@@ -2,14 +2,18 @@ package com.cloudbees.breizhcamp.services;
 
 import com.cloudbees.breizhcamp.dao.impl.RoomDao;
 import com.cloudbees.breizhcamp.dao.impl.SpeakerDao;
+import com.cloudbees.breizhcamp.dao.impl.TalkDao;
 import com.cloudbees.breizhcamp.domain.Room;
 import com.cloudbees.breizhcamp.domain.Speaker;
+import com.cloudbees.breizhcamp.domain.Talk;
+import com.cloudbees.breizhcamp.domain.Theme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
 import java.net.URL;
+import java.util.Date;
 
 /**
  * @author <a href='mailto:ybonnel@gmail.com'>Yan Bonnel</a>
@@ -54,6 +58,19 @@ public class CrudService {
         speaker.setLastName(lastName);
         speaker.setPicture(picture);
         speakerDao.save(speaker);
+    }
+
+    @Autowired
+    private TalkDao talkDao;
+    
+    public void addTalk(String title, String resume, Date startDate, Date endDate, Theme theme) {
+        Talk talk = new Talk();
+        talk.setTitle(title);
+        talk.setAbstract(resume);
+        talk.setStart(startDate);
+        talk.setEnd(endDate);
+        talk.setTheme(theme);
+        talkDao.save(talk);
     }
 
 }

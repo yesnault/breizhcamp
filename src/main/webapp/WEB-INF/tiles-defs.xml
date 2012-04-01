@@ -46,6 +46,14 @@
         <put-attribute name="content" value="/views/crud/talk/index.jsp" />
     </definition>
 
+    <definition name="crud.talk.add" extends=".crudTemplate">
+        <put-attribute name="content" value="/views/crud/talk/add.jsp" />
+    </definition>
+
+    <definition name="crud.talk.edit" extends=".crudTemplate">
+        <put-attribute name="content" value="/views/crud/talk/edit.jsp" />
+    </definition>
+
     <definition name="crud.speaker.index" extends=".crudTemplate">
         <put-attribute name="content" value="/views/crud/speaker/index.jsp" />
     </definition>
