@@ -81,7 +81,7 @@
         <div class="controls">
             <select id="room" name="room" class="input-xlarge">
                 <c:forEach var="aRoom" items="${allRooms}">
-                    <option id="${aRoom.id}" name="${aRoom.id}"
+                    <option value="${aRoom.id}"
                         <c:if test="${aRoom.name == talk.getRoomName()}">selected="selected"</c:if>>${aRoom.name}</option>
                 </c:forEach>
             </select>

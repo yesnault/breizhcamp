@@ -64,7 +64,10 @@ public class CrudTalkController {
     @RequestMapping("/add/submit.htm")
     public String addSubmit(ModelMap model, @RequestParam String title, @RequestParam String resume,
                             @RequestParam String date, @RequestParam String startTime, @RequestParam String endTime,
-                            @RequestParam String theme, @RequestParam(required = false) String room, @RequestParam(required = false) List<Long> speakers) {
+                            @RequestParam String theme, @RequestParam(required = false) Long room, @RequestParam(required = false) List<Long> speakers) {
+        if (speakers == null) {
+            speakers = new ArrayList<Long>();
+        }
         boolean hasError = false;
         if (StringUtils.isEmpty(title)) {
             model.put("titleError", "Le titre est obligatoire");
@@ -113,7 +116,7 @@ public class CrudTalkController {
 
         Room maRoom = null;
         try {
-            maRoom = roomDao.findByName(room);
+            maRoom = roomDao.find(room);
         } catch (NoResultException noResultException) {
             model.put("roomError", "La salle " + room + " n'existe pas");
             hasError = true;
@@ -164,18 +167,16 @@ public class CrudTalkController {
         model.put("possibleThemes", Theme.values());
         model.put("allRooms", roomDao.findAll());
         model.put("allSpeakers", speakerDao.findAll());
-        SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
-        model.put("date", sdfDate.format(talk.getStart()));
-        model.put("startTime", sdfTime.format(talk.getStart()));
-        model.put("endTime", sdfTime.format(talk.getEnd()));
         return "crud.talk.edit";
     }
 
     @RequestMapping("/edit/submit.htm")
     public String editSubmit(ModelMap model, @RequestParam Long id, @RequestParam String title, @RequestParam String resume,
                             @RequestParam String date, @RequestParam String startTime, @RequestParam String endTime,
-                            @RequestParam String theme, @RequestParam(required = false) String room, @RequestParam(required = false) List<Long> speakers) {
+                            @RequestParam String theme, @RequestParam(required = false) Long room, @RequestParam(required = false) List<Long> speakers) {
+        if (speakers == null) {
+            speakers = new ArrayList<Long>();
+        }
         Talk talk = talkDao.find(id);
         model.put("talk", talk);
         model.put("possibleThemes", Theme.values());
@@ -229,7 +230,7 @@ public class CrudTalkController {
         }
         
         try {
-            talk.setRoom(roomDao.findByName(room));
+            talk.setRoom(roomDao.find(room));
         } catch (NoResultException noResultException) {
             model.put("roomError", "La salle " + room + " n'existe pas");
             hasError = true;
