@@ -110,10 +110,7 @@ public class CrudSpeakersController {
             hasError = true;
         }
         if (hasError) {
-            model.put("lastName", lastName);
-            model.put("firstName", firstName);
-            model.put("picture", picture);
-            return "crud.speaker.add";
+            return "crud.speaker.edit";
         }
         if ((!speaker.getFirstName().equals(firstName)
         || !speaker.getLastName().equals(lastName)) && service.speakerExist(firstName, lastName)) {

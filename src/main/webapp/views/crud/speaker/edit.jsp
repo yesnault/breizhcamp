@@ -4,7 +4,7 @@
 </script>
 <form action="/crud/speaker/edit/submit.htm" method="post" class="form-horizontal span3">
 <fieldset>
-    <legend>Ajout d'un speaker</legend>
+    <legend>Modification d'un speaker</legend>
     <input type="hidden" id="id" name="id" value="${speaker.id}"/>
     <div class="control-group <c:if test='${not empty lastNameError}'>error</c:if>">
         <label class="control-label" for="lastName">Nom du speaker</label>
