@@ -1,8 +1,5 @@
 package com.cloudbees.breizhcamp.dao;
 
-import com.cloudbees.breizhcamp.domain.Room;
-
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -13,4 +10,5 @@ public interface Dao<T> {
     void delete(T item);
     List<T> findAll();
     T find(long id);
+    void delete(long id);
 }

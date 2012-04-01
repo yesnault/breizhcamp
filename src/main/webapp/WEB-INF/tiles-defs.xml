@@ -50,6 +50,14 @@
         <put-attribute name="content" value="/views/crud/speaker/index.jsp" />
     </definition>
 
+    <definition name="crud.speaker.add" extends=".crudTemplate">
+        <put-attribute name="content" value="/views/crud/speaker/add.jsp" />
+    </definition>
+
+    <definition name="crud.speaker.edit" extends=".crudTemplate">
+        <put-attribute name="content" value="/views/crud/speaker/edit.jsp" />
+    </definition>
+
 
     <!-- ERROR -->
 
