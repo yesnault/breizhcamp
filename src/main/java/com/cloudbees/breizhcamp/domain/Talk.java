@@ -36,6 +36,13 @@ public class Talk {
     private Date start;
 
     private Date end;
+    
+    public String getRoomName() {
+        if (room != null) {
+            return room.getName();
+        }
+        return null;
+    }
 
     @ManyToOne
     private Room room;

@@ -1,6 +1,8 @@
 package com.cloudbees.breizhcamp.controllers.crud;
 
+import com.cloudbees.breizhcamp.dao.impl.RoomDao;
 import com.cloudbees.breizhcamp.dao.impl.TalkDao;
+import com.cloudbees.breizhcamp.domain.Room;
 import com.cloudbees.breizhcamp.domain.Talk;
 import com.cloudbees.breizhcamp.domain.Theme;
 import com.cloudbees.breizhcamp.services.CrudService;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.persistence.NoResultException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,6 +32,9 @@ public class CrudTalkController {
     private TalkDao talkDao;
 
     @Autowired
+    private RoomDao roomDao;
+
+    @Autowired
     private CrudService service;
 
     @RequestMapping("/index.htm")
@@ -40,13 +46,14 @@ public class CrudTalkController {
     @RequestMapping("/add.htm")
     public String add(ModelMap model) {
         model.put("possibleThemes", Theme.values());
+        model.put("allRooms", roomDao.findAll());
         return "crud.talk.add";
     }
 
     @RequestMapping("/add/submit.htm")
     public String addSubmit(ModelMap model, @RequestParam String title, @RequestParam String resume,
                             @RequestParam String date, @RequestParam String startTime, @RequestParam String endTime,
-                            @RequestParam String theme) {
+                            @RequestParam String theme, @RequestParam(required = false) String room) {
         boolean hasError = false;
         if (StringUtils.isEmpty(title)) {
             model.put("titleError", "Le titre est obligatoire");
@@ -93,6 +100,13 @@ public class CrudTalkController {
             hasError = true;
         }
 
+        Room maRoom = null;
+        try {
+            maRoom = roomDao.findByName(room);
+        } catch (NoResultException noResultException) {
+            model.put("roomError", "La salle " + room + " n'existe pas");
+        }
+
         if (hasError) {
             model.put("title", title);
             model.put("resume", resume);
@@ -100,10 +114,12 @@ public class CrudTalkController {
             model.put("startTime", startTime);
             model.put("endTime", endTime);
             model.put("theme", theme);
+            model.put("room", room);
             model.put("possibleThemes", Theme.values());
+            model.put("allRooms", roomDao.findAll());
             return "crud.talk.add";
         }
-        service.addTalk(title, resume, startDate, endDate, monTheme);
+        service.addTalk(title, resume, startDate, endDate, monTheme, maRoom);
         return "redirect:/crud/talk/index.htm";
     }
 
@@ -118,6 +134,7 @@ public class CrudTalkController {
         Talk talk = talkDao.find(id);
         model.put("talk", talk);
         model.put("possibleThemes", Theme.values());
+        model.put("allRooms", roomDao.findAll());
         SimpleDateFormat sdfDate = new SimpleDateFormat("MM/dd/yyyy");
         SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
         model.put("date", sdfDate.format(talk.getStart()));
@@ -129,10 +146,11 @@ public class CrudTalkController {
     @RequestMapping("/edit/submit.htm")
     public String editSubmit(ModelMap model, @RequestParam Long id, @RequestParam String title, @RequestParam String resume,
                             @RequestParam String date, @RequestParam String startTime, @RequestParam String endTime,
-                            @RequestParam String theme) {
+                            @RequestParam String theme, @RequestParam(required = false) String room) {
         Talk talk = talkDao.find(id);
         model.put("talk", talk);
         model.put("possibleThemes", Theme.values());
+        model.put("allRooms", roomDao.findAll());
         SimpleDateFormat sdfDate = new SimpleDateFormat("MM/dd/yyyy");
         SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
@@ -184,6 +202,13 @@ public class CrudTalkController {
             model.put("endTimeError", "Le format est incorrect");
             hasError = true;
         }
+        
+        try {
+            talk.setRoom(roomDao.findByName(room));
+        } catch (NoResultException noResultException) {
+            model.put("roomError", "La salle " + room + " n'existe pas");
+            hasError = true;
+        }
 
         if (hasError) {
             return "crud.talk.edit";
@@ -194,6 +219,7 @@ public class CrudTalkController {
         talk.setTheme(monTheme);
         talk.setStart(startDate);
         talk.setEnd(endDate);
+        model.clear();
         return "redirect:/crud/talk/index.htm";
     }
 }

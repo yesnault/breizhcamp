@@ -75,6 +75,20 @@
             </c:if>
         </div>
     </div>
+    <div class="control-group <c:if test='${not empty roomError}'>error</c:if>">
+        <label class="control-label" for="theme">Salle du talk</label>
+        <div class="controls">
+            <select id="room" name="room" class="input-xlarge">
+                <c:forEach var="aRoom" items="${allRooms}">
+                    <option id="${aRoom.id}" name="${aRoom.id}"
+                        <c:if test="${aRoom.name == room}">selected="selected"</c:if>>${aRoom.name}</option>
+                </c:forEach>
+            </select>
+            <c:if test='${not empty roomError}'>
+                <span class="help-inline">${roomError}</span>
+            </c:if>
+        </div>
+    </div>
     <div class="form-actions">
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>

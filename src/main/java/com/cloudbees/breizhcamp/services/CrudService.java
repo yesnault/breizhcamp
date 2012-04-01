@@ -63,13 +63,14 @@ public class CrudService {
     @Autowired
     private TalkDao talkDao;
     
-    public void addTalk(String title, String resume, Date startDate, Date endDate, Theme theme) {
+    public void addTalk(String title, String resume, Date startDate, Date endDate, Theme theme, Room room) {
         Talk talk = new Talk();
         talk.setTitle(title);
         talk.setAbstract(resume);
         talk.setStart(startDate);
         talk.setEnd(endDate);
         talk.setTheme(theme);
+        talk.setRoom(room);
         talkDao.save(talk);
     }
 
