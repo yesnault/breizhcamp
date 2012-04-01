@@ -2,8 +2,6 @@
 <script type='text/javascript' charset='utf-8'>
          setActive('talks');
 </script>
-<script src="/static/js/jquery-1.7.1.min.js"></script>
-<script src="/static/js/jquery-ui-1.8.18.custom.min.js"></script>
 <form action="/crud/talk/add/submit.htm" method="post" class="form-horizontal span4">
 <fieldset>
     <legend>Ajout d'un talk</legend>
@@ -29,6 +27,7 @@
     <div class="control-group <c:if test='${not empty dateError}'>error</c:if>">
         <script>
     	$(function() {
+    	    $.datepicker.setDefaults($.datepicker.regional['fr']);
     		$( "#date" ).datepicker();
     	});
     	</script>

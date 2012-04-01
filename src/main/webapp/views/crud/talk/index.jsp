@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type='text/javascript' charset='utf-8'>
          setActive('talks');
 </script>
@@ -20,8 +21,8 @@
     <tr>
       <td>${talk.title}</td>
       <td>${talk.abstract}</td>
-      <td>${talk.start}</td>
-      <td>${talk.end}</td>
+      <td><fmt:formatDate value="${talk.start}" type="both" pattern="dd/MM/yyyy HH:mm" /></td>
+      <td><fmt:formatDate value="${talk.end}" type="both" pattern="dd/MM/yyyy HH:mm" /></td>
       <td>${talk.theme.htmlValue}</td>
       <td>${talk.getRoomName()}</td>
       <td>

@@ -1,9 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type='text/javascript' charset='utf-8'>
          setActive('talks');
 </script>
-<script src="/static/js/jquery-1.7.1.min.js"></script>
-<script src="/static/js/jquery-ui-1.8.18.custom.min.js"></script>
 <form action="/crud/talk/edit/submit.htm" method="post" class="form-horizontal span4">
 <fieldset>
     <legend>Modification d'un talk</legend>
@@ -30,13 +29,14 @@
     <div class="control-group <c:if test='${not empty dateError}'>error</c:if>">
         <script>
     	$(function() {
+    	    $.datepicker.setDefaults($.datepicker.regional['fr']);
     		$( "#date" ).datepicker();
     	});
     	</script>
         <label class="control-label" for="date">Date du talk</label>
         <div class="controls">
             <input type="text" id="date" name="date" class="input-xlarge"
-                value="${date}"/>
+                value="<fmt:formatDate value="${talk.start}" type="both" pattern="dd/MM/yyyy" />"/>
             <c:if test='${not empty dateError}'>
                 <span class="help-inline">${dateError}</span>
             </c:if>
@@ -46,7 +46,7 @@
         <label class="control-label" for="startTime">Heure de d&eacute;but du talk</label>
         <div class="controls">
             <input type="time" id="startTime" name="startTime" class="input-xlarge"
-                value="${startTime}"/>
+                value="<fmt:formatDate value="${talk.start}" type="both" pattern="HH:mm" />"/>
             <c:if test='${not empty startTimeError}'>
                 <span class="help-inline">${startTimeError}</span>
             </c:if>
@@ -56,7 +56,7 @@
         <label class="control-label" for="endTime">Heure de fin du talk</label>
         <div class="controls">
             <input type="time" id="endTime" name="endTime" class="input-xlarge"
-                value="${endTime}"/>
+                value="<fmt:formatDate value="${talk.end}" type="both" pattern="HH:mm" />"/>
             <c:if test='${not empty endTimeError}'>
                 <span class="help-inline">${endTimeError}</span>
             </c:if>

@@ -80,7 +80,7 @@ public class CrudTalkController {
             hasError = true;
         }
         Theme monTheme = Theme.fromHtmlValue(theme);
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Date startDate = null;
         try {
             if (StringUtils.isNotEmpty(startTime)) {
@@ -135,7 +135,7 @@ public class CrudTalkController {
         model.put("talk", talk);
         model.put("possibleThemes", Theme.values());
         model.put("allRooms", roomDao.findAll());
-        SimpleDateFormat sdfDate = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
         model.put("date", sdfDate.format(talk.getStart()));
         model.put("startTime", sdfTime.format(talk.getStart()));
@@ -151,12 +151,7 @@ public class CrudTalkController {
         model.put("talk", talk);
         model.put("possibleThemes", Theme.values());
         model.put("allRooms", roomDao.findAll());
-        SimpleDateFormat sdfDate = new SimpleDateFormat("MM/dd/yyyy");
-        SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-        model.put("date", sdfDate.format(talk.getStart()));
-        model.put("startTime", sdfTime.format(talk.getStart()));
-        model.put("endTime", sdfTime.format(talk.getEnd()));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
         boolean hasError = false;
         if (StringUtils.isEmpty(title)) {
