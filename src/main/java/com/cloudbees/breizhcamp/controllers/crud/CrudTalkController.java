@@ -1,8 +1,10 @@
 package com.cloudbees.breizhcamp.controllers.crud;
 
 import com.cloudbees.breizhcamp.dao.impl.RoomDao;
+import com.cloudbees.breizhcamp.dao.impl.SpeakerDao;
 import com.cloudbees.breizhcamp.dao.impl.TalkDao;
 import com.cloudbees.breizhcamp.domain.Room;
+import com.cloudbees.breizhcamp.domain.Speaker;
 import com.cloudbees.breizhcamp.domain.Talk;
 import com.cloudbees.breizhcamp.domain.Theme;
 import com.cloudbees.breizhcamp.services.CrudService;
@@ -18,7 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.persistence.NoResultException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Guernion Sylvain
@@ -35,6 +42,9 @@ public class CrudTalkController {
     private RoomDao roomDao;
 
     @Autowired
+    private SpeakerDao speakerDao;
+
+    @Autowired
     private CrudService service;
 
     @RequestMapping("/index.htm")
@@ -47,13 +57,14 @@ public class CrudTalkController {
     public String add(ModelMap model) {
         model.put("possibleThemes", Theme.values());
         model.put("allRooms", roomDao.findAll());
+        model.put("allSpeakers", speakerDao.findAll());
         return "crud.talk.add";
     }
 
     @RequestMapping("/add/submit.htm")
     public String addSubmit(ModelMap model, @RequestParam String title, @RequestParam String resume,
                             @RequestParam String date, @RequestParam String startTime, @RequestParam String endTime,
-                            @RequestParam String theme, @RequestParam(required = false) String room) {
+                            @RequestParam String theme, @RequestParam(required = false) String room, @RequestParam(required = false) List<Long> speakers) {
         boolean hasError = false;
         if (StringUtils.isEmpty(title)) {
             model.put("titleError", "Le titre est obligatoire");
@@ -105,6 +116,17 @@ public class CrudTalkController {
             maRoom = roomDao.findByName(room);
         } catch (NoResultException noResultException) {
             model.put("roomError", "La salle " + room + " n'existe pas");
+            hasError = true;
+        }
+        
+        List<Speaker> mySpeakers = new ArrayList<Speaker>();
+        for (Long idSpeaker : speakers) {
+            try {
+                mySpeakers.add(speakerDao.find(idSpeaker));
+            } catch (NoResultException noResultException) {
+                model.put("speakersError", "Un speaker n'existe pas");
+                hasError = true;
+            }
         }
 
         if (hasError) {
@@ -115,17 +137,23 @@ public class CrudTalkController {
             model.put("endTime", endTime);
             model.put("theme", theme);
             model.put("room", room);
+            model.put("speakers", speakers);
             model.put("possibleThemes", Theme.values());
             model.put("allRooms", roomDao.findAll());
+            model.put("allSpeakers", speakerDao.findAll());
             return "crud.talk.add";
         }
-        service.addTalk(title, resume, startDate, endDate, monTheme, maRoom);
+        service.addTalk(title, resume, startDate, endDate, monTheme, maRoom, mySpeakers);
         return "redirect:/crud/talk/index.htm";
     }
 
     @RequestMapping("/delete/{id}.htm")
     public String deleteTalk(ModelMap model, @PathVariable Long id) {
-        talkDao.delete(id);
+        Talk talk = talkDao.find(id);
+        for (Speaker speaker : talk.getSpeakers()) {
+            speaker.getTalks().remove(talk);
+        }
+        talkDao.delete(talk);
         return "redirect:/crud/talk/index.htm";
     }
 
@@ -135,6 +163,7 @@ public class CrudTalkController {
         model.put("talk", talk);
         model.put("possibleThemes", Theme.values());
         model.put("allRooms", roomDao.findAll());
+        model.put("allSpeakers", speakerDao.findAll());
         SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
         model.put("date", sdfDate.format(talk.getStart()));
@@ -146,11 +175,12 @@ public class CrudTalkController {
     @RequestMapping("/edit/submit.htm")
     public String editSubmit(ModelMap model, @RequestParam Long id, @RequestParam String title, @RequestParam String resume,
                             @RequestParam String date, @RequestParam String startTime, @RequestParam String endTime,
-                            @RequestParam String theme, @RequestParam(required = false) String room) {
+                            @RequestParam String theme, @RequestParam(required = false) String room, @RequestParam(required = false) List<Long> speakers) {
         Talk talk = talkDao.find(id);
         model.put("talk", talk);
         model.put("possibleThemes", Theme.values());
         model.put("allRooms", roomDao.findAll());
+        model.put("allSpeakers", speakerDao.findAll());
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
         boolean hasError = false;
@@ -209,11 +239,31 @@ public class CrudTalkController {
             return "crud.talk.edit";
         }
         
+        Set<Speaker> mySpeakers = new HashSet<Speaker>();
+        for (Long idSpeaker : speakers) {
+            mySpeakers.add(speakerDao.find(idSpeaker));
+        }
+
+        Iterator<Speaker> itSpeaker = talk.getSpeakers().iterator();
+        while (itSpeaker.hasNext()) {
+            Speaker oldSpeaker = itSpeaker.next();
+            if (mySpeakers.contains(oldSpeaker)) {
+                mySpeakers.remove(oldSpeaker);
+            } else {
+                oldSpeaker.getTalks().remove(talk);
+                itSpeaker.remove();
+            }
+        }
+        
         talk.setAbstract(resume);
         talk.setTitle(title);
         talk.setTheme(monTheme);
         talk.setStart(startDate);
         talk.setEnd(endDate);
+        for (Speaker speaker : mySpeakers) {
+            talk.getSpeakers().add(speaker);
+            speaker.getTalks().add(talk);
+        }
         model.clear();
         return "redirect:/crud/talk/index.htm";
     }

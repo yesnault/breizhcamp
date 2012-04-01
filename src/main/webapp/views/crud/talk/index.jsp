@@ -4,7 +4,7 @@
          setActive('talks');
 </script>
 <div class="row">
-<table class="table  table-striped table-bordered table-condensed span10">
+<table class="table  table-striped table-bordered table-condensed span11">
 <tr>
 <th class="span1">Titre</th>
 <th class="span2">R&eacute;sum&eacute;</th>
@@ -12,6 +12,7 @@
 <th class="span2">Fin</th>
 <th class="span1">Th&egrave;me</th>
 <th class="span1">Salle</th>
+<th class="span1">Speakers</th>
 <th class="span1">Actions</th>
 </tr>
 <c:if test="${talks.isEmpty()}">
@@ -25,6 +26,11 @@
       <td><fmt:formatDate value="${talk.end}" type="both" pattern="dd/MM/yyyy HH:mm" /></td>
       <td>${talk.theme.htmlValue}</td>
       <td>${talk.getRoomName()}</td>
+      <td>
+        <c:forEach var="speaker" items="${talk.speakers}">
+            ${speaker.firstName} ${speaker.lastName}<br/>
+        </c:forEach>
+      </td>
       <td>
         <a href="/crud/talk/edit/${talk.id}.htm">Editer</a><br/>
         <a href="/crud/talk/delete/${talk.id}.htm">Supprimer</a>

@@ -88,6 +88,19 @@
             </c:if>
         </div>
     </div>
+    <div class="control-group <c:if test='${not empty speakersError}'>error</c:if>">
+        <label class="control-label" for="speakers">Speakers du talk</label>
+        <div class="controls">
+            <select id="speakers" name="speakers" class="input-xlarge" multiple="multiple">
+                <c:forEach var="speaker" items="${allSpeakers}">
+                    <option value="${speaker.id}" <c:if test="${speakers.contains(speaker.id)}" >selected="selected"</c:if>>${speaker.firstName} ${speaker.lastName}</option>
+                </c:forEach>
+            </select>
+            <c:if test='${not empty speakersError}'>
+                <span class="help-inline">${speakersError}</span>
+            </c:if>
+        </div>
+    </div>
     <div class="form-actions">
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>

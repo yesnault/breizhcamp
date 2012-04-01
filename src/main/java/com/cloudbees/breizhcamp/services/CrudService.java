@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.NoResultException;
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author <a href='mailto:ybonnel@gmail.com'>Yan Bonnel</a>
@@ -63,7 +64,7 @@ public class CrudService {
     @Autowired
     private TalkDao talkDao;
     
-    public void addTalk(String title, String resume, Date startDate, Date endDate, Theme theme, Room room) {
+    public void addTalk(String title, String resume, Date startDate, Date endDate, Theme theme, Room room, List<Speaker> speakers) {
         Talk talk = new Talk();
         talk.setTitle(title);
         talk.setAbstract(resume);
@@ -71,6 +72,10 @@ public class CrudService {
         talk.setEnd(endDate);
         talk.setTheme(theme);
         talk.setRoom(room);
+        talk.getSpeakers().addAll(speakers);
+        for (Speaker speaker : speakers) {
+            speaker.getTalks().add(talk);
+        }
         talkDao.save(talk);
     }
 

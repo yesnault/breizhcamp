@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -51,7 +52,7 @@ public class Talk {
     @Column( columnDefinition = "NUMBER")
     private Theme theme;
 
-    @ManyToMany(mappedBy = "talks")
+    @ManyToMany(mappedBy = "talks", fetch = FetchType.EAGER)
     private final Set<Speaker> speakers = new HashSet<Speaker>();
 
     public long getId() {

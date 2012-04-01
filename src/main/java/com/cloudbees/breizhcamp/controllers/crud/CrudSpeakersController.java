@@ -2,6 +2,7 @@ package com.cloudbees.breizhcamp.controllers.crud;
 
 import com.cloudbees.breizhcamp.dao.impl.SpeakerDao;
 import com.cloudbees.breizhcamp.domain.Speaker;
+import com.cloudbees.breizhcamp.domain.Talk;
 import com.cloudbees.breizhcamp.services.CrudService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +78,11 @@ public class CrudSpeakersController {
 
     @RequestMapping("/delete/{id}.htm")
     public String deleteSpeaker(ModelMap model, @PathVariable Long id) {
-        speakerDao.delete(id);
+        Speaker speaker = speakerDao.find(id);
+        for (Talk talk : speaker.getTalks()) {
+            talk.getSpeakers().remove(speaker);
+        }
+        speakerDao.delete(speaker);
         return "redirect:/crud/speaker/index.htm";
     }
 
