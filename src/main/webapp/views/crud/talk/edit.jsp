@@ -80,6 +80,7 @@
         <label class="control-label" for="theme">Salle du talk</label>
         <div class="controls">
             <select id="room" name="room" class="input-xlarge">
+                <option value="-1" <c:if test="${empty talk.getRoomName()}">selected="selected"</c:if>>Toutes salles</option>
                 <c:forEach var="aRoom" items="${allRooms}">
                     <option value="${aRoom.id}"
                         <c:if test="${aRoom.name == talk.getRoomName()}">selected="selected"</c:if>>${aRoom.name}</option>

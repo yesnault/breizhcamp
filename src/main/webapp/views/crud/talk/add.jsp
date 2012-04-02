@@ -78,12 +78,13 @@
         <label class="control-label" for="theme">Salle du talk</label>
         <div class="controls">
             <select id="room" name="room" class="input-xlarge">
+                <option value="-1">Toutes salles</option>
                 <c:forEach var="aRoom" items="${allRooms}">
                     <option value="${aRoom.id}"
                         <c:if test="${aRoom.id == room}">selected="selected"</c:if>>${aRoom.name}</option>
                 </c:forEach>
             </select>
-            <c:if test='${not empty roomError}'>
+            <c:if test="${not empty roomError}">
                 <span class="help-inline">${roomError}</span>
             </c:if>
         </div>

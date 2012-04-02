@@ -25,7 +25,7 @@
       <td><fmt:formatDate value="${talk.start}" type="both" pattern="dd/MM/yyyy HH:mm" /></td>
       <td><fmt:formatDate value="${talk.end}" type="both" pattern="dd/MM/yyyy HH:mm" /></td>
       <td>${talk.theme.htmlValue}</td>
-      <td>${talk.getRoomName()}</td>
+      <td><c:if test="${empty talk.getRoomName()}">Toutes Salles</c:if>${talk.getRoomName()}</td>
       <td>
         <c:forEach var="speaker" items="${talk.speakers}">
             ${speaker.firstName} ${speaker.lastName}<br/>

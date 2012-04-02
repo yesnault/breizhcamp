@@ -115,11 +115,13 @@ public class CrudTalkController {
         }
 
         Room maRoom = null;
-        try {
-            maRoom = roomDao.find(room);
-        } catch (NoResultException noResultException) {
-            model.put("roomError", "La salle " + room + " n'existe pas");
-            hasError = true;
+        if (room != null && room != -1) {
+            try {
+                maRoom = roomDao.find(room);
+            } catch (NoResultException noResultException) {
+                model.put("roomError", "La salle " + room + " n'existe pas");
+                hasError = true;
+            }
         }
         
         List<Speaker> mySpeakers = new ArrayList<Speaker>();
@@ -229,11 +231,15 @@ public class CrudTalkController {
             hasError = true;
         }
         
-        try {
-            talk.setRoom(roomDao.find(room));
-        } catch (NoResultException noResultException) {
-            model.put("roomError", "La salle " + room + " n'existe pas");
-            hasError = true;
+        if (room != null && room != -1) {
+            try {
+                talk.setRoom(roomDao.find(room));
+            } catch (NoResultException noResultException) {
+                model.put("roomError", "La salle " + room + " n'existe pas");
+                hasError = true;
+            }
+        } else {
+            talk.setRoom(null);
         }
 
         if (hasError) {
