@@ -36,7 +36,6 @@
 <ul class="nav  nav-tabs">
   <li id="programme"><a href="/index.htm">Programme</a></li>
   <li id="speakers"><a href="/speakers.htm">Speakers</a></li>
-  <li id="rooms"><a href="#">Rooms</a></li>
   <li id="github"><a href="https://github.com/cloudbees/breizhcamp">GitHub</a></li>
 </ul>
 
