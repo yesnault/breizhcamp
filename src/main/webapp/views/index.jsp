@@ -20,11 +20,11 @@
                     <td>${creneau}</td>
                     <c:choose>
                         <c:when test="${talks.get(date).get(creneau).containsKey(sansRoom)}">
-                            <td colspan="${rooms.size()}">${talks.get(date).get(creneau).get(sansRoom).title}</td>
+                            <td colspan="${rooms.size()}" style="text-align:center">${talks.get(date).get(creneau).get(sansRoom).title}</td>
                         </c:when>
                         <c:otherwise>
                             <c:forEach var="room" items="${rooms}">
-                                <td>${talks.get(date).get(creneau).get(room.name).title}</td>
+                                <td style="text-align:center">${talks.get(date).get(creneau).get(room.name).title}</td>
                             </c:forEach>
                         </c:otherwise>
                     </c:choose>
