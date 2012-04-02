@@ -6,7 +6,7 @@
 <h3>Programme du BreizhCamp !</h3>
 
 <c:forEach var="date" items="${dates}">
-    <fieldset class="span${rooms.size()*2+2}" style="padding:10px">
+    <fieldset class="span${rooms.size()*2+2}">
         <legend>Programme du <fmt:formatDate value="${date}" type="both" pattern="dd/MM/yyyy" /></legend>
         <table class="table  table-striped table-bordered table-condensed span${rooms.size()*2+2}">
             <tr>
@@ -20,11 +20,19 @@
                     <td>${creneau}</td>
                     <c:choose>
                         <c:when test="${talks.get(date).get(creneau).containsKey(sansRoom)}">
-                            <td colspan="${rooms.size()}" style="text-align:center">${talks.get(date).get(creneau).get(sansRoom).title}</td>
+                            <td colspan="${rooms.size()}" style="text-align:center">
+                                <a href="/talk/${talks.get(date).get(creneau).get(sansRoom).id}.htm">
+                                    ${talks.get(date).get(creneau).get(sansRoom).title}
+                                </a>
+                            </td>
                         </c:when>
                         <c:otherwise>
                             <c:forEach var="room" items="${rooms}">
-                                <td style="text-align:center">${talks.get(date).get(creneau).get(room.name).title}</td>
+                                <td style="text-align:center">
+                                    <a href="/talk/${talks.get(date).get(creneau).get(room.name).id}.htm">
+                                        ${talks.get(date).get(creneau).get(room.name).title}
+                                    </a>
+                                </td>
                             </c:forEach>
                         </c:otherwise>
                     </c:choose>
@@ -33,4 +41,6 @@
         </table>
     </fieldset>
 </c:forEach>
+<fieldset  class="span${rooms.size()*2+2} baspage" >
+</fieldset>
 

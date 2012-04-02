@@ -9,6 +9,12 @@
      margin-right:10px;
      margin-bottom:70px;
    }
+   fieldset {
+    padding:10px;
+   }
+   .baspage {
+     margin-bottom:35px;
+   }
    h2 {
      font-family: 'Sonsie One', cursive;
      margin-top:50px;
