@@ -4,7 +4,7 @@
          setActive('talks');
 </script>
 <div class="row">
-<table class="table  table-striped table-bordered table-condensed span11">
+<table class="table  table-striped table-bordered table-condensed span12">
 <tr>
 <th class="span1">Titre</th>
 <th class="span2">R&eacute;sum&eacute;</th>
@@ -12,11 +12,11 @@
 <th class="span2">Fin</th>
 <th class="span1">Th&egrave;me</th>
 <th class="span1">Salle</th>
-<th class="span1">Speakers</th>
+<th class="span2">Speakers</th>
 <th class="span1">Actions</th>
 </tr>
 <c:if test="${talks.isEmpty()}">
-<tr><td colspan="7">Aucun talk pour l'instant</td></tr>
+<tr><td colspan="8">Aucun talk pour l'instant</td></tr>
 </c:if>
 <c:forEach var="talk" items="${talks}">
     <tr>
