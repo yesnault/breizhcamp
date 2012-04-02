@@ -1,7 +1,9 @@
 package com.cloudbees.breizhcamp.controllers.crud;
 
 import com.cloudbees.breizhcamp.dao.impl.RoomDao;
+import com.cloudbees.breizhcamp.dao.impl.TalkDao;
 import com.cloudbees.breizhcamp.domain.Room;
+import com.cloudbees.breizhcamp.domain.Talk;
 import com.cloudbees.breizhcamp.services.CrudService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.persistence.NoResultException;
 
 /**
  * @author Guernion Sylvain
@@ -24,6 +24,9 @@ public class CrudRoomController {
 
     @Autowired
     private RoomDao roomDao;
+    
+    @Autowired
+    private TalkDao talkDao;
 
     @Autowired
     private CrudService service;
@@ -57,7 +60,11 @@ public class CrudRoomController {
 
     @RequestMapping("/delete/{id}.htm")
     public String deleteRoom(ModelMap model, @PathVariable Long id) {
-        service.deleteRoom(id);
+        Room room = roomDao.find(id);
+        for (Talk talk : talkDao.findByRoom(room)) {
+            talk.setRoom(null);
+        }
+        roomDao.delete(id);
         return "redirect:/crud/room/index.htm";
     }
     

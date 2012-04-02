@@ -1,11 +1,8 @@
 package com.cloudbees.breizhcamp.dao.impl;
 
 import com.cloudbees.breizhcamp.dao.Dao;
-import com.cloudbees.breizhcamp.domain.Speaker;
-import com.cloudbees.breizhcamp.domain.Talk;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -30,5 +27,9 @@ public abstract class AbstractDao<T> implements Dao<T> {
 
     public void delete(T item) {
         em.remove(item);
+    }
+
+    public void delete(long id) {
+        delete(find(id));
     }
 }

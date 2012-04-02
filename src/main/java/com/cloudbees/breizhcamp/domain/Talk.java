@@ -1,15 +1,21 @@
 package com.cloudbees.breizhcamp.domain;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.*;
-
+import com.google.common.base.Objects;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import com.google.common.base.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author: <a hef="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
@@ -31,14 +37,22 @@ public class Talk {
     private Date start;
 
     private Date end;
+    
+    public String getRoomName() {
+        if (room != null) {
+            return room.getName();
+        }
+        return null;
+    }
 
     @ManyToOne
     private Room room;
 
     @Enumerated(EnumType.ORDINAL)
+    @Column( columnDefinition = "NUMBER")
     private Theme theme;
 
-    @ManyToMany(mappedBy = "talks")
+    @ManyToMany(mappedBy = "talks", fetch = FetchType.EAGER)
     private final Set<Speaker> speakers = new HashSet<Speaker>();
 
     public long getId() {

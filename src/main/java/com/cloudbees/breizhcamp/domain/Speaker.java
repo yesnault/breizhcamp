@@ -1,19 +1,18 @@
 package com.cloudbees.breizhcamp.domain;
 
-import java.net.URL;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-
+import com.google.common.base.Objects;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import com.google.common.base.Objects;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author: <a hef="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
@@ -33,7 +32,7 @@ public class Speaker {
     
     private URL picture;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     private final Set<Talk> talks = new HashSet<Talk>();
 
     public long getId() {

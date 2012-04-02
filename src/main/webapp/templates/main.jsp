@@ -8,7 +8,11 @@ if ( NavName == "Microsoft Internet Explorer") {
     window.location="/error/notie.htm";
 }
 </script>
+<script src="/static/js/jquery-1.7.1.min.js"></script>
+<script src="/static/js/jquery-ui-1.8.18.custom.min.js"></script>
+<script src="/static/js/jquery.ui.datepicker-fr.js"></script>
 <head>
+  <link href="/static/css/jquery-ui-1.8.18.custom.css" rel="stylesheet">
   <link href="/static/css/bootstrap.css" rel="stylesheet">
   <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
   <link href='http://fonts.googleapis.com/css?family=Sonsie+One' rel='stylesheet' type='text/css'>
