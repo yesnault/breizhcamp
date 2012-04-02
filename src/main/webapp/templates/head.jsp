@@ -7,6 +7,13 @@
      margin-top:350px;
      margin-left:10px;
      margin-right:10px;
+     margin-bottom:70px;
+   }
+   fieldset {
+    padding:10px;
+   }
+   .baspage {
+     margin-bottom:35px;
    }
    h2 {
      font-family: 'Sonsie One', cursive;
@@ -29,7 +36,6 @@
 <ul class="nav  nav-tabs">
   <li id="programme"><a href="/index.htm">Programme</a></li>
   <li id="speakers"><a href="/speakers.htm">Speakers</a></li>
-  <li id="rooms"><a href="#">Rooms</a></li>
   <li id="github"><a href="https://github.com/cloudbees/breizhcamp">GitHub</a></li>
 </ul>
 

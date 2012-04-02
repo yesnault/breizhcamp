@@ -2,24 +2,9 @@
 <script type='text/javascript' charset='utf-8'>
          setActive('speakers');
 </script>
-<h2>Speakers</h2>
+<h3>Speakers</h3>
 
-
-<div class="row">
-  <div class="span12">
-    <% int i = 0; %>
-    <c:forEach var="speaker" items="${speakers}">
-         <% if(i==0){ %>
-            <div class="row">
-        <% }  %>
-          <div class="span6">${speaker.firstName} ${speaker.lastName}</div>
-        <% if(i==1){ %>
-         </div>
-        <%  i=0;
-          } else{
-            i++;
-          }
-          %>
-    </c:forEach>
-  </div>
-</div>
+<c:forEach var="speaker" items="${speakers}">
+    <img src="${speaker.picture}" width="60px" height="60px" />
+    ${speaker.firstName} ${speaker.lastName}<br/>
+</c:forEach>
