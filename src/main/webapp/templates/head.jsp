@@ -7,6 +7,7 @@
      margin-top:350px;
      margin-left:10px;
      margin-right:10px;
+     margin-bottom:70px;
    }
    h2 {
      font-family: 'Sonsie One', cursive;
