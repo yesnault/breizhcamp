@@ -34,13 +34,11 @@ public class IndexController {
 	public String index(ModelMap model, @RequestParam(defaultValue="Amphi") String room) {
         SimpleDateFormat sdfHeure = new SimpleDateFormat("HH:mm");
         Set<Date> dates = new HashSet<Date>();
-
         Map<Date, List<String>> creneaux = new HashMap<Date, List<String>>();
         Map<Date, Map<String,Map<String, Talk>>> talks = new HashMap<Date, Map<String, Map<String, Talk>>>();
         for (Talk talk : talkDao.findAll()) {
-            if (talk.getRoom() == null) {
-                continue;
-            }
+
+            String roomOfTalk = talk.getRoom() == null ? "sansRoom" :talk.getRoom().getName();
             Date date = DateUtils.truncate(talk.getStart(), Calendar.DATE);
             dates.add(date);
             if (!creneaux.containsKey(date)) {
@@ -54,7 +52,7 @@ public class IndexController {
             if (!talks.get(date).containsKey(creneau)) {
                 talks.get(date).put(creneau, new HashMap<String, Talk>());
             }
-            talks.get(date).get(creneau).put(talk.getRoom().getName(), talk);
+            talks.get(date).get(creneau).put(roomOfTalk, talk);
         }
         List<Date> datesOrdonnees = new ArrayList<Date>(dates);
         Collections.sort(datesOrdonnees);
@@ -67,6 +65,7 @@ public class IndexController {
         model.put("rooms", rooms);
         model.put("creneaux", creneaux);
         model.put("talks", talks);
+        model.put("sansRoom", "sansRoom");
 		return "index";
 	}
 

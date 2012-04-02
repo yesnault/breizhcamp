@@ -17,10 +17,17 @@
             </tr>
             <c:forEach var="creneau" items="${creneaux.get(date)}">
                 <tr>
-                    <td class="span2">${creneau}</td>
-                    <c:forEach var="room" items="${rooms}">
-                        <td class="span2">${talks.get(date).get(creneau).get(room.name).title}</td>
-                    </c:forEach>
+                    <td>${creneau}</td>
+                    <c:choose>
+                        <c:when test="${talks.get(date).get(creneau).containsKey(sansRoom)}">
+                            <td colspan="${rooms.size()}">${talks.get(date).get(creneau).get(sansRoom).title}</td>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="room" items="${rooms}">
+                                <td>${talks.get(date).get(creneau).get(room.name).title}</td>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
                 </tr>
             </c:forEach>
         </table>
