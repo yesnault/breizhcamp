@@ -163,6 +163,16 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty.version}</version>
                 <configuration>
+                    <systemProperties implementation="org.mortbay.jetty.plugin.SystemProperties">
+                        <systemProperty implementation="org.mortbay.jetty.plugin.SystemProperty">
+                            <name>username</name>
+                            <value>admin</value>
+                        </systemProperty>
+                        <systemProperty implementation="org.mortbay.jetty.plugin.SystemProperty">
+                            <name>password</name>
+                            <value>breizhcamp</value>
+                        </systemProperty>
+                    </systemProperties>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                     <jettyConfig>src/test/jetty-env.xml</jettyConfig>
                 </configuration>

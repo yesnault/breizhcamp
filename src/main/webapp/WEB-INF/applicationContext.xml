@@ -10,4 +10,10 @@
 
     <jee:jndi-lookup jndi-name="jdbc/breizhcamp" id="dataSource"/>
 
+    <bean class="org.springframework.web.context.support.ServletContextPropertyPlaceholderConfigurer">
+        <property name="order" value="1"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    </bean>
+
+
 </beans>
