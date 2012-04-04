@@ -19,7 +19,7 @@
       <td><img src="${speaker.picture}" width=40 height=40 /></td>
       <td>${speaker.lastName}</td>
       <td>${speaker.firstName}</td>
-      <td>${speaker.getTwitter()}</td>
+      <td>${speaker.twitter}</td>
       <td>
         <a href="/crud/speaker/edit/${speaker.id}.htm">Editer</a><br/>
         <a href="/crud/speaker/delete/${speaker.id}.htm">Supprimer</a>
