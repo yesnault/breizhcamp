@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="custo" uri="/WEB-INF/custom-functions.tld" %>
 <script type='text/javascript' charset='utf-8'>
          setActive('talks');
 </script>
@@ -20,7 +21,7 @@
     <div class="control-group <c:if test='${not empty resumeError}'>error</c:if>">
         <label class="control-label" for="resume">R&eacute;sum&eacute; du talk</label>
         <div class="controls">
-            <textarea type="textarea" id="resume" name="resume" rows="4" class="input-xlarge">${talk.getAbstract()}</textarea>
+            <textarea type="textarea" id="resume" name="resume" rows="4" class="input-xlarge">${talk.abstract}</textarea>
             <c:if test='${not empty resumeError}'>
                 <span class="help-inline">${resumeError}</span>
             </c:if>
@@ -67,7 +68,7 @@
         <div class="controls">
             <select id="theme" name="theme" class="input-xlarge">
                 <c:forEach var="unTheme" items="${possibleThemes}">
-                    <option id="${unTheme.name()}" name="${unTheme.name()}"
+                    <option id="${custo:getthemename(unTheme)}" name="${custo:getthemename(unTheme)}"
                         <c:if test="${unTheme == talk.theme}">selected="selected"</c:if>>${unTheme.htmlValue}</option>
                 </c:forEach>
             </select>
@@ -80,10 +81,10 @@
         <label class="control-label" for="theme">Salle du talk</label>
         <div class="controls">
             <select id="room" name="room" class="input-xlarge">
-                <option value="-1" <c:if test="${empty talk.getRoomName()}">selected="selected"</c:if>>Toutes salles</option>
+                <option value="-1" <c:if test="${empty talk.room}">selected="selected"</c:if>>Toutes salles</option>
                 <c:forEach var="aRoom" items="${allRooms}">
                     <option value="${aRoom.id}"
-                        <c:if test="${aRoom.name == talk.getRoomName()}">selected="selected"</c:if>>${aRoom.name}</option>
+                        <c:if test="${aRoom.name == talk.room.name}">selected="selected"</c:if>>${aRoom.name}</option>
                 </c:forEach>
             </select>
             <c:if test='${not empty roomError}'>
@@ -96,7 +97,7 @@
         <div class="controls">
             <select id="speakers" name="speakers" class="input-xlarge" multiple="multiple">
                 <c:forEach var="speaker" items="${allSpeakers}">
-                    <option value="${speaker.id}" <c:if test="${talk.speakers.contains(speaker)}" >selected="selected"</c:if>>${speaker.firstName} ${speaker.lastName}</option>
+                    <option value="${speaker.id}" <c:if test="${custo:contains(talk.speakers,speaker)}" >selected="selected"</c:if>>${speaker.firstName} ${speaker.lastName}</option>
                 </c:forEach>
             </select>
             <c:if test='${not empty speakersError}'>

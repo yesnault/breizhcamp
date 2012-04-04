@@ -11,7 +11,7 @@
 <th class="span2">Twitter</th>
 <th class="span1">Actions</th>
 </tr>
-<c:if test="${speakers.isEmpty()}">
+<c:if test="${empty speakers}">
 <tr><td colspan="4">Aucun speaker pour l'instant</td></tr>
 </c:if>
 <c:forEach var="speaker" items="${speakers}">

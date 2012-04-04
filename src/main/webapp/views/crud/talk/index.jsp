@@ -15,7 +15,7 @@
 <th class="span2">Speakers</th>
 <th class="span1">Actions</th>
 </tr>
-<c:if test="${talks.isEmpty()}">
+<c:if test="${empty talks}">
 <tr><td colspan="8">Aucun talk pour l'instant</td></tr>
 </c:if>
 <c:forEach var="talk" items="${talks}">
@@ -25,7 +25,7 @@
       <td><fmt:formatDate value="${talk.start}" type="both" pattern="dd/MM/yyyy HH:mm" /></td>
       <td><fmt:formatDate value="${talk.end}" type="both" pattern="dd/MM/yyyy HH:mm" /></td>
       <td>${talk.theme.htmlValue}</td>
-      <td><c:if test="${empty talk.getRoomName()}">Toutes Salles</c:if>${talk.getRoomName()}</td>
+      <td><c:if test="${empty talk.room}">Toutes Salles</c:if>${talk.room.name}</td>
       <td>
         <c:forEach var="speaker" items="${talk.speakers}">
             ${speaker.firstName} ${speaker.lastName}<br/>

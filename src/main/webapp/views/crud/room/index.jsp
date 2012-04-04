@@ -8,7 +8,7 @@
 <th class="span2">Nom de la salle</th>
 <th class="span1">Action</th>
 </tr>
-<c:if test="${rooms.isEmpty()}">
+<c:if test="${empty rooms}">
 <tr><td colspan="2">Aucunne salle pour l'instant</td></tr>
 </c:if>
 <c:forEach var="room" items="${rooms}">

@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="custo" uri="/WEB-INF/custom-functions.tld" %>
 <script type='text/javascript' charset='utf-8'>
          setActive('talks');
 </script>
@@ -65,7 +66,7 @@
         <div class="controls">
             <select id="theme" name="theme" class="input-xlarge">
                 <c:forEach var="unTheme" items="${possibleThemes}">
-                    <option id="${unTheme.name()}" name="${unTheme.name()}"
+                    <option id="${custo:getthemename(unTheme)}" name="${custo:getthemename(unTheme)}"
                         <c:if test="${unTheme.htmlValue == theme}">selected="selected"</c:if>>${unTheme.htmlValue}</option>
                 </c:forEach>
             </select>
@@ -94,7 +95,7 @@
         <div class="controls">
             <select id="speakers" name="speakers" class="input-xlarge" multiple="multiple">
                 <c:forEach var="speaker" items="${allSpeakers}">
-                    <option value="${speaker.id}" <c:if test="${speakers.contains(speaker.id)}" >selected="selected"</c:if>>${speaker.firstName} ${speaker.lastName}</option>
+                    <option value="${speaker.id}" <c:if test="${custo:contains(speakers,speaker.id)}" >selected="selected"</c:if>>${speaker.firstName} ${speaker.lastName}</option>
                 </c:forEach>
             </select>
             <c:if test='${not empty speakersError}'>
