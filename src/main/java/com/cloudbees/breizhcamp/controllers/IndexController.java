@@ -87,6 +87,7 @@ public class IndexController {
         SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
         Set<String> dates = new HashSet<String>();
         Map<String, ArrayList<TimeSlot>> creneaux = new HashMap<String,ArrayList<TimeSlot>>();
+        Map<String, TimeSlot> slots = new HashMap<String,TimeSlot>();
         for (Talk talk : talkDao.findAll()) {
             String date =  sdfDate.format(talk.getStart());
             dates.add(date);
@@ -96,12 +97,12 @@ public class IndexController {
             TimeSlot slot = new TimeSlot();
             slot.name = sdfHeure.format(talk.getStart()) + " - " + sdfHeure.format(talk.getEnd());
             slot.date = date;
-            slot.sessions.add(talk);
 
-            if (!creneaux.get(date).contains(slot)) {
+            if (!slots.containsKey(date+slot.name)) {
+                slots.put(date+slot.name,slot);
                 creneaux.get(date).add(slot);
             }
-
+            slots.get(date+slot.name).sessions.add(talk);
         }
 
         Set<Day> days = new HashSet<Day>();
