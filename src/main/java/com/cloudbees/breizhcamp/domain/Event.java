@@ -3,9 +3,7 @@ package com.cloudbees.breizhcamp.domain;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Event {
@@ -16,7 +14,7 @@ public class Event {
 
     private Set<Room> rooms = new HashSet<Room>();
 
-    private Set<Talk> talks = new HashSet<Talk>();
+    private Set<Day> days = new HashSet<Day>();
 
     public void setName(String name) {
         this.name = name;
@@ -30,8 +28,8 @@ public class Event {
         return rooms;
     }
 
-    public Set<Talk> getTalks() {
-        return talks;
+    public Set<Day> getDays() {
+        return days;
     }
 
     public String getName() {

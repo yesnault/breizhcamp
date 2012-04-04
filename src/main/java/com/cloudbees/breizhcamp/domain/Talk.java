@@ -22,7 +22,7 @@ public class Talk {
     @GeneratedValue
     private long id;
 
-    @JsonProperty("speakers")
+    @JsonProperty("title")
     private String title;
 
     @Column(name = "abstract")

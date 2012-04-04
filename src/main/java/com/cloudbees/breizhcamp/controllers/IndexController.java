@@ -2,9 +2,7 @@ package com.cloudbees.breizhcamp.controllers;
 
 import com.cloudbees.breizhcamp.dao.impl.RoomDao;
 import com.cloudbees.breizhcamp.dao.impl.TalkDao;
-import com.cloudbees.breizhcamp.domain.Event;
-import com.cloudbees.breizhcamp.domain.Room;
-import com.cloudbees.breizhcamp.domain.Talk;
+import com.cloudbees.breizhcamp.domain.*;
 import com.cloudbees.breizhcamp.services.Schedule;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,8 +79,44 @@ public class IndexController {
         Event event = new Event();
         event.setName("BreizhCamp - 14-15 Juin 2012");
         event.getSpeakers().addAll(schedule.getSpeakers());
-        event.getTalks().addAll(talkDao.findAll());
         event.getRooms().addAll(roomDao.findAll());
+
+        Set<TimeSlot> timeSlots = new HashSet<TimeSlot>();
+
+        SimpleDateFormat sdfHeure = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
+        Set<String> dates = new HashSet<String>();
+        Map<String, ArrayList<TimeSlot>> creneaux = new HashMap<String,ArrayList<TimeSlot>>();
+        for (Talk talk : talkDao.findAll()) {
+            String date =  sdfDate.format(talk.getStart());
+            dates.add(date);
+            if (!creneaux.containsKey(date)) {
+                creneaux.put(date, new ArrayList<TimeSlot>());
+            }
+            TimeSlot slot = new TimeSlot();
+            slot.name = sdfHeure.format(talk.getStart()) + " - " + sdfHeure.format(talk.getEnd());
+            slot.date = date;
+            slot.sessions.add(talk);
+
+            if (!creneaux.get(date).contains(slot)) {
+                creneaux.get(date).add(slot);
+            }
+
+        }
+
+        Set<Day> days = new HashSet<Day>();
+
+        for (Map.Entry<String, ArrayList<TimeSlot>> entry : creneaux.entrySet()) {
+            Day day = new Day();
+            day.jour = entry.getKey();
+
+            Collections.sort(entry.getValue());
+            day.getTimeSlots().addAll(entry.getValue());
+
+            days.add(day);
+        }
+
+        event.getDays().addAll(days);
         return event;
     }
 
