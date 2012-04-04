@@ -42,7 +42,7 @@ public class CrudSpeakersController {
     }
 
     @RequestMapping("/add/submit.htm")
-    public String addSubmit(ModelMap model, @RequestParam String lastName, @RequestParam String firstName, @RequestParam String picture) {
+    public String addSubmit(ModelMap model, @RequestParam String lastName, @RequestParam String firstName, @RequestParam String picture, @RequestParam String twitter, @RequestParam String description) {
         boolean hasError = false;
         if (StringUtils.isEmpty(lastName)) {
             model.put("lastNameError", "Le nom est obligatoire");
@@ -65,6 +65,8 @@ public class CrudSpeakersController {
             model.put("lastName", lastName);
             model.put("firstName", firstName);
             model.put("picture", picture);
+            model.put("twitter", twitter);
+            model.put("description", description);
             return "crud.speaker.add";
         }
         if (service.speakerExist(firstName, lastName)) {
@@ -72,7 +74,7 @@ public class CrudSpeakersController {
             model.put("lastNameError", "Ce speaker existe déjà.");
             return "crud.speaker.add";
         }
-        service.addSpeaker(firstName, lastName, pictureUrl);
+        service.addSpeaker(firstName, lastName, pictureUrl,twitter,description);
         return "redirect:/crud/speaker/index.htm";
     }
 
@@ -93,7 +95,7 @@ public class CrudSpeakersController {
     }
 
     @RequestMapping("/edit/submit.htm")
-    public String addSubmit(ModelMap model, @RequestParam Long id, @RequestParam String lastName, @RequestParam String firstName, @RequestParam String picture) {
+    public String addSubmit(ModelMap model, @RequestParam Long id, @RequestParam String lastName, @RequestParam String firstName, @RequestParam String picture,@RequestParam String twitter, @RequestParam String description) {
         Speaker speaker = speakerDao.find(id);
         model.put("speaker", speaker);
         boolean hasError = false;
@@ -126,6 +128,8 @@ public class CrudSpeakersController {
         speaker.setFirstName(firstName);
         speaker.setLastName(lastName);
         speaker.setPicture(pictureUrl);
+        speaker.setTwitter(twitter);
+        speaker.setDescription(description);
         return "redirect:/crud/speaker/index.htm";
     }
 }

@@ -2,6 +2,7 @@ package com.cloudbees.breizhcamp.controllers;
 
 import com.cloudbees.breizhcamp.dao.impl.RoomDao;
 import com.cloudbees.breizhcamp.dao.impl.TalkDao;
+import com.cloudbees.breizhcamp.domain.Event;
 import com.cloudbees.breizhcamp.domain.Room;
 import com.cloudbees.breizhcamp.domain.Talk;
 import com.cloudbees.breizhcamp.services.Schedule;
@@ -10,14 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * Handle request for index page
- * 
+ *
  * @author Alexandre THOMAZO <alex@thomazo.info>
  */
 @Controller
@@ -26,19 +29,22 @@ public class IndexController {
 
     @Autowired
     private RoomDao roomDao;
-    
+
     @Autowired
     private TalkDao talkDao;
-	
-	@RequestMapping("/index.htm")
-	public String index(ModelMap model, @RequestParam(defaultValue="Amphi") String room) {
+
+    @Autowired
+    private Schedule schedule;
+
+    @RequestMapping("/index.htm")
+    public String index(ModelMap model, @RequestParam(defaultValue = "Amphi") String room) {
         SimpleDateFormat sdfHeure = new SimpleDateFormat("HH:mm");
         Set<Date> dates = new HashSet<Date>();
         Map<Date, List<String>> creneaux = new HashMap<Date, List<String>>();
-        Map<Date, Map<String,Map<String, Talk>>> talks = new HashMap<Date, Map<String, Map<String, Talk>>>();
+        Map<Date, Map<String, Map<String, Talk>>> talks = new HashMap<Date, Map<String, Map<String, Talk>>>();
         for (Talk talk : talkDao.findAll()) {
 
-            String roomOfTalk = talk.getRoom() == null ? "sansRoom" :talk.getRoom().getName();
+            String roomOfTalk = talk.getRoom() == null ? "sansRoom" : talk.getRoom().getName();
             Date date = DateUtils.truncate(talk.getStart(), Calendar.DATE);
             dates.add(date);
             if (!creneaux.containsKey(date)) {
@@ -56,7 +62,7 @@ public class IndexController {
         }
         List<Date> datesOrdonnees = new ArrayList<Date>(dates);
         Collections.sort(datesOrdonnees);
-        
+
         for (List<String> creneauxForDate : creneaux.values()) {
             Collections.sort(creneauxForDate);
         }
@@ -66,8 +72,19 @@ public class IndexController {
         model.put("creneaux", creneaux);
         model.put("talks", talks);
         model.put("sansRoom", "sansRoom");
-		return "index";
-	}
+        return "index";
+    }
+
+    @RequestMapping(value = "/event.json", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public Event speakers() {
+        Event event = new Event();
+        event.setName("BreizhCamp - 14-15 Juin 2012");
+        event.getSpeakers().addAll(schedule.getSpeakers());
+        event.getTalks().addAll(talkDao.findAll());
+        event.getRooms().addAll(roomDao.findAll());
+        return event;
+    }
 
     @RequestMapping("/error/notie.htm")
     public String index(ModelMap model) {

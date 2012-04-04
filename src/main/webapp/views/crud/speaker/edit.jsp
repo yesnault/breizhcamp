@@ -35,6 +35,25 @@
             </c:if>
         </div>
     </div>
+     <div class="control-group <c:if test='${not empty descriptionError}'>error</c:if>">
+                <label class="control-label" for="resume">Pr&eacute;sentation du speaker</label>
+                <div class="controls">
+                    <textarea type="textarea" id="description" name="description" rows="4" class="input-xlarge"><c:if test='${not empty description}'>${description}</c:if></textarea>
+                    <c:if test='${not empty descriptionError}'>
+                        <span class="help-inline">${descriptionError}</span>
+                    </c:if>
+                </div>
+     </div>
+     <div class="control-group <c:if test='${not empty twitterError}'>error</c:if>">
+                <label class="control-label" for="twitter">Twitter du speaker</label>
+                <div class="controls">
+                    <input type="text" id="twitter" name="twitter" class="input-large"
+                        <c:if test='${not empty twitter}'>value="${twitter}"</c:if>/>
+                    <c:if test='${not empty twitterError}'>
+                        <span class="help-inline">${twitterError}</span>
+                    </c:if>
+                </div>
+      </div>
     <div class="form-actions">
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>

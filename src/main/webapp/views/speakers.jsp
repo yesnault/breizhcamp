@@ -6,5 +6,5 @@
 
 <c:forEach var="speaker" items="${speakers}">
     <img src="${speaker.picture}" width="60px" height="60px" />
-    ${speaker.firstName} ${speaker.lastName}<br/>
+    <a href="https://twitter.com/#!/${speaker.twitter}" target="_blank">${speaker.firstName} ${speaker.lastName}</a><br/>
 </c:forEach>

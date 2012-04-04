@@ -1,18 +1,11 @@
 package com.cloudbees.breizhcamp.domain;
 
 import com.google.common.base.Objects;
+import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,22 +15,27 @@ import java.util.Set;
  */
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE)
 public class Talk {
-    
+
     @Id
     @GeneratedValue
     private long id;
 
+    @JsonProperty("speakers")
     private String title;
 
     @Column(name = "abstract")
     @JsonProperty("abstract")
     private String abstract_;
-    
+
+    @JsonProperty("start")
     private Date start;
 
+    @JsonProperty("end")
     private Date end;
-    
+
+    @JsonProperty("room")
     public String getRoomName() {
         if (room != null) {
             return room.getName();
@@ -49,7 +47,8 @@ public class Talk {
     private Room room;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column( columnDefinition = "NUMBER")
+    @Column(columnDefinition = "NUMBER")
+    @JsonProperty("theme")
     private Theme theme;
 
     @ManyToMany(mappedBy = "talks", fetch = FetchType.EAGER)
@@ -57,6 +56,15 @@ public class Talk {
 
     public long getId() {
         return id;
+    }
+
+    @JsonProperty("speakers")
+    public Set<Long> getSpeakersId() {
+        Set<Long> speakersId = new HashSet<Long>();
+        for (Speaker speaker : speakers) {
+            speakersId.add(speaker.getId());
+        }
+        return speakersId;
     }
 
     public Set<Speaker> getSpeakers() {
@@ -110,28 +118,28 @@ public class Talk {
     public void setTheme(Theme theme) {
         this.theme = theme;
     }
-    
-    
+
+
     @Override
     public boolean equals(Object o) {
         if (o == null) {
             return false;
         }
         if (o instanceof Talk) {
-            Talk other=(Talk)o;
+            Talk other = (Talk) o;
             return Objects.equal(other.id, id);
         }
         return false;
     }
-    
+
     @Override
     public int hashCode() {
-    	return Objects.hashCode(id);
+        return Objects.hashCode(id);
     }
-    
+
     @Override
     public String toString() {
-    	return Objects.toStringHelper(this).add("id", id).add("title", title).add("theme", theme).add("room", room).add("start", start).add("end", end).toString();
+        return Objects.toStringHelper(this).add("id", id).add("title", title).add("theme", theme).add("room", room).add("start", start).add("end", end).toString();
     }
-    
+
 }

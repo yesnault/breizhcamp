@@ -24,16 +24,40 @@ public class Speaker {
 
     @Id
     @GeneratedValue
+    @JsonProperty("id")
     private long id;
     
     private String firstName;
 
     private String lastName;
-    
+
+    private String twitter;
+
+    private String description;
+
+    @JsonProperty("pictureUrl")
     private URL picture;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private final Set<Talk> talks = new HashSet<Talk>();
+
+    @JsonProperty("twitter")
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
+    }
+
+    @JsonProperty("description")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public long getId() {
         return id;
@@ -43,7 +67,11 @@ public class Speaker {
         return talks;
     }
 
-    @JsonProperty("first_name")
+    @JsonProperty("name")
+        public String getName() {
+            return firstName+" "+lastName;
+        }
+
     public String getFirstName() {
         return firstName;
     }
@@ -52,7 +80,6 @@ public class Speaker {
         this.firstName = firstName;
     }
 
-    @JsonProperty("last_name")
     public String getLastName() {
         return lastName;
     }

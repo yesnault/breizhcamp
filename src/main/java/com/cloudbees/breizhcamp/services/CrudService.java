@@ -53,11 +53,13 @@ public class CrudService {
         }
     }
 
-    public void addSpeaker(String firstName, String lastName, URL picture) {
+    public void addSpeaker(String firstName, String lastName, URL picture, String twitter, String description) {
         Speaker speaker = new Speaker();
         speaker.setFirstName(firstName);
         speaker.setLastName(lastName);
         speaker.setPicture(picture);
+        speaker.setTwitter(twitter);
+        speaker.setDescription(description);
         speakerDao.save(speaker);
     }
 
