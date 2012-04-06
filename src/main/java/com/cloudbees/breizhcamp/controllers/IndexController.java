@@ -24,13 +24,6 @@ import java.util.*;
 @Controller
 public class IndexController {
 
-
-    @Autowired
-    private RoomDao roomDao;
-
-    @Autowired
-    private TalkDao talkDao;
-
     @Autowired
     private Schedule schedule;
 
@@ -40,7 +33,7 @@ public class IndexController {
         Set<Date> dates = new HashSet<Date>();
         Map<Date, List<String>> creneaux = new HashMap<Date, List<String>>();
         Map<Date, Map<String, Map<String, Talk>>> talks = new HashMap<Date, Map<String, Map<String, Talk>>>();
-        for (Talk talk : talkDao.findAll()) {
+        for (Talk talk : schedule.getTalks()) {
 
             String roomOfTalk = talk.getRoom() == null ? "sansRoom" : talk.getRoom().getName();
             Date date = DateUtils.truncate(talk.getStart(), Calendar.DATE);
@@ -64,7 +57,7 @@ public class IndexController {
         for (List<String> creneauxForDate : creneaux.values()) {
             Collections.sort(creneauxForDate);
         }
-        List<Room> rooms = roomDao.findAll();
+        List<Room> rooms = schedule.getRooms();
         model.put("dates", datesOrdonnees);
         model.put("rooms", rooms);
         model.put("creneaux", creneaux);
@@ -73,22 +66,26 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping("/contact.htm")
+    public String contact(ModelMap model) {
+       return "contact";
+    }
+
     @RequestMapping(value = "/event.json", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Event speakers() {
+    public Event event() {
         Event event = new Event();
         event.setName("BreizhCamp - 14-15 Juin 2012");
         event.getSpeakers().addAll(schedule.getSpeakers());
-        event.getRooms().addAll(roomDao.findAll());
-
-        Set<TimeSlot> timeSlots = new HashSet<TimeSlot>();
+        event.getRooms().addAll(schedule.getRooms());
 
         SimpleDateFormat sdfHeure = new SimpleDateFormat("HH:mm");
         SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
+
         Set<String> dates = new HashSet<String>();
         Map<String, ArrayList<TimeSlot>> creneaux = new HashMap<String,ArrayList<TimeSlot>>();
         Map<String, TimeSlot> slots = new HashMap<String,TimeSlot>();
-        for (Talk talk : talkDao.findAll()) {
+        for (Talk talk :  schedule.getTalks()) {
             String date =  sdfDate.format(talk.getStart());
             dates.add(date);
             if (!creneaux.containsKey(date)) {

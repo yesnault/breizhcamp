@@ -1,14 +1,15 @@
 package com.cloudbees.breizhcamp.services;
 
-import java.util.List;
-
+import com.cloudbees.breizhcamp.dao.impl.RoomDao;
 import com.cloudbees.breizhcamp.dao.impl.SpeakerDao;
 import com.cloudbees.breizhcamp.dao.impl.TalkDao;
+import com.cloudbees.breizhcamp.domain.Room;
+import com.cloudbees.breizhcamp.domain.Speaker;
+import com.cloudbees.breizhcamp.domain.Talk;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cloudbees.breizhcamp.domain.Speaker;
-import com.cloudbees.breizhcamp.domain.Talk;
+import java.util.List;
 
 /**
  * @author: <a hef="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
@@ -21,7 +22,10 @@ public class Schedule {
 
     @Autowired
     private SpeakerDao speakerDao;
-    
+
+    @Autowired
+    private RoomDao roomDao;
+
     public List<Talk> getSchedule() {
         return talkDao.findAll();
     }
@@ -29,9 +33,18 @@ public class Schedule {
     public List<Speaker> getSpeakers() {
         return speakerDao.findAll();
     }
-    
+
+    public List<Talk> getTalks() {
+        return talkDao.findAll();
+    }
+
+    public List<Room> getRooms() {
+        return roomDao.findAll();
+    }
+
+
     public Speaker getSpeaker(long id) {
-    	return speakerDao.find(id);
+        return speakerDao.find(id);
     }
 
     public Talk getTalk(long id) {
