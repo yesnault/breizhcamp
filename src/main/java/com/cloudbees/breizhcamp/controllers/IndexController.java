@@ -1,8 +1,10 @@
 package com.cloudbees.breizhcamp.controllers;
 
-import com.cloudbees.breizhcamp.dao.impl.RoomDao;
-import com.cloudbees.breizhcamp.dao.impl.TalkDao;
-import com.cloudbees.breizhcamp.domain.*;
+import com.cloudbees.breizhcamp.domain.Day;
+import com.cloudbees.breizhcamp.domain.Event;
+import com.cloudbees.breizhcamp.domain.Room;
+import com.cloudbees.breizhcamp.domain.Talk;
+import com.cloudbees.breizhcamp.domain.TimeSlot;
 import com.cloudbees.breizhcamp.services.Schedule;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Handle request for index page
@@ -28,7 +38,9 @@ public class IndexController {
     private Schedule schedule;
 
     @RequestMapping("/index.htm")
-    public String index(ModelMap model, @RequestParam(defaultValue = "Amphi") String room) {
+    public String index(ModelMap model, @RequestParam(defaultValue = "Amphi") String room,
+                        @RequestParam(defaultValue = "false") boolean hide) {
+        model.put("hide", hide);
         SimpleDateFormat sdfHeure = new SimpleDateFormat("HH:mm");
         Set<Date> dates = new HashSet<Date>();
         Map<Date, List<String>> creneaux = new HashMap<Date, List<String>>();
