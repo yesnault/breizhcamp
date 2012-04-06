@@ -5,6 +5,7 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -29,11 +30,12 @@ public class Talk {
     @JsonProperty("abstract")
     private String abstract_;
 
+    @Nullable
     @JsonProperty("start")
     private Date start;
 
-    @JsonProperty("end")
-    private Date end;
+    @JsonProperty("duree")
+    private int duree;
 
     @JsonProperty("room")
     public String getRoomName() {
@@ -95,14 +97,6 @@ public class Talk {
         this.start = start;
     }
 
-    public Date getEnd() {
-        return end;
-    }
-
-    public void setEnd(Date end) {
-        this.end = end;
-    }
-
     public Room getRoom() {
         return room;
     }
@@ -119,6 +113,13 @@ public class Talk {
         this.theme = theme;
     }
 
+    public int getDuree() {
+        return duree;
+    }
+
+    public void setDuree(int duree) {
+        this.duree = duree;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -139,7 +140,7 @@ public class Talk {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("id", id).add("title", title).add("theme", theme).add("room", room).add("start", start).add("end", end).toString();
+        return Objects.toStringHelper(this).add("id", id).add("title", title).add("theme", theme).add("room", room).add("start", start).add("duree", duree).toString();
     }
 
 }

@@ -51,13 +51,17 @@
             </c:if>
         </div>
     </div>
-    <div class="control-group <c:if test='${not empty endTimeError}'>error</c:if>">
-        <label class="control-label" for="endTime">Heure de fin du talk</label>
+    <div class="control-group <c:if test='${not empty dureeError}'>error</c:if>">
+        <label class="control-label" for=" duree">Dur&eacute;e du talk</label>
         <div class="controls">
-            <input type="time" id="endTime" name="endTime" class="input-xlarge"
-                <c:if test='${not empty endTime}'>value="${endTime}"</c:if>/>
-            <c:if test='${not empty endTimeError}'>
-                <span class="help-inline">${endTimeError}</span>
+            <select id="duree" name="duree" class="input-xlarge">
+                 <c:forEach var="uneDuree" items="${possibleDurees}">
+                     <option id="${custo:getdureename(uneDuree)}" name="${custo:getdureename(uneDuree)}"
+                         <c:if test="${uneDuree.minute == talk.duree}">selected="selected"</c:if> value="${uneDuree.minute}">${uneDuree.html}</option>
+                 </c:forEach>
+             </select>
+            <c:if test='${not empty dureeError}'>
+                <span class="help-inline">${dureeError}</span>
             </c:if>
         </div>
     </div>

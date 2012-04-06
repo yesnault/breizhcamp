@@ -47,22 +47,26 @@
         <label class="control-label" for="startTime">Heure de d&eacute;but du talk</label>
         <div class="controls">
             <input type="time" id="startTime" name="startTime" class="input-xlarge"
-                value="<fmt:formatDate value="${talk.start}" type="both" pattern="HH:mm" />"/>
+                value="${start}"/>
             <c:if test='${not empty startTimeError}'>
                 <span class="help-inline">${startTimeError}</span>
             </c:if>
         </div>
     </div>
-    <div class="control-group <c:if test='${not empty endTimeError}'>error</c:if>">
-        <label class="control-label" for="endTime">Heure de fin du talk</label>
-        <div class="controls">
-            <input type="time" id="endTime" name="endTime" class="input-xlarge"
-                value="<fmt:formatDate value="${talk.end}" type="both" pattern="HH:mm" />"/>
-            <c:if test='${not empty endTimeError}'>
-                <span class="help-inline">${endTimeError}</span>
-            </c:if>
+     <div class="control-group <c:if test='${not empty dureeError}'>error</c:if>">
+            <label class="control-label" for=" duree">Dur&eacute;e du talk</label>
+            <div class="controls">
+                <select id="duree" name="duree" class="input-xlarge">
+                     <c:forEach var="uneDuree" items="${possibleDurees}">
+                        <option id="${custo:getdureename(uneDuree)}" name="${custo:getdureename(uneDuree)}"
+                           <c:if test="${uneDuree.minute == talk.duree}">selected="selected"</c:if> value="${uneDuree.minute}">${uneDuree.html}</option>
+                      </c:forEach>
+                 </select>
+                <c:if test='${not empty dureeError}'>
+                    <span class="help-inline">${dureeError}</span>
+                </c:if>
+            </div>
         </div>
-    </div>
     <div class="control-group <c:if test='${not empty themeError}'>error</c:if>">
         <label class="control-label" for="theme">Th&egrave;me du talk</label>
         <div class="controls">

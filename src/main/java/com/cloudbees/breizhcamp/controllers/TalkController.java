@@ -5,6 +5,7 @@ import com.cloudbees.breizhcamp.domain.Talk;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,13 @@ public class TalkController {
     @ResponseBody
     public List<Talk> talks() {
         return schedule.getSchedule();
+    }
+
+    @RequestMapping(value = "/talk/{id}.htm", method = RequestMethod.GET)
+    public String talk(ModelMap model,@PathVariable int id) {
+        Talk talk = schedule.getTalk(id);
+        model.put("talk", talk);
+        return "talk";
     }
 
     @RequestMapping(value = "/talk/get/{id}.json", method = RequestMethod.GET, produces="application/json")

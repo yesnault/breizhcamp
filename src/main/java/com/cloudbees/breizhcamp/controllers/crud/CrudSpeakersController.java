@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Guernion Sylvain
@@ -131,5 +131,19 @@ public class CrudSpeakersController {
         speaker.setTwitter(twitter);
         speaker.setDescription(description);
         return "redirect:/crud/speaker/index.htm";
+    }
+
+
+    /**
+     * Launched if an error appears
+     * @param e Exception raised
+     * @return Error message
+     */
+    @ExceptionHandler
+    public @ResponseBody
+    Map<String, String> handleException(Exception e) {
+        Map<String, String> res = new HashMap<String, String>();
+        res.put("error", e.getLocalizedMessage());
+        return res;
     }
 }

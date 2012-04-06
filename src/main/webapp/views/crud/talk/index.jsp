@@ -1,15 +1,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="custo" uri="/WEB-INF/custom-functions.tld" %>
 <script type='text/javascript' charset='utf-8'>
          setActive('talks');
 </script>
 <div class="row">
-<table class="table  table-striped table-bordered table-condensed span12">
+<table class="table  table-striped table-bordered table-condensed span12" id="talksTable">
 <tr>
 <th class="span1">Titre</th>
 <th class="span2">R&eacute;sum&eacute;</th>
-<th class="span2">D&eacute;but</th>
-<th class="span2">Fin</th>
+<th class="span2">Date</th>
+<th class="span2">Heure</th>
+<th class="span2">Dur&eacute;e</th>
 <th class="span1">Th&egrave;me</th>
 <th class="span1">Salle</th>
 <th class="span2">Speakers</th>
@@ -22,8 +24,9 @@
     <tr>
       <td>${talk.title}</td>
       <td>${talk.abstract}</td>
-      <td><fmt:formatDate value="${talk.start}" type="both" pattern="dd/MM/yyyy HH:mm" /></td>
-      <td><fmt:formatDate value="${talk.end}" type="both" pattern="dd/MM/yyyy HH:mm" /></td>
+      <td><fmt:formatDate value="${talk.start}" type="both" pattern="dd/MM/yyyy" /></td>
+      <td>${custo:getdebut(talk.start)}</td>
+      <td>${custo:getduree(talk.duree)}</td>
       <td>${talk.theme.htmlValue}</td>
       <td><c:if test="${empty talk.room}">Toutes Salles</c:if>${talk.room.name}</td>
       <td>

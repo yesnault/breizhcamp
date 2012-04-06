@@ -17,6 +17,10 @@
         <put-attribute name="content" value="/views/index.jsp" />
     </definition>
 
+    <definition name="talk" extends=".mainTemplate">
+        <put-attribute name="content" value="/views/talk.jsp" />
+    </definition>
+
     <definition name="contact" extends=".mainTemplate">
             <put-attribute name="content" value="/views/contact.jsp" />
         </definition>

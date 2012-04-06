@@ -1,9 +1,12 @@
 package com.cloudbees.breizhcamp.tld;
 
 
+import com.cloudbees.breizhcamp.domain.Duree;
 import com.cloudbees.breizhcamp.domain.Theme;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 public class TldFunctions {
@@ -17,5 +20,34 @@ public class TldFunctions {
             return null;
         }
         return theme.name();
+    }
+
+    public static String getDureeName(Duree duree) {
+        if (duree == null) {
+            return null;
+        }
+        return duree.name();
+    }
+
+    public static String getDebut(Date startTime) {
+        SimpleDateFormat sdfHeure = new SimpleDateFormat("HH:mm");
+
+        if (startTime == null) {
+            return "";
+        }
+        String start = sdfHeure.format(startTime);
+        if(start.equals("00:00")){
+            return "";
+        }
+        return start;
+    }
+
+
+    public static String getDuree(int minute) {
+        Duree duree= Duree.fromTime(minute);
+        if (duree == null) {
+            return null;
+        }
+        return duree.getHtml();
     }
 }

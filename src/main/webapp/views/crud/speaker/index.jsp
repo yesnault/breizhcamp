@@ -12,7 +12,7 @@
 <th class="span1">Actions</th>
 </tr>
 <c:if test="${empty speakers}">
-<tr><td colspan="4">Aucun speaker pour l'instant</td></tr>
+<tr><td colspan="5">Aucun speaker pour l'instant</td></tr>
 </c:if>
 <c:forEach var="speaker" items="${speakers}">
     <tr>
