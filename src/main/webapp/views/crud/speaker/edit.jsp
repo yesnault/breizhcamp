@@ -6,15 +6,6 @@
 <fieldset>
     <legend>Modification d'un speaker</legend>
     <input type="hidden" id="id" name="id" value="${speaker.id}"/>
-    <div class="control-group <c:if test='${not empty lastNameError}'>error</c:if>">
-        <label class="control-label" for="lastName">Nom du speaker</label>
-        <div class="controls">
-            <input type="text" id="lastName" name="lastName" class="input-large" value="${speaker.lastName}"/>
-            <c:if test='${not empty lastNameError}'>
-                <span class="help-inline">${lastNameError}</span>
-            </c:if>
-        </div>
-    </div>
     <div class="control-group <c:if test='${not empty firstNameError}'>error</c:if>">
         <label class="control-label" for="firstName">Pr&eacute;nom du speaker</label>
         <div class="controls">
@@ -22,6 +13,15 @@
                 value="${speaker.firstName}"/>
             <c:if test='${not empty firstNameError}'>
                 <span class="help-inline">${firstNameError}</span>
+            </c:if>
+        </div>
+    </div>
+    <div class="control-group <c:if test='${not empty lastNameError}'>error</c:if>">
+        <label class="control-label" for="lastName">Nom du speaker</label>
+        <div class="controls">
+            <input type="text" id="lastName" name="lastName" class="input-large" value="${speaker.lastName}"/>
+            <c:if test='${not empty lastNameError}'>
+                <span class="help-inline">${lastNameError}</span>
             </c:if>
         </div>
     </div>
