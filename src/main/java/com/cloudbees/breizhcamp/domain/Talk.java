@@ -26,7 +26,7 @@ public class Talk {
     @JsonProperty("title")
     private String title;
 
-    @Column(name = "abstract", length = 4000)
+    @Column(name = "abstract",length = 4000)
     @JsonProperty("abstract")
     private String abstract_;
 

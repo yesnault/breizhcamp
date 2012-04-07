@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class CrudServiceTest extends PersistenceTestCase {
     }
     
     @Test
-    public void canAddRoom() throws Exception {
+      public void canAddRoom() throws Exception {
         em.createQuery("delete from Room r where r.name='maRoom'").executeUpdate();
         em.flush();
 
@@ -48,5 +49,22 @@ public class CrudServiceTest extends PersistenceTestCase {
 
         Room room = em.createQuery("select r from Room r where r.name='maRoom'", Room.class).getSingleResult();
         assertThat(room).isNotNull();
+    }
+
+
+    @Test
+    public void canAddTalk() throws Exception {
+        em.createQuery("delete from Talk t where t.title='Introduction a Ruby'").executeUpdate();
+        em.flush();
+
+        String bigDescription ="";
+        for(int i=0;i<80;i++){
+            bigDescription+="Dans cette session vous apprendrez tout sur Ruby.";
+        }
+        
+        service.addTalk("Introduction a Ruby",bigDescription,null,60,Theme.DECOUVRIR,null,new ArrayList<Speaker>());
+
+        Talk talk = em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
+        assertThat(talk).isNotNull();
     }
 }
