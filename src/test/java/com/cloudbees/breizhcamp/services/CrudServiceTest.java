@@ -39,6 +39,21 @@ public class CrudServiceTest extends PersistenceTestCase {
         assertThat(service.roomExist("innexistant")).isFalse();
         assertThat(service.roomExist("RoomExist")).isTrue();
     }
+
+
+    @Test
+    public void speakerExist() throws Exception {
+        Speaker speaker = new Speaker();
+        speaker.setFirstName("Emmanuel");
+        speaker.setLastName("Bernard");
+
+        em.persist(speaker);
+        em.flush();
+
+        assertThat(service.speakerExist("Nicolas","Ledez")).isFalse();
+        assertThat(service.speakerExist("Emmanuel","Bernard")).isTrue();
+
+    }
     
     @Test
       public void canAddRoom() throws Exception {
@@ -49,6 +64,18 @@ public class CrudServiceTest extends PersistenceTestCase {
 
         Room room = em.createQuery("select r from Room r where r.name='maRoom'", Room.class).getSingleResult();
         assertThat(room).isNotNull();
+    }
+
+
+    @Test
+    public void canAddSpeaker() throws Exception {
+        em.createQuery("delete from Speaker s where s.firstName='Emmanuel'").executeUpdate();
+        em.flush();
+
+        service.addSpeaker("Emmanuel","Bernard",null,"","emmanuelbernard");
+
+        Speaker speaker = em.createQuery("select s from Speaker s where s.firstName='Emmanuel'", Speaker.class).getSingleResult();
+        assertThat(speaker).isNotNull();
     }
 
 
