@@ -33,7 +33,7 @@ public class TalkController {
     }
 
     @RequestMapping(value = "/talk/{id}.htm", method = RequestMethod.GET)
-    public String talk(ModelMap model,@PathVariable int id,
+    public String talk(ModelMap model,@PathVariable long id,
                        @RequestParam(defaultValue = "false") boolean hide) {
         model.put("hide", hide);
         Talk talk = schedule.getTalk(id);
@@ -43,7 +43,7 @@ public class TalkController {
 
     @RequestMapping(value = "/talk/get/{id}.json", method = RequestMethod.GET, produces="application/json")
     @ResponseBody
-    public Talk get(@PathVariable int id) {
+    public Talk get(@PathVariable long id) {
         return schedule.getTalk(id);
     }
 

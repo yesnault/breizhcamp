@@ -29,7 +29,7 @@ public class SpeakerController {
 	
 	@RequestMapping(value = "/speaker/get/{id}.json", method = RequestMethod.GET, produces="application/json")
 	@ResponseBody
-	public Speaker get(@PathVariable int id) {
+	public Speaker get(@PathVariable long id) {
 		return schedule.getSpeaker(id);
 	}
 

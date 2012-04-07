@@ -5,17 +5,10 @@ import com.cloudbees.breizhcamp.domain.Room;
 import com.cloudbees.breizhcamp.domain.Speaker;
 import com.cloudbees.breizhcamp.domain.Talk;
 import com.cloudbees.breizhcamp.domain.Theme;
-import org.hibernate.Criteria;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -32,7 +25,7 @@ public class CrudServiceTest extends PersistenceTestCase {
     public void roomExistsTest() throws Exception {
         Room room = new Room();
         room.setName("RoomExist");
-        
+
         em.persist(room);
         em.flush();
 
@@ -50,13 +43,13 @@ public class CrudServiceTest extends PersistenceTestCase {
         em.persist(speaker);
         em.flush();
 
-        assertThat(service.speakerExist("Nicolas","Ledez")).isFalse();
-        assertThat(service.speakerExist("Emmanuel","Bernard")).isTrue();
+        assertThat(service.speakerExist("Nicolas", "Ledez")).isFalse();
+        assertThat(service.speakerExist("Emmanuel", "Bernard")).isTrue();
 
     }
-    
+
     @Test
-      public void canAddRoom() throws Exception {
+    public void canAddRoom() throws Exception {
         em.createQuery("delete from Room r where r.name='maRoom'").executeUpdate();
         em.flush();
 
@@ -72,7 +65,7 @@ public class CrudServiceTest extends PersistenceTestCase {
         em.createQuery("delete from Speaker s where s.firstName='Emmanuel'").executeUpdate();
         em.flush();
 
-        service.addSpeaker("Emmanuel","Bernard",null,"","emmanuelbernard");
+        service.addSpeaker("Emmanuel", "Bernard", null, "", "emmanuelbernard");
 
         Speaker speaker = em.createQuery("select s from Speaker s where s.firstName='Emmanuel'", Speaker.class).getSingleResult();
         assertThat(speaker).isNotNull();
@@ -84,12 +77,15 @@ public class CrudServiceTest extends PersistenceTestCase {
         em.createQuery("delete from Talk t where t.title='Introduction a Ruby'").executeUpdate();
         em.flush();
 
-        String bigDescription ="";
-        for(int i=0;i<80;i++){
-            bigDescription+="Dans cette session vous apprendrez tout sur Ruby.";
+        String bigDescription = "";
+        for (int i = 0; i < 80; i++) {
+            bigDescription += "Dans cette session vous apprendrez tout sur Ruby.";
         }
-        
-        service.addTalk("Introduction a Ruby",bigDescription,null,60,Theme.DECOUVRIR,null,new ArrayList<Speaker>());
+
+        List<Speaker> speakers = new ArrayList<Speaker>();
+        speakers.add(new Speaker());
+
+        service.addTalk("Introduction a Ruby", bigDescription, null, 60, Theme.DECOUVRIR, null, speakers);
 
         Talk talk = em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
         assertThat(talk).isNotNull();

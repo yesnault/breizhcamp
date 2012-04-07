@@ -1,5 +1,6 @@
 package com.cloudbees.breizhcamp.services;
 
+import static junit.framework.Assert.assertEquals;
 import static org.fest.assertions.Assertions.assertThat;
 
 import java.net.URL;
@@ -86,5 +87,59 @@ public class ScheduleTest extends PersistenceTestCase {
 
         List<Speaker> result = schedule.getSpeakers();
         assertThat(result).startsWith(speakerN).contains(speakerN,speaker).isNotEmpty();
+    }
+
+    @Test
+    public void find_Talks() throws Exception{
+        Talk talk = new Talk();
+        talk.setTitle("GWT");
+        talk.setTheme(Theme.PRATIQUER);
+        talk.setDuree(60);
+
+        em.persist(talk);
+
+        Talk talkN = new Talk();
+        talkN.setTitle("Android");
+        talkN.setTheme(Theme.PRATIQUER);
+        talkN.setDuree(60);
+
+        em.persist(talkN);
+        em.flush();
+
+        List<Talk> result = schedule.getTalks();
+        assertThat(result).startsWith(talk).contains(talk,talkN).isNotEmpty();
+    }
+
+    @Test
+    public void find_Talk() throws Exception{
+        Talk talk = new Talk();
+        talk.setTitle("GWT");
+        talk.setTheme(Theme.PRATIQUER);
+        talk.setDuree(60);
+
+        em.persist(talk);
+        em.flush();
+
+        Talk result = schedule.getTalk(talk.getId());
+        assertEquals(talk,result);
+    }
+
+
+    @Test
+    public void find_Rooms() throws Exception{
+        Room room = new Room();
+        room.setName("Amphi");
+
+
+        em.persist(room);
+
+        Room roomN = new Room();
+        roomN.setName("I50");
+
+        em.persist(roomN);
+        em.flush();
+
+        List<Room> result = schedule.getRooms();
+        assertThat(result).startsWith(room).contains(room,roomN).isNotEmpty();
     }
 }
