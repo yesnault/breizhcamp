@@ -17,7 +17,7 @@
 <tr><td>Salle :</td>      <td><c:if test="${empty talk.room}">Toutes Salles</c:if>${talk.room.name}</td> </tr>
 <tr><td>Speakers :</td>      <td>
         <c:forEach var="speaker" items="${talk.speakers}">
-            <a href="/speaker/${speaker.id}.htm">${speaker.firstName} ${speaker.lastName}</a><br/>
+            <a href="https://twitter.com/#!/${speaker.twitter}">${speaker.firstName} ${speaker.lastName}</a><br/>
         </c:forEach>
       </td>    </tr>
 </table>

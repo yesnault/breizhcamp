@@ -48,13 +48,22 @@ public class IndexController {
         for (Talk talk : schedule.getTalks()) {
 
             String roomOfTalk = talk.getRoom() == null ? "sansRoom" : talk.getRoom().getName();
-            Date date = DateUtils.truncate(talk.getStart(), Calendar.DATE);
+            Date date = DateUtils.truncate(new Date(), Calendar.DATE);
+            if (talk.getStart() != null) {
+                date = DateUtils.truncate(talk.getStart(), Calendar.DATE);
+            }
             dates.add(date);
             if (!creneaux.containsKey(date)) {
                 creneaux.put(date, new ArrayList<String>());
                 talks.put(date, new HashMap<String, Map<String, Talk>>());
             }
-            String creneau = sdfHeure.format(talk.getStart()) + " - " + sdfHeure.format(talk.getEnd());
+            String creneau = "non programmé";
+            if (talk.getStart() != null && !sdfHeure.format(talk.getStart()).equals("00:00")) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(talk.getStart());
+                cal.add(Calendar.MINUTE, talk.getDuree());
+                creneau = sdfHeure.format(talk.getStart()) + " - " + sdfHeure.format(cal.getTime());
+            }
             if (!creneaux.get(date).contains(creneau)) {
                 creneaux.get(date).add(creneau);
             }
@@ -104,7 +113,15 @@ public class IndexController {
                 creneaux.put(date, new ArrayList<TimeSlot>());
             }
             TimeSlot slot = new TimeSlot();
-            slot.name = sdfHeure.format(talk.getStart()) + " - " + sdfHeure.format(talk.getEnd());
+
+            if (talk.getStart() != null) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(talk.getStart());
+                cal.add(Calendar.MINUTE, talk.getDuree());
+                slot.name = sdfHeure.format(talk.getStart()) + " - " + sdfHeure.format(cal.getTime());
+            } else {
+                slot.name = "";
+            }
             slot.date = date;
 
             if (!slots.containsKey(date+slot.name)) {
