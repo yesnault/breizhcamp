@@ -88,8 +88,9 @@ public class IndexController {
     }
 
     @RequestMapping("/contact.htm")
-    public String contact(ModelMap model) {
-       return "contact";
+    public String contact(ModelMap model, @RequestParam(defaultValue = "false") boolean hide) {
+        model.put("hide", hide);
+        return "contact";
     }
 
     @RequestMapping(value = "/event.json", method = RequestMethod.GET, produces = "application/json")
@@ -103,12 +104,10 @@ public class IndexController {
         SimpleDateFormat sdfHeure = new SimpleDateFormat("HH:mm");
         SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 
-        Set<String> dates = new HashSet<String>();
-        Map<String, ArrayList<TimeSlot>> creneaux = new HashMap<String,ArrayList<TimeSlot>>();
-        Map<String, TimeSlot> slots = new HashMap<String,TimeSlot>();
-        for (Talk talk :  schedule.getTalks()) {
-            String date =  sdfDate.format(talk.getStart());
-            dates.add(date);
+        Map<String, ArrayList<TimeSlot>> creneaux = new HashMap<String, ArrayList<TimeSlot>>();
+        Map<String, TimeSlot> slots = new HashMap<String, TimeSlot>();
+        for (Talk talk : schedule.getTalks()) {
+            String date = sdfDate.format(talk.getStart());
             if (!creneaux.containsKey(date)) {
                 creneaux.put(date, new ArrayList<TimeSlot>());
             }
@@ -124,11 +123,11 @@ public class IndexController {
             }
             slot.date = date;
 
-            if (!slots.containsKey(date+slot.name)) {
-                slots.put(date+slot.name,slot);
+            if (!slots.containsKey(date + slot.name)) {
+                slots.put(date + slot.name, slot);
                 creneaux.get(date).add(slot);
             }
-            slots.get(date+slot.name).sessions.add(talk);
+            slots.get(date + slot.name).sessions.add(talk);
         }
 
         Set<Day> days = new HashSet<Day>();

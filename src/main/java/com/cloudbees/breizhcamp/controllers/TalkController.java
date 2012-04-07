@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -32,7 +33,9 @@ public class TalkController {
     }
 
     @RequestMapping(value = "/talk/{id}.htm", method = RequestMethod.GET)
-    public String talk(ModelMap model,@PathVariable int id) {
+    public String talk(ModelMap model,@PathVariable int id,
+                       @RequestParam(defaultValue = "false") boolean hide) {
+        model.put("hide", hide);
         Talk talk = schedule.getTalk(id);
         model.put("talk", talk);
         return "talk";

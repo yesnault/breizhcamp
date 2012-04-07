@@ -18,7 +18,7 @@
 <th class="span1">Actions</th>
 </tr>
 <c:if test="${empty talks}">
-<tr><td colspan="8">Aucun talk pour l'instant</td></tr>
+<tr><td colspan="9">Aucun talk pour l'instant</td></tr>
 </c:if>
 <c:forEach var="talk" items="${talks}">
     <tr>

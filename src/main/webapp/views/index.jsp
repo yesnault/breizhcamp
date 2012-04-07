@@ -4,7 +4,6 @@
 <script type='text/javascript' charset='utf-8'>
          setActive('programme');
 </script>
-<h3>Programme du BreizhCamp !</h3>
 
 <c:forEach var="date" items="${dates}">
     <fieldset class="span${fn:length(rooms)*2+2}">
@@ -22,7 +21,7 @@
                     <c:choose>
                         <c:when test="${not empty talks[date][creneau][sansRoom]}">
                             <td colspan="${fn:length(rooms)}" style="text-align:center">
-                                <a href="/talk/${talks[date][creneau][sansRoom].id}.htm">
+                                <a href="/talk/${talks[date][creneau][sansRoom].id}.htm<c:if test="${hide}">?hide=true</c:if>">
                                     ${talks[date][creneau][sansRoom].title}
                                 </a>
                             </td>
@@ -30,7 +29,7 @@
                         <c:otherwise>
                             <c:forEach var="room" items="${rooms}">
                                 <td style="text-align:center">
-                                    <a href="/talk/${talks[date][creneau][room.name].id}.htm">
+                                    <a href="/talk/${talks[date][creneau][room.name].id}.htm<c:if test="${hide}">?hide=true</c:if>">
                                         ${talks[date][creneau][room.name].title}
                                     </a>
                                 </td>
