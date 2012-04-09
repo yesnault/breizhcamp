@@ -24,6 +24,13 @@
                                 <a href="/talk/${talks[date][creneau][sansRoom].id}.htm<c:if test="${hide}">?hide=true</c:if>">
                                     ${talks[date][creneau][sansRoom].title}
                                 </a>
+                                <p>${talks[date][creneau][room.name].theme.htmlValue}</p>
+                                <p style="text-align:right;">
+                                    <c:forEach var="speaker" items="${talks[date][creneau][room.name].speakers}">
+                                         <a href="https://twitter.com/#!/${speaker.twitter}" imageanchor="1">
+                                           <img src="${speaker.picture}" title="${speaker.firstName} ${speaker.lastName}" width=30 height=30 /></a>
+                                    </c:forEach>
+                                <p>
                             </td>
                         </c:when>
                         <c:otherwise>
@@ -32,6 +39,13 @@
                                     <a href="/talk/${talks[date][creneau][room.name].id}.htm<c:if test="${hide}">?hide=true</c:if>">
                                         ${talks[date][creneau][room.name].title}
                                     </a>
+                                    <p>${talks[date][creneau][room.name].theme.htmlValue}</p>
+                                    <p style="text-align:right;">
+                                        <c:forEach var="speaker" items="${talks[date][creneau][room.name].speakers}">
+                                            <a href="https://twitter.com/#!/${speaker.twitter}" imageanchor="1">
+                                                <img src="${speaker.picture}" title="${speaker.firstName} ${speaker.lastName}" width=30 height=30 /></a>
+                                        </c:forEach>
+                                     <p>
                                 </td>
                             </c:forEach>
                         </c:otherwise>
