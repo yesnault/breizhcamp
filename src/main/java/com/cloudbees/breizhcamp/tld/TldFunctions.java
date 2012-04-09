@@ -7,7 +7,6 @@ import com.cloudbees.breizhcamp.domain.Theme;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 public class TldFunctions {
     
@@ -49,5 +48,12 @@ public class TldFunctions {
             return null;
         }
         return duree.getHtml();
+    }
+    
+    public static String format(Date date, String pattern) {
+        if (date == null) {
+            return "";
+        }
+        return new SimpleDateFormat(pattern).format(date);
     }
 }

@@ -34,4 +34,9 @@
         <function-class>com.cloudbees.breizhcamp.tld.TldFunctions</function-class>
         <function-signature>String getDureeName(com.cloudbees.breizhcamp.domain.Duree)</function-signature>
     </function>
+    <function>
+        <name>format</name>
+        <function-class>com.cloudbees.breizhcamp.tld.TldFunctions</function-class>
+        <function-signature>String format(java.util.Date, java.lang.String)</function-signature>
+    </function>
 </taglib>

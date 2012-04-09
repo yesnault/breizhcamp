@@ -5,7 +5,9 @@ import com.cloudbees.breizhcamp.domain.Duree;
 import com.cloudbees.breizhcamp.domain.Theme;
 import org.junit.Test;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -48,5 +50,13 @@ public class TldFunctionsTest {
         assertEquals("", TldFunctions.getDebut(sdfDate.parse("10/11/2012")));
         assertEquals("", TldFunctions.getDebut(null));
         assertEquals("10:00", TldFunctions.getDebut(sdfDateHeure.parse("10/11/2012 10:00")));
+    }
+    
+    @Test
+    public void format() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = sdf.parse("14/06/2012");
+        assertEquals("", TldFunctions.format(null, "dd/MM/yyyy"));
+        assertEquals("14/06/2012", TldFunctions.format(date, "dd/MM/yyyy"));
     }
 }

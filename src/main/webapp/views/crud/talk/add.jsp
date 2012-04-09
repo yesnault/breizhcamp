@@ -26,16 +26,13 @@
         </div>
     </div>
     <div class="control-group <c:if test='${not empty dateError}'>error</c:if>">
-        <script>
-    	$(function() {
-    	    $.datepicker.setDefaults($.datepicker.regional['fr']);
-    		$( "#date" ).datepicker();
-    	});
-    	</script>
         <label class="control-label" for="date">Date du talk</label>
         <div class="controls">
-            <input type="text" id="date" name="date" class="input-xlarge"
-                <c:if test='${not empty date}'>value="${date}"</c:if>/>
+            <select id="date" name="date" class="input-xlarge">
+                <c:forEach var="uneDate" items="${possibleDates}">
+                    <option value="${uneDate.sortieDate}" <c:if test="${date == uneDate.sortieDate}">selected="selected"</c:if>>${uneDate.sortieFr}</option>
+                </c:forEach>
+            </select>
             <c:if test='${not empty dateError}'>
                 <span class="help-inline">${dateError}</span>
             </c:if>

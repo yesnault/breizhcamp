@@ -3,19 +3,35 @@ package com.cloudbees.breizhcamp.controllers.crud;
 import com.cloudbees.breizhcamp.dao.impl.RoomDao;
 import com.cloudbees.breizhcamp.dao.impl.SpeakerDao;
 import com.cloudbees.breizhcamp.dao.impl.TalkDao;
-import com.cloudbees.breizhcamp.domain.*;
+import com.cloudbees.breizhcamp.domain.Duree;
+import com.cloudbees.breizhcamp.domain.PossibleDates;
+import com.cloudbees.breizhcamp.domain.Room;
+import com.cloudbees.breizhcamp.domain.Speaker;
+import com.cloudbees.breizhcamp.domain.Talk;
+import com.cloudbees.breizhcamp.domain.Theme;
 import com.cloudbees.breizhcamp.services.CrudService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.NoResultException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Guernion Sylvain
@@ -47,6 +63,7 @@ public class CrudTalkController {
     public String add(ModelMap model) {
         model.put("possibleThemes", Theme.values());
         model.put("possibleDurees", Duree.values());
+        model.put("possibleDates", PossibleDates.values());
         model.put("allRooms", roomDao.findAll());
         model.put("allSpeakers", speakerDao.findAll());
         return "crud.talk.add";
@@ -124,6 +141,7 @@ public class CrudTalkController {
             model.put("speakers", speakers);
             model.put("possibleThemes", Theme.values());
             model.put("possibleDurees", Duree.values());
+            model.put("possibleDates", PossibleDates.values());
             model.put("allRooms", roomDao.findAll());
             model.put("allSpeakers", speakerDao.findAll());
             return "crud.talk.add";
@@ -154,6 +172,7 @@ public class CrudTalkController {
         model.put("start", start);
         model.put("possibleThemes", Theme.values());
         model.put("possibleDurees", Duree.values());
+        model.put("possibleDates", PossibleDates.values());
         model.put("allRooms", roomDao.findAll());
         model.put("allSpeakers", speakerDao.findAll());
         return "crud.talk.edit";
@@ -170,6 +189,7 @@ public class CrudTalkController {
         model.put("talk", talk);
         model.put("possibleThemes", Theme.values());
         model.put("possibleDurees", Duree.values());
+        model.put("possibleDates", PossibleDates.values());
         model.put("allRooms", roomDao.findAll());
         model.put("allSpeakers", speakerDao.findAll());
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
