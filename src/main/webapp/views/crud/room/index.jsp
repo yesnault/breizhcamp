@@ -21,10 +21,11 @@
     </tr>
 	</c:forEach>
 </table>
+<br/>
 </div>
 <div class="row">
 <div class="span3">
-<a href="/crud/room/add.htm">Ajouter une salle</a>
+<a href="/crud/room/add.htm" accesskey="a">Ajouter une salle (ALT+a)</a>
 </div>
 </div>
 
