@@ -54,7 +54,7 @@ public class PdfReportView extends AbstractPdfView {
         Rectangle savePagesize = document.getPageSize();
         document.setPageSize(PageSize.A4);
         document.newPage();
-        Image imageLogo = Image.getInstance("http://localhost:8080/static/BreizhCamp.png");
+        Image imageLogo = Image.getInstance("http://app.breizhcamp.cloudbees.net/static/BreizhCamp.png");
         imageLogo.scaleAbsolute(document.getPageSize().getWidth() - document.leftMargin() - document.rightMargin(), imageLogo.getHeight());
         document.add(imageLogo);
 
