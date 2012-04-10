@@ -149,7 +149,7 @@ public class CrudTalkControllerTest extends PersistenceTestCase {
 
 
         ModelMap model = new ModelMap();
-        controller.editSubmit(model, talk.getId(), "Introduction a Ruby", bigDescription, "15/06/2012", "", 60, "DECOUVRIR", null, speakers);
+        controller.editSubmit(model, talk.getId(), "Introduction a Ruby", bigDescription, 60, "DECOUVRIR", speakers);
 
         talk = em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
         assertThat(talk).isNotNull();
@@ -174,7 +174,7 @@ public class CrudTalkControllerTest extends PersistenceTestCase {
 
 
         ModelMap model = new ModelMap();
-        controller.editSubmit(model, talk.getId(), "", bigDescription, "15/06/2012", "", 60, "DECOUVRIR", null, speakers);
+        controller.editSubmit(model, talk.getId(), "", bigDescription, 60, "DECOUVRIR", speakers);
 
         em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
 
@@ -194,7 +194,7 @@ public class CrudTalkControllerTest extends PersistenceTestCase {
 
 
         ModelMap model = new ModelMap();
-        controller.editSubmit(model, talk.getId(), "Introduction a Ruby", "", "15/06/2012", "", 60, "DECOUVRIR", null, speakers);
+        controller.editSubmit(model, talk.getId(), "Introduction a Ruby", "", 60, "DECOUVRIR", speakers);
 
         em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
 
@@ -214,7 +214,7 @@ public class CrudTalkControllerTest extends PersistenceTestCase {
 
 
         ModelMap model = new ModelMap();
-        controller.editSubmit(model, talk.getId(), "Introduction a Ruby", "blabl", "15/06/2012", "10:00", 60, "", null, speakers);
+        controller.editSubmit(model, talk.getId(), "Introduction a Ruby", "blabl", 60, "", speakers);
 
         em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
 
@@ -234,7 +234,7 @@ public class CrudTalkControllerTest extends PersistenceTestCase {
 
 
         ModelMap model = new ModelMap();
-        controller.editSubmit(model, talk.getId(), "Introduction a Ruby", "blabl", "", "", 60, "DECOUVRIR", null, speakers);
+        controller.editSubmit(model, talk.getId(), "Introduction a Ruby", "blabl", 60, "DECOUVRIR", speakers);
 
         em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
 

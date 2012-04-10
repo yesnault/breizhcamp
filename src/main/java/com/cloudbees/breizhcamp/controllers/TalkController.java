@@ -1,7 +1,7 @@
 package com.cloudbees.breizhcamp.controllers;
 
 import com.cloudbees.breizhcamp.domain.Theme;
-import com.cloudbees.breizhcamp.services.Schedule;
+import com.cloudbees.breizhcamp.services.ScheduleService;
 import com.cloudbees.breizhcamp.domain.Talk;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,19 +25,19 @@ import java.util.Map;
 public class TalkController {
 
     @Autowired
-    private Schedule schedule;
+    private ScheduleService scheduleService;
 
     @RequestMapping(value = "/talks.json",method = RequestMethod.GET, produces="application/json")
     @ResponseBody
     public List<Talk> talks() {
-        return schedule.getSchedule();
+        return scheduleService.getSchedule();
     }
 
     @RequestMapping(value = "/talk/{id}.htm", method = RequestMethod.GET)
     public String talk(ModelMap model,@PathVariable long id,
                        @RequestParam(defaultValue = "false") boolean hide) {
         model.put("hide", hide);
-        Talk talk = schedule.getTalk(id);
+        Talk talk = scheduleService.getTalk(id);
         model.put("talk", talk);
         return "talk";
     }
@@ -57,7 +57,7 @@ public class TalkController {
     @RequestMapping(value = "/talk/get/{id}.json", method = RequestMethod.GET, produces="application/json")
     @ResponseBody
     public Talk get(@PathVariable long id) {
-        return schedule.getTalk(id);
+        return scheduleService.getTalk(id);
     }
 
     /**

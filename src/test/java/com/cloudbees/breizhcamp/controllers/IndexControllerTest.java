@@ -1,10 +1,7 @@
 package com.cloudbees.breizhcamp.controllers;
 
 import com.cloudbees.breizhcamp.PersistenceTestCase;
-import com.cloudbees.breizhcamp.domain.Event;
-import com.cloudbees.breizhcamp.domain.Room;
-import com.cloudbees.breizhcamp.domain.Talk;
-import com.cloudbees.breizhcamp.domain.Theme;
+import com.cloudbees.breizhcamp.domain.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -40,7 +37,8 @@ public class IndexControllerTest extends PersistenceTestCase {
 
         Talk talk = new Talk();
         talk.setTitle("GWT");
-        talk.setStart(sdfDate.parse("15/06/2012"));
+        talk.setSchedule(new Schedule());
+        talk.getSchedule().setStart(sdfDate.parse("15/06/2012"));
         talk.setTheme(Theme.PRATIQUER);
         talk.setDuree(60);
 
@@ -48,7 +46,8 @@ public class IndexControllerTest extends PersistenceTestCase {
 
         talk = new Talk();
         talk.setTitle("Android");
-        talk.setStart(sdfDate.parse("14/06/2012"));
+        talk.setSchedule(new Schedule());
+        talk.getSchedule().setStart(sdfDate.parse("14/06/2012"));
         talk.setTheme(Theme.DECOUVRIR);
         talk.setDuree(30);
 
@@ -83,7 +82,8 @@ public class IndexControllerTest extends PersistenceTestCase {
 
         Talk talk = new Talk();
         talk.setTitle("GWT");
-        talk.setStart(sdfDate.parse("15/06/2012"));
+        talk.setSchedule(new Schedule());
+        talk.getSchedule().setStart(sdfDate.parse("15/06/2012"));
         talk.setTheme(Theme.PRATIQUER);
         talk.setDuree(60);
 
@@ -91,7 +91,8 @@ public class IndexControllerTest extends PersistenceTestCase {
 
         talk = new Talk();
         talk.setTitle("Android");
-        talk.setStart(sdfDateH.parse("14/06/2012 10:00"));
+        talk.setSchedule(new Schedule());
+        talk.getSchedule().setStart(sdfDateH.parse("14/06/2012 10:00"));
         talk.setTheme(Theme.DECOUVRIR);
         talk.setDuree(30);
 

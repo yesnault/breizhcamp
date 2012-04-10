@@ -16,7 +16,7 @@ import java.util.List;
  * @author: <a hef="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
  */
 @Service
-public class Schedule {
+public class ScheduleService {
 
     @Autowired
     private TalkDao talkDao;

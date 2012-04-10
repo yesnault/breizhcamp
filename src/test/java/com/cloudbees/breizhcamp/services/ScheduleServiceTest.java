@@ -7,22 +7,19 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
-import com.cloudbees.breizhcamp.domain.Room;
+import com.cloudbees.breizhcamp.domain.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cloudbees.breizhcamp.PersistenceTestCase;
-import com.cloudbees.breizhcamp.domain.Speaker;
-import com.cloudbees.breizhcamp.domain.Talk;
-import com.cloudbees.breizhcamp.domain.Theme;
 
 /**
  * @author: <a hef="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
  */
-public class ScheduleTest extends PersistenceTestCase {
+public class ScheduleServiceTest extends PersistenceTestCase {
 
     @Autowired
-    private Schedule schedule;
+    private ScheduleService scheduleService;
     
 
     @Test
@@ -38,12 +35,13 @@ public class ScheduleTest extends PersistenceTestCase {
         Talk talk = new Talk();
         talk.setTitle("Java and more");
         talk.setAbstract("What's coming in Java 9, 1O, 11");
-        talk.setStart(new Date(123456789012L));
+        talk.setSchedule(new Schedule());
+        talk.getSchedule().setStart(new Date(123456789012L));
         talk.setDuree(60);
         talk.setTheme(Theme.DECOUVRIR);
 
         talk.getSpeakers().add(speaker);
-        talk.setRoom(room);
+        talk.getSchedule().setRoom(room);
         speaker.getTalks().add(talk);
 
         em.persist(speaker);
@@ -51,7 +49,7 @@ public class ScheduleTest extends PersistenceTestCase {
         em.persist(talk);
         em.flush();
 
-        List<Talk> talks = schedule.getSchedule();
+        List<Talk> talks = scheduleService.getSchedule();
         assertThat(talks).isNotNull().hasSize(1).containsExactly(talk);
     }
     
@@ -65,7 +63,7 @@ public class ScheduleTest extends PersistenceTestCase {
         em.persist(speaker);
         em.flush();
         
-        Speaker result = schedule.getSpeaker(speaker.getId());
+        Speaker result = scheduleService.getSpeaker(speaker.getId());
         assertThat(result).isNotNull().isEqualTo(speaker);
     }
 
@@ -85,7 +83,7 @@ public class ScheduleTest extends PersistenceTestCase {
         em.persist(speakerN);
         em.flush();
 
-        List<Speaker> result = schedule.getSpeakers();
+        List<Speaker> result = scheduleService.getSpeakers();
         assertThat(result).startsWith(speakerN).contains(speakerN,speaker).isNotEmpty();
     }
 
@@ -106,7 +104,7 @@ public class ScheduleTest extends PersistenceTestCase {
         em.persist(talkN);
         em.flush();
 
-        List<Talk> result = schedule.getTalks();
+        List<Talk> result = scheduleService.getTalks();
         assertThat(result).startsWith(talk).contains(talk,talkN).isNotEmpty();
     }
 
@@ -120,7 +118,7 @@ public class ScheduleTest extends PersistenceTestCase {
         em.persist(talk);
         em.flush();
 
-        Talk result = schedule.getTalk(talk.getId());
+        Talk result = scheduleService.getTalk(talk.getId());
         assertEquals(talk,result);
     }
 
@@ -139,7 +137,7 @@ public class ScheduleTest extends PersistenceTestCase {
         em.persist(roomN);
         em.flush();
 
-        List<Room> result = schedule.getRooms();
+        List<Room> result = scheduleService.getRooms();
         assertThat(result).startsWith(room).contains(room,roomN).isNotEmpty();
     }
 }

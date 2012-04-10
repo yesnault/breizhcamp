@@ -180,8 +180,8 @@ public class CrudTalkController {
 
     @RequestMapping("/edit/submit.htm")
     public String editSubmit(ModelMap model, @RequestParam Long id, @RequestParam String title, @RequestParam String resume,
-                            @RequestParam String date, @RequestParam String startTime, @RequestParam int duree,
-                            @RequestParam String theme, @RequestParam(required = false) Long room, @RequestParam(required = false) List<Long> speakers) {
+                            @RequestParam int duree,
+                            @RequestParam String theme, @RequestParam(required = false) List<Long> speakers) {
         if (speakers == null) {
             speakers = new ArrayList<Long>();
         }
@@ -203,17 +203,13 @@ public class CrudTalkController {
             model.put("resumeError", "Le résumé est obligatoire");
             hasError = true;
         }
-        if (StringUtils.isEmpty(date)) {
-            model.put("dateError", "Le date est obligatoire");
-            hasError = true;
-        }
 
         if (StringUtils.isEmpty(theme)) {
             model.put("themeError", "Le thème est obligatoire");
             hasError = true;
         }
         Theme monTheme = Theme.fromHtmlValue(theme);
-        SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
+        /*SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
         Date startDate = null;
         try {
             if (StringUtils.isNotEmpty(startTime)) {
@@ -225,9 +221,9 @@ public class CrudTalkController {
         } catch (ParseException e) {
             model.put("startTimeError", "Le format est incorrect");
             hasError = true;
-        }
-              
-        if (room != null && room != -1) {
+        }*/
+        // TODO Gestion des schedules à ajouter.
+        /*if (room != null && room != -1) {
             try {
                 talk.setRoom(roomDao.find(room));
             } catch (NoResultException noResultException) {
@@ -236,7 +232,7 @@ public class CrudTalkController {
             }
         } else {
             talk.setRoom(null);
-        }
+        }*/
 
         if (hasError) {
             return "crud.talk.edit";
@@ -261,7 +257,6 @@ public class CrudTalkController {
         talk.setAbstract(resume);
         talk.setTitle(title);
         talk.setTheme(monTheme);
-        talk.setStart(startDate);
         talk.setDuree(duree);
         for (Speaker speaker : mySpeakers) {
             talk.getSpeakers().add(speaker);

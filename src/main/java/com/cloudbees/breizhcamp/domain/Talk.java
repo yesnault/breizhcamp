@@ -30,23 +30,36 @@ public class Talk {
     @JsonProperty("abstract")
     private String abstract_;
 
-    @Nullable
-    @JsonProperty("start")
-    private Date start;
-
     @JsonProperty("duree")
     private int duree;
 
     @JsonProperty("room")
     public String getRoomName() {
-        if (room != null) {
-            return room.getName();
+        if (schedule != null && schedule.getRoom() != null) {
+            return schedule.getRoom().getName();
         }
         return null;
     }
 
-    @ManyToOne
-    private Room room;
+    @Nullable
+    @JsonProperty("start")
+    public Date getStart() {
+        if (schedule != null) {
+            return schedule.getStart();
+        }
+        return null;
+    }
+    
+    @OneToOne
+    private Schedule schedule;
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
 
     @Enumerated(EnumType.ORDINAL)
     @Column(columnDefinition = "NUMBER")
@@ -89,22 +102,6 @@ public class Talk {
         this.title = title;
     }
 
-    public Date getStart() {
-        return start;
-    }
-
-    public void setStart(Date start) {
-        this.start = start;
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
     public Theme getTheme() {
         return theme;
     }
@@ -140,7 +137,7 @@ public class Talk {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("id", id).add("title", title).add("theme", theme).add("room", room).add("start", start).add("duree", duree).toString();
+        return Objects.toStringHelper(this).add("id", id).add("title", title).add("theme", theme).add("schedule", schedule).add("duree", duree).toString();
     }
 
 }

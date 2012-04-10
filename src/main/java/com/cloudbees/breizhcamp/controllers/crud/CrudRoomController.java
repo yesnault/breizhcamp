@@ -62,9 +62,10 @@ public class CrudRoomController {
     @RequestMapping("/delete/{id}.htm")
     public String deleteRoom(ModelMap model, @PathVariable Long id) {
         Room room = roomDao.find(id);
-        for (Talk talk : talkDao.findByRoom(room)) {
+        // TODO gestion du lien Room <-> Schedule.
+        /*for (Talk talk : talkDao.findByRoom(room)) {
             talk.setRoom(null);
-        }
+        }*/
         roomDao.delete(id);
         return "redirect:/crud/room/index.htm";
     }

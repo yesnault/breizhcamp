@@ -3,10 +3,7 @@ package com.cloudbees.breizhcamp.services;
 import com.cloudbees.breizhcamp.dao.impl.RoomDao;
 import com.cloudbees.breizhcamp.dao.impl.SpeakerDao;
 import com.cloudbees.breizhcamp.dao.impl.TalkDao;
-import com.cloudbees.breizhcamp.domain.Room;
-import com.cloudbees.breizhcamp.domain.Speaker;
-import com.cloudbees.breizhcamp.domain.Talk;
-import com.cloudbees.breizhcamp.domain.Theme;
+import com.cloudbees.breizhcamp.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,10 +67,9 @@ public class CrudService {
         Talk talk = new Talk();
         talk.setTitle(title);
         talk.setAbstract(resume);
-        talk.setStart(startDate);
+        // TODO gestion des schedule à ajouter.
         talk.setDuree(duree);
         talk.setTheme(theme);
-        talk.setRoom(room);
         talk.getSpeakers().addAll(speakers);
         for (Speaker speaker : speakers) {
             speaker.getTalks().add(talk);

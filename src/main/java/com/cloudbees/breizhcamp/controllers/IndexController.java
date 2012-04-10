@@ -5,7 +5,7 @@ import com.cloudbees.breizhcamp.domain.Event;
 import com.cloudbees.breizhcamp.domain.Room;
 import com.cloudbees.breizhcamp.domain.Talk;
 import com.cloudbees.breizhcamp.domain.TimeSlot;
-import com.cloudbees.breizhcamp.services.Schedule;
+import com.cloudbees.breizhcamp.services.ScheduleService;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +35,7 @@ import java.util.Set;
 public class IndexController {
 
     @Autowired
-    private Schedule schedule;
+    private ScheduleService scheduleService;
 
     @RequestMapping("/index.htm")
     public String index(ModelMap model, @RequestParam(defaultValue = "Amphi") String room,
@@ -45,9 +45,12 @@ public class IndexController {
         Set<Date> dates = new HashSet<Date>();
         Map<Date, List<String>> creneaux = new HashMap<Date, List<String>>();
         Map<Date, Map<String, Map<String, Talk>>> talks = new HashMap<Date, Map<String, Map<String, Talk>>>();
-        for (Talk talk : schedule.getTalks()) {
+        for (Talk talk : scheduleService.getTalks()) {
+            if (talk.getSchedule() == null) {
+                continue;
+            }
 
-            String roomOfTalk = talk.getRoom() == null ? "sansRoom" : talk.getRoom().getName();
+            String roomOfTalk = talk.getSchedule().getRoom() == null ? "sansRoom" : talk.getSchedule().getRoom().getName();
             Date date = DateUtils.truncate(new Date(), Calendar.DATE);
             if (talk.getStart() != null) {
                 date = DateUtils.truncate(talk.getStart(), Calendar.DATE);
@@ -78,7 +81,7 @@ public class IndexController {
         for (List<String> creneauxForDate : creneaux.values()) {
             Collections.sort(creneauxForDate);
         }
-        List<Room> rooms = schedule.getRooms();
+        List<Room> rooms = scheduleService.getRooms();
         model.put("dates", datesOrdonnees);
         model.put("rooms", rooms);
         model.put("creneaux", creneaux);
@@ -98,15 +101,15 @@ public class IndexController {
     public Event event() {
         Event event = new Event();
         event.setName("BreizhCamp - 14-15 Juin 2012");
-        event.getSpeakers().addAll(schedule.getSpeakers());
-        event.getRooms().addAll(schedule.getRooms());
+        event.getSpeakers().addAll(scheduleService.getSpeakers());
+        event.getRooms().addAll(scheduleService.getRooms());
 
         SimpleDateFormat sdfHeure = new SimpleDateFormat("HH:mm");
         SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 
         Map<String, ArrayList<TimeSlot>> creneaux = new HashMap<String, ArrayList<TimeSlot>>();
         Map<String, TimeSlot> slots = new HashMap<String, TimeSlot>();
-        for (Talk talk : schedule.getTalks()) {
+        for (Talk talk : scheduleService.getTalks()) {
             String date = sdfDate.format(talk.getStart());
             if (!creneaux.containsKey(date)) {
                 creneaux.put(date, new ArrayList<TimeSlot>());

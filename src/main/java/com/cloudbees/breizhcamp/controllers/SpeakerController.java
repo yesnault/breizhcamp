@@ -1,7 +1,7 @@
 package com.cloudbees.breizhcamp.controllers;
 
 import com.cloudbees.breizhcamp.domain.Speaker;
-import com.cloudbees.breizhcamp.services.Schedule;
+import com.cloudbees.breizhcamp.services.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,12 +25,12 @@ import java.util.Map;
 public class SpeakerController {
 
 	@Autowired
-	private Schedule schedule;
+	private ScheduleService scheduleService;
 	
 	@RequestMapping(value = "/speaker/get/{id}.json", method = RequestMethod.GET, produces="application/json")
 	@ResponseBody
 	public Speaker get(@PathVariable long id) {
-		return schedule.getSpeaker(id);
+		return scheduleService.getSpeaker(id);
 	}
 
     @RequestMapping(value = "/speaker/{id}.htm", method = RequestMethod.GET)
@@ -43,7 +43,7 @@ public class SpeakerController {
     @RequestMapping(value = "/speakers.json", method = RequestMethod.GET, produces="application/json")
     @ResponseBody
     public List<Speaker> speakers() {
-        return schedule.getSpeakers();
+        return scheduleService.getSpeakers();
     }
 
 
@@ -51,7 +51,7 @@ public class SpeakerController {
     public String index(ModelMap model,
                         @RequestParam(defaultValue = "false") boolean hide) {
         model.put("hide", hide);
-        model.put("speakers", schedule.getSpeakers());
+        model.put("speakers", scheduleService.getSpeakers());
         return "speakers";
     }
 	
