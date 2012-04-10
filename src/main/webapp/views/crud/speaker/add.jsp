@@ -30,37 +30,45 @@
             </c:if>
         </div>
     </div>
+    <div class="control-group <c:if test='${not empty twitterError}'>error</c:if>">
+        <label class="control-label" for="twitter">Twitter du speaker</label>
+        <div class="controls">
+            <input type="text" id="twitter" name="twitter" class="input-large" tabindex="3" onchange="changePicture()"
+                <c:if test='${not empty twitter}'>value="${twitter}"</c:if>/>
+            <c:if test='${not empty twitterError}'>
+                <span class="help-inline">${twitterError}</span>
+            </c:if>
+        </div>
+     </div>
+    <div class="control-group <c:if test='${not empty descriptionError}'>error</c:if>">
+        <label class="control-label" for="resume">Pr&eacute;sentation du speaker</label>
+        <div class="controls">
+            <textarea type="textarea" id="description" name="description" rows="4" class="input-xlarge" tabindex="4"><c:if test='${not empty description}'>${description}</c:if></textarea>
+            <c:if test='${not empty descriptionError}'>
+                <span class="help-inline">${descriptionError}</span>
+            </c:if>
+        </div>
+    </div>
     <div class="control-group <c:if test='${not empty pictureError}'>error</c:if>">
         <label class="control-label" for="picture">URL de la photo du speaker</label>
         <div class="controls">
-            <input type="text" id="picture" name="picture" class="input-large" tabindex="3"
+            <script type='text/javascript' charset='utf-8'>
+                function changePicture() {
+                    if ($('#twitter').val() != '' && $('#picture').val() == '') {
+                        $('#picture').val('http://api.twitter.com/1/users/profile_image/' + $('#twitter').val() + '.xml?size=bigger');
+                    }
+                };
+
+            </script>
+            <input type="text" id="picture" name="picture" class="input-large" tabindex="5"
                 <c:if test='${not empty picture}'>value="${picture}"</c:if>/>
             <c:if test='${not empty pictureError}'>
                 <span class="help-inline">${pictureError}</span>
             </c:if>
         </div>
     </div>
-    <div class="control-group <c:if test='${not empty descriptionError}'>error</c:if>">
-            <label class="control-label" for="resume">Pr&eacute;sentation du speaker</label>
-            <div class="controls">
-                <textarea type="textarea" id="description" name="description" rows="4" class="input-xlarge" tabindex="4"><c:if test='${not empty description}'>${description}</c:if></textarea>
-                <c:if test='${not empty descriptionError}'>
-                    <span class="help-inline">${descriptionError}</span>
-                </c:if>
-            </div>
-    </div>
-    <div class="control-group <c:if test='${not empty twitterError}'>error</c:if>">
-            <label class="control-label" for="twitter">Twitter du speaker</label>
-            <div class="controls">
-                <input type="text" id="twitter" name="twitter" class="input-large" tabindex="5"
-                    <c:if test='${not empty twitter}'>value="${twitter}"</c:if>/>
-                <c:if test='${not empty twitterError}'>
-                    <span class="help-inline">${twitterError}</span>
-                </c:if>
-            </div>
-     </div>
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" tabindex="6">Submit</button>
     </div>
 </fieldset>
 </form>
