@@ -27,31 +27,6 @@
             </c:if>
         </div>
     </div>
-    <div class="control-group <c:if test='${not empty dateError}'>error</c:if>">
-        <label class="control-label" for="date">Date du talk</label>
-        <div class="controls">
-            <c:set var="pattern" value="dd/MM/yyyy"/>
-            <c:set var="date" value="${custo:format(talk.start, pattern)}"/>
-            <select id="date" name="date" class="input-xlarge">
-                <c:forEach var="uneDate" items="${possibleDates}">
-                    <option value="${uneDate.sortieDate}" <c:if test="${date == uneDate.sortieDate}">selected="selected"</c:if>>${uneDate.sortieFr}</option>
-                </c:forEach>
-            </select>
-            <c:if test='${not empty dateError}'>
-                <span class="help-inline">${dateError}</span>
-            </c:if>
-        </div>
-    </div>
-    <div class="control-group <c:if test='${not empty startTimeError}'>error</c:if>">
-        <label class="control-label" for="startTime">Heure de d&eacute;but du talk</label>
-        <div class="controls">
-            <input type="time" id="startTime" name="startTime" class="input-xlarge"
-                value="${start}"/>
-            <c:if test='${not empty startTimeError}'>
-                <span class="help-inline">${startTimeError}</span>
-            </c:if>
-        </div>
-    </div>
      <div class="control-group <c:if test='${not empty dureeError}'>error</c:if>">
             <label class="control-label" for=" duree">Dur&eacute;e du talk</label>
             <div class="controls">
@@ -77,21 +52,6 @@
             </select>
             <c:if test='${not empty themeError}'>
                 <span class="help-inline">${themeError}</span>
-            </c:if>
-        </div>
-    </div>
-    <div class="control-group <c:if test='${not empty roomError}'>error</c:if>">
-        <label class="control-label" for="theme">Salle du talk</label>
-        <div class="controls">
-            <select id="room" name="room" class="input-xlarge">
-                <option value="-1" <c:if test="${empty talk.room}">selected="selected"</c:if>>Toutes salles</option>
-                <c:forEach var="aRoom" items="${allRooms}">
-                    <option value="${aRoom.id}"
-                        <c:if test="${aRoom.name == talk.room.name}">selected="selected"</c:if>>${aRoom.name}</option>
-                </c:forEach>
-            </select>
-            <c:if test='${not empty roomError}'>
-                <span class="help-inline">${roomError}</span>
             </c:if>
         </div>
     </div>

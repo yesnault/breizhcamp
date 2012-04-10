@@ -71,8 +71,8 @@ public class CrudTalkController {
 
     @RequestMapping("/add/submit.htm")
     public String addSubmit(ModelMap model, @RequestParam String title, @RequestParam String resume,
-                            @RequestParam String date, @RequestParam String startTime, @RequestParam int duree,
-                            @RequestParam String theme, @RequestParam(required = false) Long room, @RequestParam(required = false) List<Long> speakers) {
+                            @RequestParam int duree,
+                            @RequestParam String theme, @RequestParam(required = false) List<Long> speakers) {
         if (speakers == null) {
             speakers = new ArrayList<Long>();
         }
@@ -85,41 +85,13 @@ public class CrudTalkController {
             model.put("resumeError", "Le résumé est obligatoire");
             hasError = true;
         }
-        if (StringUtils.isEmpty(date)) {
-            model.put("dateError", "Le date est obligatoire");
-            hasError = true;
-        }
        
         if (StringUtils.isEmpty(theme)) {
             model.put("themeError", "Le thème est obligatoire");
             hasError = true;
         }
         Theme monTheme = Theme.fromHtmlValue(theme);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
-        Date startDate = null;
-        try {
-            if (StringUtils.isNotEmpty(startTime)) {
-                startDate = sdf.parse(date + " " + startTime);
-            }else {
-                startDate = sdf2.parse(date);
-            }
-        } catch (ParseException e) {
-            model.put("startTimeError", "Le format est incorrect");
-            hasError = true;
-        }
-       
 
-        Room maRoom = null;
-        if (room != null && room != -1) {
-            try {
-                maRoom = roomDao.find(room);
-            } catch (NoResultException noResultException) {
-                model.put("roomError", "La salle " + room + " n'existe pas");
-                hasError = true;
-            }
-        }
-        
         List<Speaker> mySpeakers = new ArrayList<Speaker>();
         for (Long idSpeaker : speakers) {
             try {
@@ -133,11 +105,8 @@ public class CrudTalkController {
         if (hasError) {
             model.put("title", title);
             model.put("resume", resume);
-            model.put("date", date);
-            model.put("startTime", startTime);
             model.put("duree", duree);
             model.put("theme", theme);
-            model.put("room", room);
             model.put("speakers", speakers);
             model.put("possibleThemes", Theme.values());
             model.put("possibleDurees", Duree.values());
@@ -146,7 +115,7 @@ public class CrudTalkController {
             model.put("allSpeakers", speakerDao.findAll());
             return "crud.talk.add";
         }
-        service.addTalk(title, resume, startDate, duree, monTheme, maRoom, mySpeakers);
+        service.addTalk(title, resume, duree, monTheme, mySpeakers);
         return "redirect:/crud/talk/index.htm";
     }
 
@@ -164,16 +133,9 @@ public class CrudTalkController {
     public String editTalk(ModelMap model, @PathVariable Long id) {
         Talk talk = talkDao.find(id);
         model.put("talk", talk);
-        SimpleDateFormat sdfHeure = new SimpleDateFormat("HH:mm");
-        String start = sdfHeure.format(talk.getStart());
-        if(start.equals("00:00")){
-            start="";
-        }
-        model.put("start", start);
         model.put("possibleThemes", Theme.values());
         model.put("possibleDurees", Duree.values());
         model.put("possibleDates", PossibleDates.values());
-        model.put("allRooms", roomDao.findAll());
         model.put("allSpeakers", speakerDao.findAll());
         return "crud.talk.edit";
     }

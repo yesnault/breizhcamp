@@ -24,11 +24,28 @@
     <tr>
       <td>${talk.title}</td>
       <td>${talk.abstract}</td>
-      <td><fmt:formatDate value="${talk.start}" type="both" pattern="dd/MM/yyyy" /></td>
-      <td>${custo:getdebut(talk.start)}</td>
+      <c:choose>
+        <c:when test="${empty talk.schedule}">
+            <td colspan="2">Non planifi&eacute;</td>
+        </c:when>
+        <c:otherwise>
+            <td><fmt:formatDate value="${talk.start}" type="both" pattern="dd/MM/yyyy" /></td>
+            <td>${custo:getdebut(talk.start)}</td>
+        </c:otherwise>
+      </c:choose>
       <td>${custo:getduree(talk.duree)}</td>
       <td>${talk.theme.htmlValue}</td>
-      <td><c:if test="${empty talk.room}">Toutes Salles</c:if>${talk.room.name}</td>
+      <c:choose>
+        <c:when test="${empty talk.schedule}">
+            <td >Non planifi&eacute;</td>
+        </c:when>
+        <c:when test="${empty talk.schedule.room}">
+            <td>Toutes salles</td>
+        </c:when>
+        <c:otherwise>
+            <td>${talk.schedule.room.name}</td>
+        </c:otherwise>
+      </c:choose>
       <td>
         <c:forEach var="speaker" items="${talk.speakers}">
             ${speaker.firstName} ${speaker.lastName}<br/>

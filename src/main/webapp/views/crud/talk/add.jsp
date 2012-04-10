@@ -30,33 +30,10 @@
             </c:if>
         </div>
     </div>
-    <div class="control-group <c:if test='${not empty dateError}'>error</c:if>">
-        <label class="control-label" for="date">Date du talk</label>
-        <div class="controls">
-            <select id="date" name="date" class="input-xlarge" tabindex="3">
-                <c:forEach var="uneDate" items="${possibleDates}">
-                    <option value="${uneDate.sortieDate}" <c:if test="${date == uneDate.sortieDate}">selected="selected"</c:if>>${uneDate.sortieFr}</option>
-                </c:forEach>
-            </select>
-            <c:if test='${not empty dateError}'>
-                <span class="help-inline">${dateError}</span>
-            </c:if>
-        </div>
-    </div>
-    <div class="control-group <c:if test='${not empty startTimeError}'>error</c:if>">
-        <label class="control-label" for="startTime">Heure de d&eacute;but du talk</label>
-        <div class="controls">
-            <input type="time" id="startTime" name="startTime" class="input-xlarge" tabindex="4"
-                <c:if test='${not empty startTime}'>value="${startTime}"</c:if>/>
-            <c:if test='${not empty startTimeError}'>
-                <span class="help-inline">${startTimeError}</span>
-            </c:if>
-        </div>
-    </div>
     <div class="control-group <c:if test='${not empty dureeError}'>error</c:if>">
         <label class="control-label" for=" duree">Dur&eacute;e du talk</label>
         <div class="controls">
-            <select id="duree" name="duree" class="input-xlarge" tabindex="5">
+            <select id="duree" name="duree" class="input-xlarge" tabindex="3">
                  <c:forEach var="uneDuree" items="${possibleDurees}">
                      <option id="${custo:getdureename(uneDuree)}" name="${custo:getdureename(uneDuree)}"
                          <c:if test="${uneDuree.minute == talk.duree}">selected="selected"</c:if> value="${uneDuree.minute}">${uneDuree.html}</option>
@@ -70,7 +47,7 @@
     <div class="control-group <c:if test='${not empty themeError}'>error</c:if>">
         <label class="control-label" for="theme">Th&egrave;me du talk</label>
         <div class="controls">
-            <select id="theme" name="theme" class="input-xlarge" tabindex="6">
+            <select id="theme" name="theme" class="input-xlarge" tabindex="4">
                 <c:forEach var="unTheme" items="${possibleThemes}">
                     <option id="${custo:getthemename(unTheme)}" name="${custo:getthemename(unTheme)}"
                         <c:if test="${unTheme.htmlValue == theme}">selected="selected"</c:if>>${unTheme.htmlValue}</option>
@@ -81,25 +58,10 @@
             </c:if>
         </div>
     </div>
-    <div class="control-group <c:if test='${not empty roomError}'>error</c:if>">
-        <label class="control-label" for="theme">Salle du talk</label>
-        <div class="controls">
-            <select id="room" name="room" class="input-xlarge" tabindex="7">
-                <option value="-1">Toutes salles</option>
-                <c:forEach var="aRoom" items="${allRooms}">
-                    <option value="${aRoom.id}"
-                        <c:if test="${aRoom.id == room}">selected="selected"</c:if>>${aRoom.name}</option>
-                </c:forEach>
-            </select>
-            <c:if test="${not empty roomError}">
-                <span class="help-inline">${roomError}</span>
-            </c:if>
-        </div>
-    </div>
     <div class="control-group <c:if test='${not empty speakersError}'>error</c:if>">
         <label class="control-label" for="speakers">Speakers du talk</label>
         <div class="controls">
-            <select id="speakers" name="speakers" class="input-xlarge" multiple="multiple" tabindex="8">
+            <select id="speakers" name="speakers" class="input-xlarge" multiple="multiple" tabindex="5">
                 <c:forEach var="speaker" items="${allSpeakers}">
                     <option value="${speaker.id}" <c:if test="${custo:contains(speakers,speaker.id)}" >selected="selected"</c:if>>${speaker.firstName} ${speaker.lastName}</option>
                 </c:forEach>
@@ -110,7 +72,7 @@
         </div>
     </div>
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary" tabindex="9">Submit</button>
+        <button type="submit" class="btn btn-primary" tabindex="6">Submit</button>
     </div>
 </fieldset>
 </form>
