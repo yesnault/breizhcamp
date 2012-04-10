@@ -38,5 +38,12 @@
 		  >
 		  <property name="order" value="1"/>
 	</bean>
+
+    <bean class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="order" value="0"/>
+        <property name="location">
+            <value>/WEB-INF/spring-pdf-views.xml</value>
+        </property>
+    </bean>
 		  
 </beans>

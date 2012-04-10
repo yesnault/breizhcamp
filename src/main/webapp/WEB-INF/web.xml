@@ -40,6 +40,10 @@
 		<servlet-name>breizhcamp</servlet-name>
 		<url-pattern>*.json</url-pattern>
 	</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>breizhcamp</servlet-name>
+        <url-pattern>*.pdf</url-pattern>
+    </servlet-mapping>
 	
 	
 	<error-page>
