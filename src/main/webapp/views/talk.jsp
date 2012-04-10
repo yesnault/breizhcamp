@@ -15,11 +15,11 @@
         </tr>
         <tr>
             <td>Date</td>
-            <td><fmt:formatDate value="${talk.start}" type="both" pattern="dd/MM/yyyy" /></td>
+            <td><fmt:formatDate value="${talk.schedule.start}" type="both" pattern="dd/MM/yyyy" /></td>
         </tr>
         <tr>
             <td>Heure</td>
-            <td>${custo:getdebut(talk.start)}</td>
+            <td>${custo:getdebut(talk.schedule.start)}</td>
         </tr>
         <tr>
             <td>Dur&eacute;e</td>
@@ -31,7 +31,7 @@
         </tr>
         <tr>
             <td>Salle</td>
-            <td><c:if test="${empty talk.room}">Toutes Salles</c:if>${talk.room.name}</td>
+            <td><c:if test="${empty talk.schedule.room}">Toutes Salles</c:if>${talk.schedule.room.name}</td>
         </tr>
         <tr>
             <td>Speakers</td>
