@@ -41,10 +41,11 @@
     </tr>
 	</c:forEach>
 </table>
+<br/>
 </div>
 <div class="row">
 <div class="span3">
-<a href="/crud/talk/add.htm">Ajouter un talk</a>
+<a href="/crud/talk/add.htm" accesskey="a">Ajouter un talk (ALT+a)</a>
 </div>
 </div>
 
