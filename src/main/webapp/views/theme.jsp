@@ -13,7 +13,7 @@
             <td>Talks</td>
            <td class="span11">
                 <c:forEach var="talk" items="${talks}">
-                    <a href="/talk/${talk.id}.htm">${talk.title}</a> - ${custo:getduree(talk.duree)}<br/>
+                    <a href="/talk/${talk.id}.htm<c:if test="${hide}">?hide=true</c:if>">${talk.title}</a> - ${custo:getduree(talk.duree)}<br/>
               </c:forEach>
            </td>
         </tr>

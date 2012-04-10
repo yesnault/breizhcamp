@@ -27,7 +27,7 @@
                                 <p>${talks[date][creneau][sansRoom].theme.htmlValue}</p>
                                 <p style="text-align:right;">
                                     <c:forEach var="speaker" items="${talks[date][creneau][sansRoom].speakers}">
-                                         <a href="/speaker/${speaker.id}.htm" imageanchor="1">
+                                         <a href="/speaker/${speaker.id}.htm<c:if test="${hide}">?hide=true</c:if>" imageanchor="1">
                                            <img src="${speaker.picture}" title="${speaker.firstName} ${speaker.lastName}" width=30 height=30 /></a>
                                     </c:forEach>
                                 <p>
@@ -42,7 +42,7 @@
                                     <p>${talks[date][creneau][room.name].theme.htmlValue}</p>
                                     <p style="text-align:right;">
                                         <c:forEach var="speaker" items="${talks[date][creneau][room.name].speakers}">
-                                            <a href="/speaker/${speaker.id}.htm" imageanchor="1">
+                                            <a href="/speaker/${speaker.id}.htm<c:if test="${hide}">?hide=true</c:if>" imageanchor="1">
                                                 <img src="${speaker.picture}" title="${speaker.firstName} ${speaker.lastName}" width=30 height=30 /></a>
                                         </c:forEach>
                                      <p>
