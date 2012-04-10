@@ -38,7 +38,12 @@ public class PdfReportView extends AbstractPdfView {
         cell.setBackgroundColor(Color.GRAY);
         return cell;
     }
-    
+
+    @Override
+    protected Document newDocument() {
+        return new Document(PageSize.A4.rotate());
+    }
+
     @Override
     protected void buildPdfDocument(Map<String, Object> model, Document document, PdfWriter pdfWriter,
                                     HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
@@ -48,8 +53,6 @@ public class PdfReportView extends AbstractPdfView {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         String sansRoom = "sansRoom";
-
-        document.setPageSize(PageSize.A4.rotate());
 
         for (Date date : data.getDatesOrdonnees()) {
             Paragraph titre = new Paragraph();
