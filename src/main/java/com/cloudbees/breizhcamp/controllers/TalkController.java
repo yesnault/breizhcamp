@@ -47,7 +47,7 @@ public class TalkController {
                        @RequestParam(defaultValue = "false") boolean hide) {
         model.put("hide", hide);
         Theme theme = Theme.valueOf(id);
-        List<Talk> talks = schedule.getTalkByTheme(theme);
+        List<Talk> talks = scheduleService.getTalkByTheme(theme);
         model.put("talks", talks);
         model.put("theme", theme);
         return "theme";

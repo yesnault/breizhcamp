@@ -36,7 +36,7 @@ public class SpeakerController {
     @RequestMapping(value = "/speaker/{id}.htm", method = RequestMethod.GET)
     public String speaker(ModelMap model,@PathVariable long id,@RequestParam(defaultValue = "false") boolean hide) {
         model.put("hide", hide);
-        model.put("speaker", schedule.getSpeaker(id));
+        model.put("speaker", scheduleService.getSpeaker(id));
         return "speaker";
     }
 
