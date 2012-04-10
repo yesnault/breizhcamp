@@ -59,7 +59,7 @@ public class CrudTalkControllerTest extends PersistenceTestCase {
 
 
         ModelMap model = new ModelMap();
-        controller.addSubmit(model, "Introduction a Ruby", bigDescription, 60, "DECOUVRIR", speakers);
+        controller.addSubmit(model, "Introduction a Ruby", bigDescription, 60, "DECOUVRIR", speakers, null);
 
         Talk talk = em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
         assertThat(talk).isNotNull();
@@ -79,7 +79,7 @@ public class CrudTalkControllerTest extends PersistenceTestCase {
 
 
         ModelMap model = new ModelMap();
-        controller.addSubmit(model, "", bigDescription, 60, "DECOUVRIR", speakers);
+        controller.addSubmit(model, "", bigDescription, 60, "DECOUVRIR", speakers, null);
 
         em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
 
@@ -94,7 +94,7 @@ public class CrudTalkControllerTest extends PersistenceTestCase {
 
 
         ModelMap model = new ModelMap();
-        controller.addSubmit(model, "Introduction a Ruby", "", 60, "DECOUVRIR", speakers);
+        controller.addSubmit(model, "Introduction a Ruby", "", 60, "DECOUVRIR", speakers, null);
 
         em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
 
@@ -109,7 +109,7 @@ public class CrudTalkControllerTest extends PersistenceTestCase {
 
 
         ModelMap model = new ModelMap();
-        controller.addSubmit(model, "Introduction a Ruby", "blabl", 60, "", speakers);
+        controller.addSubmit(model, "Introduction a Ruby", "blabl", 60, "", speakers, null);
 
         em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
 
@@ -134,7 +134,7 @@ public class CrudTalkControllerTest extends PersistenceTestCase {
 
 
         ModelMap model = new ModelMap();
-        controller.editSubmit(model, talk.getId(), "Introduction a Ruby", bigDescription, 60, "DECOUVRIR", speakers);
+        controller.editSubmit(model, talk.getId(), "Introduction a Ruby", bigDescription, 60, "DECOUVRIR", speakers, null);
 
         talk = em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
         assertThat(talk).isNotNull();
@@ -159,7 +159,7 @@ public class CrudTalkControllerTest extends PersistenceTestCase {
 
 
         ModelMap model = new ModelMap();
-        controller.editSubmit(model, talk.getId(), "", bigDescription, 60, "DECOUVRIR", speakers);
+        controller.editSubmit(model, talk.getId(), "", bigDescription, 60, "DECOUVRIR", speakers, null);
 
         em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
 
@@ -179,7 +179,7 @@ public class CrudTalkControllerTest extends PersistenceTestCase {
 
 
         ModelMap model = new ModelMap();
-        controller.editSubmit(model, talk.getId(), "Introduction a Ruby", "", 60, "DECOUVRIR", speakers);
+        controller.editSubmit(model, talk.getId(), "Introduction a Ruby", "", 60, "DECOUVRIR", speakers, null);
 
         em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
 
@@ -199,7 +199,7 @@ public class CrudTalkControllerTest extends PersistenceTestCase {
 
 
         ModelMap model = new ModelMap();
-        controller.editSubmit(model, talk.getId(), "Introduction a Ruby", "blabl", 60, "", speakers);
+        controller.editSubmit(model, talk.getId(), "Introduction a Ruby", "blabl", 60, "", speakers, null);
 
         em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
 

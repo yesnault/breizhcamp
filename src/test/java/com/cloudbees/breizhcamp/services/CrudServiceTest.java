@@ -87,7 +87,7 @@ public class CrudServiceTest extends PersistenceTestCase {
         List<Speaker> speakers = new ArrayList<Speaker>();
         speakers.add(new Speaker());
 
-        service.addTalk("Introduction a Ruby", bigDescription, 60, Theme.DECOUVRIR, speakers);
+        service.addTalk("Introduction a Ruby", bigDescription, 60, Theme.DECOUVRIR, speakers, null);
 
         Talk talk = em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
         assertThat(talk).isNotNull();

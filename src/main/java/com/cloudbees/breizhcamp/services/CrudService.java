@@ -68,11 +68,11 @@ public class CrudService {
     @Autowired
     private TalkDao talkDao;
     
-    public void addTalk(String title, String resume, int duree, Theme theme, List<Speaker> speakers) {
+    public void addTalk(String title, String resume, int duree, Theme theme, List<Speaker> speakers, Schedule schedule) {
         Talk talk = new Talk();
         talk.setTitle(title);
         talk.setAbstract(resume);
-        // TODO gestion des schedule à ajouter.
+        talk.setSchedule(schedule);
         talk.setDuree(duree);
         talk.setTheme(theme);
         talk.getSpeakers().addAll(speakers);

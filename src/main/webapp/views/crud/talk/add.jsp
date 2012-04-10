@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="custo" uri="/WEB-INF/custom-functions.tld" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <script type='text/javascript' charset='utf-8'>
          setActive('talks');
 </script>
@@ -58,10 +59,28 @@
             </c:if>
         </div>
     </div>
+    <div class="control-group <c:if test='${not empty scheduleError}'>error</c:if>">
+        <label class="control-label" for="schedule">Cr&eacute;neau du talk</label>
+        <div class="controls">
+            <select id="schedule" name="schedule" class="input-xlarge" tabindex="5">
+                <option value="-1">Je sais pas</option>
+                <c:forEach var="unSchedule" items="${allSchedules}">
+                    <option value="${unSchedule.id}"
+                        <c:if test="${unSchedule.id == schedule}">selected="selected"</c:if>>
+                        <c:if test="${empty unSchedule.room}">Toutes salles</c:if>
+                        ${unSchedule.room.name} - <fmt:formatDate value="${unSchedule.start}" type="both" pattern="dd/MM/yyyy HH:mm"/>
+                    </option>
+                </c:forEach>
+            </select>
+            <c:if test='${not empty scheduleError}'>
+                <span class="help-inline">${scheduleError}</span>
+            </c:if>
+        </div>
+    </div>
     <div class="control-group <c:if test='${not empty speakersError}'>error</c:if>">
         <label class="control-label" for="speakers">Speakers du talk</label>
         <div class="controls">
-            <select id="speakers" name="speakers" class="input-xlarge" multiple="multiple" tabindex="5">
+            <select id="speakers" name="speakers" class="input-xlarge" multiple="multiple" tabindex="6">
                 <c:forEach var="speaker" items="${allSpeakers}">
                     <option value="${speaker.id}" <c:if test="${custo:contains(speakers,speaker.id)}" >selected="selected"</c:if>>${speaker.firstName} ${speaker.lastName}</option>
                 </c:forEach>
@@ -72,7 +91,7 @@
         </div>
     </div>
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary" tabindex="6">Submit</button>
+        <button type="submit" class="btn btn-primary" tabindex="7">Submit</button>
     </div>
 </fieldset>
 </form>
