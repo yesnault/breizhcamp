@@ -33,6 +33,13 @@ public class SpeakerController {
 		return schedule.getSpeaker(id);
 	}
 
+    @RequestMapping(value = "/speaker/{id}.htm", method = RequestMethod.GET)
+    public String speaker(ModelMap model,@PathVariable long id,@RequestParam(defaultValue = "false") boolean hide) {
+        model.put("hide", hide);
+        model.put("speaker", schedule.getSpeaker(id));
+        return "speaker";
+    }
+
     @RequestMapping(value = "/speakers.json", method = RequestMethod.GET, produces="application/json")
     @ResponseBody
     public List<Speaker> speakers() {

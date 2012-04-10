@@ -1,5 +1,6 @@
 package com.cloudbees.breizhcamp.controllers;
 
+import com.cloudbees.breizhcamp.domain.Theme;
 import com.cloudbees.breizhcamp.services.Schedule;
 import com.cloudbees.breizhcamp.domain.Talk;
 
@@ -40,6 +41,18 @@ public class TalkController {
         model.put("talk", talk);
         return "talk";
     }
+
+    @RequestMapping(value = "/theme/{id}.htm", method = RequestMethod.GET)
+    public String theme(ModelMap model,@PathVariable String id,
+                       @RequestParam(defaultValue = "false") boolean hide) {
+        model.put("hide", hide);
+        Theme theme = Theme.valueOf(id);
+        List<Talk> talks = schedule.getTalkByTheme(theme);
+        model.put("talks", talks);
+        model.put("theme", theme);
+        return "theme";
+    }
+
 
     @RequestMapping(value = "/talk/get/{id}.json", method = RequestMethod.GET, produces="application/json")
     @ResponseBody

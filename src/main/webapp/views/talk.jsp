@@ -27,7 +27,7 @@
         </tr>
         <tr>
             <td>Th&egrave;me</td>
-            <td>${talk.theme.htmlValue}</td>
+            <td><a href="/theme/${talk.theme}.htm">${talk.theme.htmlValue}</a></td>
         </tr>
         <tr>
             <td>Salle</td>
@@ -37,7 +37,7 @@
             <td>Speakers</td>
             <td>
                 <c:forEach var="speaker" items="${talk.speakers}">
-                    <a href="https://twitter.com/#!/${speaker.twitter}">${speaker.firstName} ${speaker.lastName}</a><br/>
+                    <a href="/speaker/${speaker.id}.htm">${speaker.firstName} ${speaker.lastName}</a><br/>
                 </c:forEach>
             </td>
         </tr>

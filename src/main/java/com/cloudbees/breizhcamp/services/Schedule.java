@@ -6,6 +6,7 @@ import com.cloudbees.breizhcamp.dao.impl.TalkDao;
 import com.cloudbees.breizhcamp.domain.Room;
 import com.cloudbees.breizhcamp.domain.Speaker;
 import com.cloudbees.breizhcamp.domain.Talk;
+import com.cloudbees.breizhcamp.domain.Theme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,5 +50,9 @@ public class Schedule {
 
     public Talk getTalk(long id) {
         return talkDao.find(id);
+    }
+
+    public List<Talk> getTalkByTheme(Theme theme) {
+        return talkDao.findByTheme(theme);
     }
 }

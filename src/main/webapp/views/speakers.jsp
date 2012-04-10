@@ -15,7 +15,7 @@
                 </c:if>
                 <td style="width:100px">
                     <div style="display:block;text-align:left">
-                        <a href="https://twitter.com/#!/${speaker.twitter}" imageanchor="1">
+                        <a href="/speaker/${speaker.id}.htm" imageanchor="1">
                             <img border="0" src="${speaker.picture}" style="height:128px;width:128px;" height="128px" width="128px">
                         </a>
                     </div>

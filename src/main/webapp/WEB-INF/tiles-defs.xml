@@ -29,6 +29,15 @@
         <put-attribute name="content" value="/views/speakers.jsp" />
     </definition>
 
+    <definition name="speaker" extends=".mainTemplate">
+        <put-attribute name="content" value="/views/speaker.jsp" />
+    </definition>
+
+    <definition name="theme" extends=".mainTemplate">
+        <put-attribute name="content" value="/views/theme.jsp" />
+    </definition>
+
+
 
     <!-- CRUD -->
     <definition name=".crudTemplate" extends=".mainTemplate">
