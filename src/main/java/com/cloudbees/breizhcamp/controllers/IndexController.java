@@ -2,11 +2,9 @@ package com.cloudbees.breizhcamp.controllers;
 
 import com.cloudbees.breizhcamp.domain.Day;
 import com.cloudbees.breizhcamp.domain.Event;
-import com.cloudbees.breizhcamp.domain.Room;
 import com.cloudbees.breizhcamp.domain.Talk;
 import com.cloudbees.breizhcamp.domain.TimeSlot;
 import com.cloudbees.breizhcamp.services.ScheduleService;
-import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,17 +17,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * Handle request for index page
  *
- * @author Alexandre THOMAZO <alex@thomazo.info>
+ * @author Alexandre THOMAZO &lt;alex@thomazo.info&gt;
  */
 @Controller
 public class IndexController {
@@ -38,54 +34,13 @@ public class IndexController {
     private ScheduleService scheduleService;
 
     @RequestMapping("/index.htm")
-    public String index(ModelMap model, @RequestParam(defaultValue = "Amphi") String room,
-                        @RequestParam(defaultValue = "false") boolean hide) {
+    public String index(ModelMap model, @RequestParam(defaultValue = "false") boolean hide) {
         model.put("hide", hide);
-        SimpleDateFormat sdfHeure = new SimpleDateFormat("HH:mm");
-        Set<Date> dates = new HashSet<Date>();
-        Map<Date, List<String>> creneaux = new HashMap<Date, List<String>>();
-        Map<Date, Map<String, Map<String, Talk>>> talks = new HashMap<Date, Map<String, Map<String, Talk>>>();
-        for (Talk talk : scheduleService.getTalks()) {
-            if (talk.getSchedule() == null) {
-                continue;
-            }
-
-            String roomOfTalk = talk.getSchedule().getRoom() == null ? "sansRoom" : talk.getSchedule().getRoom().getName();
-            Date date = DateUtils.truncate(new Date(), Calendar.DATE);
-            if (talk.getStart() != null) {
-                date = DateUtils.truncate(talk.getStart(), Calendar.DATE);
-            }
-            dates.add(date);
-            if (!creneaux.containsKey(date)) {
-                creneaux.put(date, new ArrayList<String>());
-                talks.put(date, new HashMap<String, Map<String, Talk>>());
-            }
-            String creneau = "non programmé";
-            if (talk.getStart() != null && !sdfHeure.format(talk.getStart()).equals("00:00")) {
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(talk.getStart());
-                cal.add(Calendar.MINUTE, talk.getDuree());
-                creneau = sdfHeure.format(talk.getStart()) + " - " + sdfHeure.format(cal.getTime());
-            }
-            if (!creneaux.get(date).contains(creneau)) {
-                creneaux.get(date).add(creneau);
-            }
-            if (!talks.get(date).containsKey(creneau)) {
-                talks.get(date).put(creneau, new HashMap<String, Talk>());
-            }
-            talks.get(date).get(creneau).put(roomOfTalk, talk);
-        }
-        List<Date> datesOrdonnees = new ArrayList<Date>(dates);
-        Collections.sort(datesOrdonnees);
-
-        for (List<String> creneauxForDate : creneaux.values()) {
-            Collections.sort(creneauxForDate);
-        }
-        List<Room> rooms = scheduleService.getRooms();
-        model.put("dates", datesOrdonnees);
-        model.put("rooms", rooms);
-        model.put("creneaux", creneaux);
-        model.put("talks", talks);
+        Data data = scheduleService.getData();
+        model.put("dates", data.getDatesOrdonnees());
+        model.put("rooms", data.getRooms());
+        model.put("creneaux", data.getCreneaux());
+        model.put("talks", data.getTalks());
         model.put("sansRoom", "sansRoom");
         return "index";
     }
@@ -150,8 +105,7 @@ public class IndexController {
     }
 
     @RequestMapping("/error/notie.htm")
-    public String index(ModelMap model) {
+    public String index() {
         return "error/notie";
     }
-
 }

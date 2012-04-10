@@ -1,19 +1,20 @@
 package com.cloudbees.breizhcamp.controllers;
 
 import com.cloudbees.breizhcamp.PersistenceTestCase;
-import com.cloudbees.breizhcamp.domain.*;
+import com.cloudbees.breizhcamp.domain.Event;
+import com.cloudbees.breizhcamp.domain.Room;
+import com.cloudbees.breizhcamp.domain.Schedule;
+import com.cloudbees.breizhcamp.domain.Talk;
+import com.cloudbees.breizhcamp.domain.Theme;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 
@@ -118,7 +119,7 @@ public class IndexControllerTest extends PersistenceTestCase {
 
 
         ModelMap model = new ModelMap();
-        controller.index(model,null,false);
+        controller.index(model,false);
 
         assertTrue(model.containsKey("rooms"));
         assertEquals(2,((List) model.get("rooms")).size());
