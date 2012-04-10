@@ -2,6 +2,7 @@ package com.cloudbees.breizhcamp.services;
 
 import com.cloudbees.breizhcamp.PersistenceTestCase;
 import com.cloudbees.breizhcamp.domain.Room;
+import com.cloudbees.breizhcamp.domain.Schedule;
 import com.cloudbees.breizhcamp.domain.Speaker;
 import com.cloudbees.breizhcamp.domain.Talk;
 import com.cloudbees.breizhcamp.domain.Theme;
@@ -9,6 +10,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -89,5 +91,24 @@ public class CrudServiceTest extends PersistenceTestCase {
 
         Talk talk = em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
         assertThat(talk).isNotNull();
+    }
+    
+    @Test
+    public void canAddSchedule() throws Exception {
+        em.createQuery("delete from Schedule").executeUpdate();
+        em.flush();
+        
+        Room room = new Room();
+        room.setName("Une Salle");
+        
+        em.persist(room);
+        em.flush();
+        
+        Date date = new Date();
+        
+        service.addSchedule(date, room);
+
+        Schedule schedule = em.createQuery("select s from Schedule s", Schedule.class).getSingleResult();
+        assertThat(schedule).isNotNull();
     }
 }

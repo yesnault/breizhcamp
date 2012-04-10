@@ -1,7 +1,7 @@
 package com.cloudbees.breizhcamp.dao.impl;
 
 import com.cloudbees.breizhcamp.dao.Dao;
-import com.cloudbees.breizhcamp.domain.Room;
+import com.cloudbees.breizhcamp.domain.Schedule;
 import com.cloudbees.breizhcamp.domain.Talk;
 import com.cloudbees.breizhcamp.domain.Theme;
 import org.springframework.stereotype.Repository;
@@ -26,5 +26,10 @@ public class TalkDao extends AbstractDao<Talk> implements Dao<Talk> {
     public List<Talk> findByTheme(Theme theme) {
         return em.createQuery("select t from Talk t where t.theme = :theme", Talk.class).setParameter("theme", theme)
                 .getResultList();
+    }
+    
+    @SuppressWarnings("unchecked")
+    public List<Talk> findBySchedule(Schedule schedule) {
+        return em.createQuery("select t from Talk t where t.schedule = :schedule").setParameter("schedule", schedule).getResultList();
     }
 }
