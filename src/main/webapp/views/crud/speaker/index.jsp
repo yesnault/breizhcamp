@@ -27,10 +27,11 @@
     </tr>
 	</c:forEach>
 </table>
+<br/>
 </div>
 <div class="row">
 <div class="span3">
-<a href="/crud/speaker/add.htm">Ajouter un speaker</a>
+<a href="/crud/speaker/add.htm" accesskey="a">Ajouter un speaker (ALT+a)</a>
 </div>
 </div>
 
