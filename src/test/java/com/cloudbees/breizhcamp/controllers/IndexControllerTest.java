@@ -35,10 +35,19 @@ public class IndexControllerTest extends PersistenceTestCase {
 
         SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 
+        Schedule schedule1 = new Schedule();
+        schedule1.setStart(sdfDate.parse("15/06/2012"));
+
+        em.persist(schedule1);
+
+        Schedule schedule2 = new Schedule();
+        schedule2.setStart(sdfDate.parse("14/06/2012"));
+
+        em.persist(schedule2);
+
         Talk talk = new Talk();
         talk.setTitle("GWT");
-        talk.setSchedule(new Schedule());
-        talk.getSchedule().setStart(sdfDate.parse("15/06/2012"));
+        talk.setSchedule(schedule1);
         talk.setTheme(Theme.PRATIQUER);
         talk.setDuree(60);
 
@@ -46,8 +55,7 @@ public class IndexControllerTest extends PersistenceTestCase {
 
         talk = new Talk();
         talk.setTitle("Android");
-        talk.setSchedule(new Schedule());
-        talk.getSchedule().setStart(sdfDate.parse("14/06/2012"));
+        talk.setSchedule(schedule2);
         talk.setTheme(Theme.DECOUVRIR);
         talk.setDuree(30);
 
@@ -80,10 +88,19 @@ public class IndexControllerTest extends PersistenceTestCase {
         SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat sdfDateH = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
+        Schedule schedule1 = new Schedule();
+        schedule1.setStart(sdfDate.parse("15/06/2012"));
+
+        em.persist(schedule1);
+
+        Schedule schedule2 = new Schedule();
+        schedule2.setStart(sdfDateH.parse("14/06/2012 10:00"));
+
+        em.persist(schedule2);
+
         Talk talk = new Talk();
         talk.setTitle("GWT");
-        talk.setSchedule(new Schedule());
-        talk.getSchedule().setStart(sdfDate.parse("15/06/2012"));
+        talk.setSchedule(schedule1);
         talk.setTheme(Theme.PRATIQUER);
         talk.setDuree(60);
 
@@ -91,8 +108,7 @@ public class IndexControllerTest extends PersistenceTestCase {
 
         talk = new Talk();
         talk.setTitle("Android");
-        talk.setSchedule(new Schedule());
-        talk.getSchedule().setStart(sdfDateH.parse("14/06/2012 10:00"));
+        talk.setSchedule(schedule2);
         talk.setTheme(Theme.DECOUVRIR);
         talk.setDuree(30);
 

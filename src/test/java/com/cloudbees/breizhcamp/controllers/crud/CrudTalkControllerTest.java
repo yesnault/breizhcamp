@@ -220,24 +220,4 @@ public class CrudTalkControllerTest extends PersistenceTestCase {
 
     }
 
-    @Test(expected = NoResultException.class)
-    public void editSubmit_emptyDate() throws Exception {
-        Talk talk = new Talk();
-        talk.setTitle("GWT");
-        talk.setTheme(Theme.PRATIQUER);
-        talk.setDuree(60);
-
-        em.persist(talk);
-        em.flush();
-
-        List<Long> speakers = new ArrayList<Long>();
-
-
-        ModelMap model = new ModelMap();
-        controller.editSubmit(model, talk.getId(), "Introduction a Ruby", "blabl", 60, "DECOUVRIR", speakers);
-
-        em.createQuery("select t from Talk t where t.title='Introduction a Ruby'", Talk.class).getSingleResult();
-
-    }
-
 }

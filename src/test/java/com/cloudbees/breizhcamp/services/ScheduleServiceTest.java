@@ -31,21 +31,25 @@ public class ScheduleServiceTest extends PersistenceTestCase {
 
         Room room = new Room();
         room.setName("Amphi");
+
+        Schedule schedule = new Schedule();
+        schedule.setStart(new Date(123456789012L));
+        schedule.setRoom(room);
         
         Talk talk = new Talk();
         talk.setTitle("Java and more");
         talk.setAbstract("What's coming in Java 9, 1O, 11");
-        talk.setSchedule(new Schedule());
-        talk.getSchedule().setStart(new Date(123456789012L));
         talk.setDuree(60);
         talk.setTheme(Theme.DECOUVRIR);
 
         talk.getSpeakers().add(speaker);
-        talk.getSchedule().setRoom(room);
         speaker.getTalks().add(talk);
+
+        talk.setSchedule(schedule);
 
         em.persist(speaker);
         em.persist(room);
+        em.persist(schedule);
         em.persist(talk);
         em.flush();
 

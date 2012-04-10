@@ -16,16 +16,11 @@ import java.util.List;
 public class TalkDao extends AbstractDao<Talk> implements Dao<Talk> {
 
     protected TypedQuery<Talk> all() {
-        return em.createQuery("select t from Talk t order by t.start, t.room", Talk.class);
+        return em.createQuery("select t from Talk t", Talk.class);
     }
 
     public Talk find(long id) {
         return em.find(Talk.class, id);
-    }
-
-    public List<Talk> findByRoom(Room room) {
-        return em.createQuery("select t from Talk t where t.room = :room", Talk.class).setParameter("room", room)
-                .getResultList();
     }
 
     public List<Talk> findByTheme(Theme theme) {
