@@ -4,11 +4,7 @@ import com.cloudbees.breizhcamp.controllers.Data;
 import com.cloudbees.breizhcamp.domain.Room;
 import com.cloudbees.breizhcamp.domain.Speaker;
 import com.cloudbees.breizhcamp.domain.Talk;
-import com.lowagie.text.Cell;
-import com.lowagie.text.Document;
-import com.lowagie.text.Image;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Table;
+import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfWriter;
 import org.springframework.web.servlet.view.document.AbstractPdfView;
 
@@ -30,6 +26,7 @@ public class PdfReportView extends AbstractPdfView {
 
         String sansRoom = "sansRoom";
 
+        document.setPageSize(PageSize.A4.rotate());
 
         for (Date date : data.getDatesOrdonnees()) {
             document.add(new Paragraph("Programme du " + sdf.format(date)));
