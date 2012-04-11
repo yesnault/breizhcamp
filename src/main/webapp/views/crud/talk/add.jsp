@@ -7,9 +7,9 @@
 </script>
 <form action="/crud/talk/add/submit.htm" method="post" class="form-horizontal span4">
 <fieldset>
-    <legend>Ajout d'un talk</legend>
+    <legend><spring:message code="talk.add.title" text="default text" /></legend>
     <div class="control-group <c:if test='${not empty titleError}'>error</c:if>">
-        <label class="control-label" for="title">Titre du talk</label>
+        <label class="control-label" for="title"><spring:message code="talk.add.titre.label" text="default text" /></label>
         <div class="controls">
             <script type='text/javascript' charset='utf-8'>
                 $(function() {
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="control-group <c:if test='${not empty resumeError}'>error</c:if>">
-        <label class="control-label" for="resume">R&eacute;sum&eacute; du talk</label>
+        <label class="control-label" for="resume"><spring:message code="talk.add.resume.label" text="default text" /></label>
         <div class="controls">
             <textarea type="textarea" id="resume" name="resume" rows="4" class="input-xlarge" tabindex="2"><c:if test='${not empty resume}'>${resume}</c:if></textarea>
             <c:if test='${not empty resumeError}'>
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="control-group <c:if test='${not empty dureeError}'>error</c:if>">
-        <label class="control-label" for=" duree">Dur&eacute;e du talk</label>
+        <label class="control-label" for=" duree"><spring:message code="talk.add.duree.label" text="default text" /></label>
         <div class="controls">
             <select id="duree" name="duree" class="input-xlarge" tabindex="3">
                  <c:forEach var="uneDuree" items="${possibleDurees}">
@@ -47,7 +47,7 @@
         </div>
     </div>
     <div class="control-group <c:if test='${not empty themeError}'>error</c:if>">
-        <label class="control-label" for="theme">Th&egrave;me du talk</label>
+        <label class="control-label" for="theme"><spring:message code="talk.add.theme.label" text="default text" /></label>
         <div class="controls">
             <select id="theme" name="theme" class="input-xlarge" tabindex="4">
                 <c:forEach var="unTheme" items="${possibleThemes}">
@@ -61,7 +61,7 @@
         </div>
     </div>
     <div class="control-group <c:if test='${not empty scheduleError}'>error</c:if>">
-        <label class="control-label" for="schedule">Cr&eacute;neau du talk</label>
+        <label class="control-label" for="schedule"><spring:message code="talk.add.creneau.label" text="default text" /></label>
         <div class="controls">
             <select id="schedule" name="schedule" class="input-xlarge" tabindex="5">
                 <option value="-1">Je sais pas</option>
@@ -79,7 +79,7 @@
         </div>
     </div>
     <div class="control-group <c:if test='${not empty speakersError}'>error</c:if>">
-        <label class="control-label" for="speakers">Speakers du talk</label>
+        <label class="control-label" for="speakers"><spring:message code="talk.add.speakers.label" text="default text" /></label>
         <div class="controls">
             <select id="speakers" name="speakers" class="input-xlarge" multiple="multiple" tabindex="6">
                 <c:forEach var="speaker" items="${allSpeakers}">
@@ -92,7 +92,7 @@
         </div>
     </div>
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary" tabindex="7">Submit</button>
+        <button type="submit" class="btn btn-primary" tabindex="7"><spring:message code="action.submit" text="default text" /></button>
     </div>
 </fieldset>
 </form>

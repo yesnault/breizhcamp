@@ -5,9 +5,9 @@
 </script>
 <form action="/crud/speaker/add/submit.htm" method="post" class="form-horizontal span3">
 <fieldset>
-    <legend>Ajout d'un speaker</legend>
+    <legend><spring:message code="speaker.add.title" text="default text" /></legend>
     <div class="control-group <c:if test='${not empty firstNameError}'>error</c:if>">
-        <label class="control-label" for="firstName">Pr&eacute;nom du speaker</label>
+        <label class="control-label" for="firstName"><spring:message code="speaker.add.prenom.label" text="default text" /></label>
         <div class="controls">
             <script type='text/javascript' charset='utf-8'>
                 $(function() {
@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="control-group <c:if test='${not empty lastNameError}'>error</c:if>">
-        <label class="control-label" for="lastName">Nom du speaker</label>
+        <label class="control-label" for="lastName"><spring:message code="speaker.add.nom.label" text="default text" /></label>
         <div class="controls">
             <input type="text" id="lastName" name="lastName" class="input-large" tabindex="2"
                 <c:if test='${not empty lastName}'>value="${lastName}"</c:if>/>
@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="control-group <c:if test='${not empty twitterError}'>error</c:if>">
-        <label class="control-label" for="twitter">Twitter du speaker</label>
+        <label class="control-label" for="twitter"><spring:message code="speaker.add.twitter.label" text="default text" /></label>
         <div class="controls">
             <input type="text" id="twitter" name="twitter" class="input-large" tabindex="3" onchange="changePicture()"
                 <c:if test='${not empty twitter}'>value="${twitter}"</c:if>/>
@@ -42,7 +42,7 @@
         </div>
      </div>
     <div class="control-group <c:if test='${not empty descriptionError}'>error</c:if>">
-        <label class="control-label" for="resume">Pr&eacute;sentation du speaker</label>
+        <label class="control-label" for="resume"><spring:message code="speaker.add.resume.label" text="default text" /></label>
         <div class="controls">
             <textarea type="textarea" id="description" name="description" rows="4" class="input-xlarge" tabindex="4"><c:if test='${not empty description}'>${description}</c:if></textarea>
             <c:if test='${not empty descriptionError}'>
@@ -51,7 +51,7 @@
         </div>
     </div>
     <div class="control-group <c:if test='${not empty pictureError}'>error</c:if>">
-        <label class="control-label" for="picture">URL de la photo du speaker</label>
+        <label class="control-label" for="picture"><spring:message code="speaker.add.photo.label" text="default text" /></label>
         <div class="controls">
             <script type='text/javascript' charset='utf-8'>
                 function changePicture() {
@@ -69,7 +69,7 @@
         </div>
     </div>
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary" tabindex="6">Submit</button>
+        <button type="submit" class="btn btn-primary" tabindex="6"><spring:message code="action.submit" text="default text" /></button>
     </div>
 </fieldset>
 </form>

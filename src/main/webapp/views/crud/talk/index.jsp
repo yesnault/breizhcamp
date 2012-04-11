@@ -9,14 +9,14 @@
 <table class="table  table-striped table-bordered table-condensed span12" id="talksTable">
 <tr>
 <th class="span1">Titre</th>
-<th class="span2">R&eacute;sum&eacute;</th>
-<th class="span2">Date</th>
-<th class="span2">Heure</th>
-<th class="span2">Dur&eacute;e</th>
-<th class="span1">Th&egrave;me</th>
-<th class="span1">Salle</th>
-<th class="span2">Speakers</th>
-<th class="span1">Actions</th>
+<th class="span2"><spring:message code="resume.title" text="default text" /></th>
+<th class="span2"><spring:message code="date.title" text="default text" /></th>
+<th class="span2"><spring:message code="heure.title" text="default text" /></th>
+<th class="span2"><spring:message code="duree.title" text="default text" /></th>
+<th class="span1"><spring:message code="theme.title" text="default text" /></th>
+<th class="span1"><spring:message code="salle.title" text="default text" /></th>
+<th class="span2"><spring:message code="speakers.title" text="default text" /></th>
+<th class="span1"><spring:message code="actions.title" text="default text" /></th>
 </tr>
 <c:if test="${empty talks}">
 <tr><td colspan="9">Aucun talk pour l'instant</td></tr>
@@ -53,8 +53,8 @@
         </c:forEach>
       </td>
       <td>
-        <a href="/crud/talk/edit/${talk.id}.htm">Editer</a><br/>
-        <a href="/crud/talk/delete/${talk.id}.htm">Supprimer</a>
+        <a href="/crud/talk/edit/${talk.id}.htm"><spring:message code="edit.title" text="default text" /></a><br/>
+        <a href="/crud/talk/delete/${talk.id}.htm"><spring:message code="delete.title" text="default text" /></a>
       </td>
     </tr>
 	</c:forEach>

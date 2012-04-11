@@ -10,7 +10,7 @@
 <th class="span2">Nom</th>
 <th class="span2">Pr&eacute;nom</th>
 <th class="span2">Twitter</th>
-<th class="span1">Actions</th>
+<th class="span1"><spring:message code="actions.title" text="default text" /></th>
 </tr>
 <c:if test="${empty speakers}">
 <tr><td colspan="5">Aucun speaker pour l'instant</td></tr>
@@ -22,8 +22,8 @@
       <td>${speaker.firstName}</td>
       <td>${speaker.twitter}</td>
       <td>
-        <a href="/crud/speaker/edit/${speaker.id}.htm">Editer</a><br/>
-        <a href="/crud/speaker/delete/${speaker.id}.htm">Supprimer</a>
+        <a href="/crud/speaker/edit/${speaker.id}.htm"><spring:message code="edit.title" text="default text" /></a><br/>
+        <a href="/crud/speaker/delete/${speaker.id}.htm"><spring:message code="delete.title" text="default text" /></a>
       </td>
     </tr>
 	</c:forEach>

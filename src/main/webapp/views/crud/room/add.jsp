@@ -5,9 +5,9 @@
 </script>
 <form action="/crud/room/add/submit.htm" method="post" class="form-horizontal span3">
 <fieldset>
-    <legend>Ajout d'une salle</legend>
+    <legend><spring:message code="room.add.title" text="default text" /></legend>
     <div class="control-group <c:if test='${error}'>error</c:if>">
-        <label class="control-label" for="name">Nom de la salle</label>
+        <label class="control-label" for="name"><spring:message code="room.add.salle.label" text="default text" /></label>
         <div class="controls">
             <script type='text/javascript' charset='utf-8'>
                 $(function() {
@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary"><spring:message code="action.submit" text="default text" /></button>
     </div>
 </fieldset>
 </form>
