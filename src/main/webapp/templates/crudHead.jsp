@@ -26,7 +26,7 @@
 <!-- Onglets -->
 <ul class="nav nav-tabs">
   <li id="rooms"><a href="/crud/room/index.htm">Rooms</a></li>
-  <li id="schedules"><a href="/crud/schedule/index.htm">Cr&eacute;neaux</a></li>
+  <li id="shedules"><a href="/crud/schedule/index.htm">Cr&eacute;neaux</a></li>
   <li id="talks"><a href="/crud/talk/index.htm">Talks</a></li>
   <li id="speakers"><a href="/crud/speaker/index.htm">Speakers</a></li>
 

@@ -31,6 +31,5 @@ if ( NavName == "Microsoft Internet Explorer") {
     <c:if test="${hide!=true}">
 	<tiles:insertAttribute name="footer" />
 	</c:if>
-    <script src="/static/js/bootstrap-transition.js"></script>
 </body>
 </html>
