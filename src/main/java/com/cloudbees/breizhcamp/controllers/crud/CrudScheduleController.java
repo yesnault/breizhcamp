@@ -93,6 +93,15 @@ public class CrudScheduleController {
                 hasError = true;
             }
         }
+
+
+        if (!hasError && scheduleDao.exists(maRoom, startDate)) {
+            model.put("roomError", "Il existe déjà un créneau pour cette date et cette salle.");
+            model.put("startTimeError", "Il existe déjà un créneau pour cette date et cette salle.");
+            model.put("dateError", "Il existe déjà un créneau pour cette date et cette salle.");
+            hasError = true;
+        }
+
         if (hasError) {
             model.put("room", room);
             model.put("date", date);
@@ -101,6 +110,8 @@ public class CrudScheduleController {
             model.put("possibleDates", PossibleDates.values());
             return "crud.schedule.add";
         }
+
+
         service.addSchedule(startDate, maRoom);
         return "redirect:/crud/schedule/index.htm";
     }
