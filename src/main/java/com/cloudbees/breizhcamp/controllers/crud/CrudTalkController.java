@@ -60,7 +60,7 @@ public class CrudTalkController {
         model.put("possibleThemes", Theme.values());
         model.put("possibleDurees", Duree.values());
         model.put("allSpeakers", speakerDao.findAll());
-        model.put("allSchedules", scheduleDao.findAll());
+        model.put("allSchedules", scheduleDao.findAllNotUsed());
         return "crud.talk.add";
     }
 
@@ -118,7 +118,7 @@ public class CrudTalkController {
             model.put("possibleThemes", Theme.values());
             model.put("possibleDurees", Duree.values());
             model.put("allSpeakers", speakerDao.findAll());
-            model.put("allSchedules", scheduleDao.findAll());
+            model.put("allSchedules", scheduleDao.findAllNotUsed());
             return "crud.talk.add";
         }
         service.addTalk(title, resume, duree, monTheme, mySpeakers, monSchedule);
@@ -142,7 +142,11 @@ public class CrudTalkController {
         model.put("possibleThemes", Theme.values());
         model.put("possibleDurees", Duree.values());
         model.put("allSpeakers", speakerDao.findAll());
-        model.put("allSchedules", scheduleDao.findAll());
+        List<Schedule> schedules = scheduleDao.findAllNotUsed();
+        if (talk.getSchedule() != null) {
+            schedules.add(talk.getSchedule());
+        }
+        model.put("allSchedules", schedules);
         return "crud.talk.edit";
     }
 
@@ -159,7 +163,11 @@ public class CrudTalkController {
         model.put("possibleThemes", Theme.values());
         model.put("possibleDurees", Duree.values());
         model.put("allSpeakers", speakerDao.findAll());
-        model.put("allSchedules", scheduleDao.findAll());
+        List<Schedule> schedules = scheduleDao.findAllNotUsed();
+        if (talk.getSchedule() != null) {
+            schedules.add(talk.getSchedule());
+        }
+        model.put("allSchedules", schedules);
 
         boolean hasError = false;
         if (StringUtils.isEmpty(title)) {

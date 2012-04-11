@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Yan Bonnel
@@ -30,6 +31,10 @@ public class ScheduleDao extends AbstractDao<Schedule>  implements Dao<Schedule>
         } catch (NoResultException noResultException) {
             return false;
         }
+    }
+
+    public List<Schedule> findAllNotUsed() {
+        return em.createQuery("select s from Schedule s where not exists (select t from Talk t where t.schedule = s)", Schedule.class).getResultList();
     }
 
 }
