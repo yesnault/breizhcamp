@@ -5,9 +5,6 @@ import com.cloudbees.breizhcamp.domain.Room;
 import com.cloudbees.breizhcamp.domain.Speaker;
 import com.cloudbees.breizhcamp.domain.Talk;
 import com.lowagie.text.*;
-import com.lowagie.text.Font;
-import com.lowagie.text.Image;
-import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
@@ -15,10 +12,12 @@ import org.springframework.web.servlet.view.document.AbstractPdfView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
+import java.awt.Color;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 
@@ -26,8 +25,7 @@ public class PdfReportView extends AbstractPdfView {
 
 
     Font talkFont =
-            FontFactory.getFont(FontFactory.HELVETICA, Font.DEFAULTSIZE,
-                    Font.NORMAL, Color.BLACK);
+            FontFactory.getFont(FontFactory.HELVETICA, Font.DEFAULTSIZE, Font.NORMAL, Color.BLACK);
     Font themeFont =
             FontFactory.getFont(FontFactory.HELVETICA, 8,
                     Font.ITALIC, Color.GRAY);
@@ -83,6 +81,8 @@ public class PdfReportView extends AbstractPdfView {
         createFirstPage(document);
         document.newPage();
 
+        List<Talk> talkToExplain = new ArrayList<Talk>();
+
         for (Date date : data.getDatesOrdonnees()) {
             Paragraph titre = new Paragraph();
             Font font = new Font();
@@ -110,6 +110,7 @@ public class PdfReportView extends AbstractPdfView {
                     cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
                     cell.setColspan(data.getRooms().size());
                     Talk talk = data.getTalks().get(date).get(creneau).get(sansRoom);
+                    talkToExplain.add(talk);
                     remplirCellWithTalk(cell, talk);
                     table.addCell(cell);
                 } else {
@@ -120,6 +121,7 @@ public class PdfReportView extends AbstractPdfView {
 
                         Talk talk = data.getTalks().get(date).get(creneau).get(room.getName());
                         if (talk != null) {
+                            talkToExplain.add(talk);
                             remplirCellWithTalk(cell, talk);
                         }
 
@@ -129,6 +131,37 @@ public class PdfReportView extends AbstractPdfView {
             }
             document.add(table);
         }
+        
+        document.setPageSize(PageSize.A4);
+        document.newPage();
+
+        Paragraph paragraph = new Paragraph("Liste des talks");
+        paragraph.setSpacingAfter(25);
+        paragraph.getFont().setSize(25);
+        paragraph.setAlignment(Element.ALIGN_CENTER);
+        document.add(paragraph);
+        
+        for (Talk talk : talkToExplain) {
+            Chunk titleTalk = new Chunk(talk.getTitle());
+            titleTalk.setLocalDestination("talk" + talk.getId());
+            document.add(new Paragraph(titleTalk));
+            document.add(new Paragraph(talk.getAbstract()));
+            StringBuilder textSpeakers = new StringBuilder("Présenté par ");
+            List<Speaker> speakers = new ArrayList<Speaker>(talk.getSpeakers());
+            for (int countSpeakers = 0 ; countSpeakers < speakers.size(); countSpeakers++) {
+                if (countSpeakers != 0 && countSpeakers == speakers.size() - 1) {
+                    textSpeakers.append(" et ");
+                } else if (countSpeakers != 0) {
+                    textSpeakers.append(", ");
+                }
+                textSpeakers.append(speakers.get(countSpeakers).getFirstName());
+                textSpeakers.append(' ');
+                textSpeakers.append(speakers.get(countSpeakers).getLastName());
+            }
+            document.add(new Paragraph(textSpeakers.toString()));
+            document.add(new Paragraph(" "));
+        }
+        
     }
 
     private PdfPCell createCellCentree(String content) {
@@ -143,7 +176,9 @@ public class PdfReportView extends AbstractPdfView {
     }
 
     private void remplirCellWithTalk(PdfPCell cell, Talk talk) {
-        Paragraph titleTalk = new Paragraph(new Phrase(talk.getTitle(), talkFont));
+        Chunk chunk = new Chunk(talk.getTitle(), talkFont);
+        chunk.setLocalGoto("talk" + talk.getId());
+        Paragraph titleTalk = new Paragraph(chunk);
         titleTalk.setAlignment(Paragraph.ALIGN_CENTER);
         cell.addElement(titleTalk);
         Paragraph theme = new Paragraph(new Phrase(talk.getTheme().getHtmlValue(), themeFont));
