@@ -103,31 +103,24 @@ public class PdfReportView extends AbstractPdfView {
                 table.addCell(createHeaderCell(room.getName()));
             }
             for (String creneau : data.getCreneaux().get(date)) {
-                table.addCell(creneau);
+                table.addCell(createCellCentree(creneau));
                 if (data.getTalks().get(date).get(creneau).containsKey(sansRoom)) {
                     PdfPCell cell = new PdfPCell();
+                    cell.setPaddingBottom(10);
+                    cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
                     cell.setColspan(data.getRooms().size());
                     Talk talk = data.getTalks().get(date).get(creneau).get(sansRoom);
-                    cell.addElement(new Paragraph(new Phrase(talk.getTitle(), talkFont)));
-                    cell.addElement(new Paragraph(new Phrase(talk.getTheme().getHtmlValue(), themeFont)));
-                    for (Speaker speaker : talk.getSpeakers()) {
-                        cell.addElement(new Paragraph(speaker.getFirstName() + " " + speaker.getLastName()));
-                    }
+                    remplirCellWithTalk(cell, talk);
                     table.addCell(cell);
                 } else {
                     for (Room room : data.getRooms()) {
                         PdfPCell cell = new PdfPCell();
+                        cell.setPaddingBottom(10);
+                        cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
 
                         Talk talk = data.getTalks().get(date).get(creneau).get(room.getName());
                         if (talk != null) {
-                            cell.addElement(new Paragraph(new Phrase(talk.getTitle(), talkFont)));
-                            cell.addElement(new Paragraph(new Phrase(talk.getTheme().getHtmlValue(), themeFont)));
-                            for (Speaker speaker : talk.getSpeakers()) {
-                                if (speaker.getPicture() != null) {
-                                    cell.addElement(new Paragraph(speaker.getFirstName() + " " + speaker.getLastName
-                                            ()));
-                                }
-                            }
+                            remplirCellWithTalk(cell, talk);
                         }
 
                         table.addCell(cell);
@@ -135,6 +128,34 @@ public class PdfReportView extends AbstractPdfView {
                 }
             }
             document.add(table);
+        }
+    }
+
+    private PdfPCell createCellCentree(String content) {
+        Paragraph creneau = new Paragraph(content);
+        creneau.setAlignment(Paragraph.ALIGN_CENTER);
+
+        PdfPCell cell = new PdfPCell();
+        cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
+        cell.setPaddingBottom(10);
+        cell.addElement(creneau);
+        return cell;
+    }
+
+    private void remplirCellWithTalk(PdfPCell cell, Talk talk) {
+        Paragraph titleTalk = new Paragraph(new Phrase(talk.getTitle(), talkFont));
+        titleTalk.setAlignment(Paragraph.ALIGN_CENTER);
+        cell.addElement(titleTalk);
+        Paragraph theme = new Paragraph(new Phrase(talk.getTheme().getHtmlValue(), themeFont));
+        theme.setAlignment(Paragraph.ALIGN_CENTER);
+        cell.addElement(theme);
+        for (Speaker speaker : talk.getSpeakers()) {
+            if (speaker.getPicture() != null) {
+                Paragraph speakerText =
+                        new Paragraph(speaker.getFirstName() + " " + speaker.getLastName());
+                speakerText.setAlignment(Paragraph.ALIGN_CENTER);
+                cell.addElement(speakerText);
+            }
         }
     }
 }
