@@ -56,7 +56,10 @@
             <script type='text/javascript' charset='utf-8'>
                 function changePicture() {
                     if ($('#twitter').val() != '' && $('#picture').val() == '') {
-                        $('#picture').val('http://api.twitter.com/1/users/profile_image/' + $('#twitter').val() + '.xml?size=bigger');
+                        url = "/gettwitter.htm?twitter=" + $('#twitter').val();
+                        $.get(url, function(data) {
+                            $('#picture').val(data);
+                        });
                     }
                 };
 

@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -102,6 +105,20 @@ public class IndexController {
 
         event.getDays().addAll(days);
         return event;
+    }
+    
+    @RequestMapping("/gettwitter.htm")
+    @ResponseBody 
+    public String getTwitter(@RequestParam String twitter) throws IOException {
+        URL url = new URL("http://api.twitter.com/1/users/profile_image?screen_name="
+                + twitter + "&size=bigger");
+        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        conn.setInstanceFollowRedirects(false);
+        String result = conn.getHeaderField("Location");
+        conn.disconnect();
+
+        return result;
+
     }
 
     @RequestMapping("/error/notie.htm")
