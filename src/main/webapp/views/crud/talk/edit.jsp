@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="custo" uri="/WEB-INF/custom-functions.tld" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
 <script type='text/javascript' charset='utf-8'>
          setActive('talks');
 </script>
