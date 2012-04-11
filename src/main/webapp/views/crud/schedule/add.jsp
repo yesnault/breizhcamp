@@ -6,9 +6,9 @@
 </script>
 <form action="/crud/schedule/add/submit.htm" method="post" class="form-horizontal span3">
 <fieldset>
-    <legend><spring:message code="schedule.add.title" text="default text" /></legend>
+    <legend><spring:message code="schedule.add.title"   /></legend>
     <div class="control-group <c:if test='${not empty dateError}'>error</c:if>">
-        <label class="control-label" for="date"><spring:message code="schedule.add.date.label" text="default text" /></label>
+        <label class="control-label" for="date"><spring:message code="schedule.add.date.label"   /></label>
         <div class="controls">
             <script type='text/javascript' charset='utf-8'>
                 $(function() {
@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="control-group <c:if test='${not empty startTimeError}'>error</c:if>">
-        <label class="control-label" for="startTime"><spring:message code="schedule.add.heure.label" text="default text" /></label>
+        <label class="control-label" for="startTime"><spring:message code="schedule.add.heure.label"   /></label>
         <div class="controls">
             <input type="time" id="startTime" name="startTime" class="input-xlarge" tabindex="2"
                 <c:if test='${not empty startTime}'>value="${startTime}"</c:if>/>
@@ -36,10 +36,10 @@
         </div>
     </div>
     <div class="control-group <c:if test='${not empty roomError}'>error</c:if>">
-        <label class="control-label" for="theme"><spring:message code="schedule.add.salle.label" text="default text" /></label>
+        <label class="control-label" for="theme"><spring:message code="schedule.add.salle.label"   /></label>
         <div class="controls">
             <select id="room" name="room" class="input-xlarge" tabindex="3">
-                <option value="-1"><spring:message code="all.rooms" text="default text" /></option>
+                <option value="-1"><spring:message code="all.rooms"   /></option>
                 <c:forEach var="aRoom" items="${allRooms}">
                     <option value="${aRoom.id}"
                         <c:if test="${aRoom.id == room}">selected="selected"</c:if>>${aRoom.name}</option>
@@ -51,7 +51,7 @@
         </div>
     </div>
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary" tabindex="4"><spring:message code="action.submit" text="default text" /></button>
+        <button type="submit" class="btn btn-primary" tabindex="4"><spring:message code="action.submit"   /></button>
     </div>
 </fieldset>
 </form>

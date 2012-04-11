@@ -1,1 +1,2 @@
-<h2>T&eacute;l&eacute;chargez un vrai navigateur!</h2>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<h2><spring:message code="error.notie.title"   /></h2>
