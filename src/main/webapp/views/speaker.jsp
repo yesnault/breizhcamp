@@ -22,7 +22,7 @@
         </tr>
 
         <tr>
-            <td class="span1">Sessions</td>
+            <td class="span1"><spring:message code="speaker.session.title" text="default text" /></td>
             <td class="span11">
                 <c:forEach var="talk" items="${speaker.talks}">
                     <a href="/talk/${talk.id}.htm<c:if test="${hide}">?hide=true</c:if>">${talk.title}</a> - ${talk.theme.htmlValue} - ${custo:getduree(talk.duree)}<br/>

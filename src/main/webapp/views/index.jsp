@@ -7,10 +7,10 @@
 
 <c:forEach var="date" items="${dates}">
     <fieldset class="span${fn:length(rooms)*2+2}">
-        <legend>Programme du <fmt:formatDate value="${date}" type="both" pattern="dd/MM/yyyy" /></legend>
+        <legend><spring:message code="programme.title" text="default text" /> <fmt:formatDate value="${date}" type="both" pattern="dd/MM/yyyy" /></legend>
         <table class="table  table-striped table-bordered table-condensed span${fn:length(rooms)*2+2}">
             <tr>
-                <th class="span2">Heure</th>
+                <th class="span2"><spring:message code="heure.title" text="default text" /></th>
                 <c:forEach var="room" items="${rooms}">
                     <th class="span2">${room.name}</th>
                 </c:forEach>

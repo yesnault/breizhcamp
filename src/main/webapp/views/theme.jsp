@@ -10,7 +10,7 @@
     <legend>${theme.htmlValue}</legend>
     <table class="table  table-striped table-bordered table-condensed span6">
         <tr>
-            <td>Talks</td>
+            <td><spring:message code="theme.talk.title" text="default text" /></td>
            <td class="span11">
                 <c:forEach var="talk" items="${talks}">
                     <a href="/talk/${talk.id}.htm<c:if test="${hide}">?hide=true</c:if>">${talk.title}</a> - ${custo:getduree(talk.duree)}<br/>
