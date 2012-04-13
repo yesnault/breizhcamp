@@ -6,6 +6,17 @@
          setActive('programme');
 </script>
 
+<script type='text/javascript' charset='utf-8'>
+    function coloriseTalks(id) {
+        // Si le talk est une favori on change le style.
+        isFavoriteTalk(id, function (transaction, results) {
+            if (results.rows.length > 0) {
+                    $('#' + id).css({"background-color":"#f6ef2b"});
+            }
+        });
+    }
+</script>
+
 <c:forEach var="date" items="${dates}">
     <fieldset class="span${fn:length(rooms)*2+2}">
         <legend><spring:message code="programme.title"   /> <fmt:formatDate value="${date}" type="both" pattern="dd/MM/yyyy" /></legend>
@@ -21,32 +32,42 @@
                     <td>${creneau}</td>
                     <c:choose>
                         <c:when test="${not empty talks[date][creneau][sansRoom]}">
-                            <td colspan="${fn:length(rooms)}" style="text-align:center">
-                                <a href="/talk/${talks[date][creneau][sansRoom].id}.htm<c:if test="${hide}">?hide=true</c:if>">
-                                    ${talks[date][creneau][sansRoom].title}
-                                </a>
-                                <p>${talks[date][creneau][sansRoom].theme.htmlValue}</p>
-                                <p style="text-align:right;">
-                                    <c:forEach var="speaker" items="${talks[date][creneau][sansRoom].speakers}">
-                                         <a href="/speaker/${speaker.id}.htm<c:if test="${hide}">?hide=true</c:if>" imageanchor="1">
-                                           <img src="${speaker.picture}" title="${speaker.firstName} ${speaker.lastName}" width=30 height=30 /></a>
-                                    </c:forEach>
-                                <p>
+                            <td id="${talks[date][creneau][sansRoom].id}" colspan="${fn:length(rooms)}" style="text-align:center">
+                                <c:if test="${not empty talks[date][creneau][sansRoom].id}">
+                                    <script type='text/javascript' charset='utf-8'>
+                                        coloriseTalks(${talks[date][creneau][sansRoom].id});
+                                    </script>
+                                    <a href="/talk/${talks[date][creneau][sansRoom].id}.htm<c:if test="${hide}">?hide=true</c:if>">
+                                        ${talks[date][creneau][sansRoom].title}
+                                    </a>
+                                    <p>${talks[date][creneau][sansRoom].theme.htmlValue}</p>
+                                    <p style="text-align:right;">
+                                        <c:forEach var="speaker" items="${talks[date][creneau][sansRoom].speakers}">
+                                             <a href="/speaker/${speaker.id}.htm<c:if test="${hide}">?hide=true</c:if>" imageanchor="1">
+                                               <img src="${speaker.picture}" title="${speaker.firstName} ${speaker.lastName}" width=30 height=30 /></a>
+                                        </c:forEach>
+                                    <p>
+                                </c:if>
                             </td>
                         </c:when>
                         <c:otherwise>
                             <c:forEach var="room" items="${rooms}">
-                                <td style="text-align:center">
-                                    <a href="/talk/${talks[date][creneau][room.name].id}.htm<c:if test="${hide}">?hide=true</c:if>">
-                                        ${talks[date][creneau][room.name].title}
-                                    </a>
-                                    <p>${talks[date][creneau][room.name].theme.htmlValue}</p>
-                                    <p style="text-align:right;">
-                                        <c:forEach var="speaker" items="${talks[date][creneau][room.name].speakers}">
-                                            <a href="/speaker/${speaker.id}.htm<c:if test="${hide}">?hide=true</c:if>" imageanchor="1">
-                                                <img src="${speaker.picture}" title="${speaker.firstName} ${speaker.lastName}" width=30 height=30 /></a>
-                                        </c:forEach>
-                                     <p>
+                                <td id="${talks[date][creneau][room.name].id}" style="text-align:center">
+                                    <c:if test="${not empty talks[date][creneau][room.name].id}">
+                                        <script type='text/javascript' charset='utf-8'>
+                                            coloriseTalks(${talks[date][creneau][room.name].id});
+                                        </script>
+                                        <a href="/talk/${talks[date][creneau][room.name].id}.htm<c:if test="${hide}">?hide=true</c:if>">
+                                            ${talks[date][creneau][room.name].title}
+                                        </a>
+                                        <p>${talks[date][creneau][room.name].theme.htmlValue}</p>
+                                        <p style="text-align:right;">
+                                            <c:forEach var="speaker" items="${talks[date][creneau][room.name].speakers}">
+                                                <a href="/speaker/${speaker.id}.htm<c:if test="${hide}">?hide=true</c:if>" imageanchor="1">
+                                                    <img src="${speaker.picture}" title="${speaker.firstName} ${speaker.lastName}" width=30 height=30 /></a>
+                                            </c:forEach>
+                                         <p>
+                                    </c:if>
                                 </td>
                             </c:forEach>
                         </c:otherwise>
