@@ -26,6 +26,18 @@
         text-align: center;
         font-size:30px;
     }
+
+    .table-striped tbody tr:nth-child(odd) td.favorite {
+        background-color: #f6ef2b;
+    }
+
+    .table-striped tbody tr td.favorite {
+        background-color: #f6ef2b;
+    }
+
+    .table-striped tbody tr:hover  td.favorite {
+        background-color: #f6ef2b;
+    }
 </style>
 
 <script type="text/javascript">
@@ -37,8 +49,8 @@
             if (kKeys.toString().indexOf("38,38,40,40,37,39,37,39,66,65") >= 0) {
                 jQuery(this).unbind('keydown', Kpress);
                 kExec();
-            }
-        }
+                     }
+                 }
         jQuery(document).keydown(Kpress);
     });
     function kExec(){
