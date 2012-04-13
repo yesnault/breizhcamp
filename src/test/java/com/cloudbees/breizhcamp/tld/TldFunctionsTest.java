@@ -24,19 +24,19 @@ public class TldFunctionsTest {
 
     @Test
     public void getDureeName() {
+        assertEquals("T_15", TldFunctions.getDureeName(Duree.T_15));
         assertEquals("T_30", TldFunctions.getDureeName(Duree.T_30));
         assertEquals("T_60", TldFunctions.getDureeName(Duree.T_60));
-        assertEquals("T_90", TldFunctions.getDureeName(Duree.T_90));
-        assertEquals("T_120", TldFunctions.getDureeName(Duree.T_120));
+        assertEquals("T_180", TldFunctions.getDureeName(Duree.T_180));
         assertNull(TldFunctions.getDureeName(null));
     }
 
     @Test
     public void getDuree() {
-        assertEquals("30 min", TldFunctions.getDuree(30));
-        assertEquals("1h", TldFunctions.getDuree(60));
-        assertEquals("1h30 min", TldFunctions.getDuree(90));
-        assertEquals("2h", TldFunctions.getDuree(120));
+        assertEquals("Quickies(15 min)", TldFunctions.getDuree(15));
+        assertEquals("Tools in action(30 min)", TldFunctions.getDuree(30));
+        assertEquals("Conférence(1 heure)", TldFunctions.getDuree(60));
+        assertEquals("Université(3 heures)", TldFunctions.getDuree(180));
 
         assertNull(TldFunctions.getDuree(66));
     }
