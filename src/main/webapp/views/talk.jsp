@@ -9,7 +9,7 @@
 
 <fieldset class="span8">
     <legend>${talk.title}</legend>
-    <table class="table  table-striped table-bordered table-condensed span6">
+    <table class="table  table-striped table-bordered table-condensed span21">
         <tr>
             <td class="span2"><spring:message code="resume.title"   /></td>
             <td class="span6">${talk.abstract}</td>
