@@ -32,7 +32,7 @@
         </tr>
         <tr>
             <td><spring:message code="salle.title"   /></td>
-            <td><c:if test="${empty talk.schedule.room}"><spring:message code="talk.all.room"   /></c:if>${talk.schedule.room.name}</td>
+            <td><c:if test="${empty talk.schedule.room}"><spring:message code="talk.all.rooms"   /></c:if>${talk.schedule.room.name}</td>
         </tr>
         <tr>
             <td><spring:message code="speakers.title"   /></td>
