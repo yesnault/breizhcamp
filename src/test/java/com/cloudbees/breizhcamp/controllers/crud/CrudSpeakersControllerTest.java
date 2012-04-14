@@ -38,7 +38,7 @@ public class CrudSpeakersControllerTest  extends PersistenceTestCase {
         em.flush();
 
         ModelMap model = new ModelMap();
-        controller.index(model);
+        controller.index(model,false);
 
         assertEquals(2, ((List) model.get("speakers")).size());
     }
@@ -49,7 +49,7 @@ public class CrudSpeakersControllerTest  extends PersistenceTestCase {
         em.flush();
 
         ModelMap model = new ModelMap();
-        String result = controller.addSubmit(model,"Bernard", "Emmanuel", null, "", "emmanuelbernard");
+        String result = controller.addSubmit(model,"Bernard", "Emmanuel", null, "", "emmanuelbernard",false);
 
 
         assertEquals("redirect:/crud/speaker/index.htm",result);
@@ -63,7 +63,7 @@ public class CrudSpeakersControllerTest  extends PersistenceTestCase {
         em.flush();
 
         ModelMap model = new ModelMap();
-        String result = controller.addSubmit(model,"", "Emmanuel", null, "", "emmanuelbernard");
+        String result = controller.addSubmit(model,"", "Emmanuel", null, "", "emmanuelbernard",false);
 
 
         assertEquals("crud.speaker.add",result);
@@ -76,7 +76,7 @@ public class CrudSpeakersControllerTest  extends PersistenceTestCase {
         em.flush();
 
         ModelMap model = new ModelMap();
-        String result = controller.addSubmit(model,"Bernard", "", null, "", "emmanuelbernard");
+        String result = controller.addSubmit(model,"Bernard", "", null, "", "emmanuelbernard",false);
 
 
         assertEquals("crud.speaker.add",result);
@@ -89,9 +89,9 @@ public class CrudSpeakersControllerTest  extends PersistenceTestCase {
         em.flush();
 
         ModelMap model = new ModelMap();
-        controller.addSubmit(model,"Bernard", "Emmanuel", null, "", "emmanuelbernard");
+        controller.addSubmit(model,"Bernard", "Emmanuel", null, "", "emmanuelbernard",false);
 
-        String result = controller.addSubmit(model,"Bernard", "Emmanuel", null, "", "emmanuelbernard");
+        String result = controller.addSubmit(model,"Bernard", "Emmanuel", null, "", "emmanuelbernard",false);
         assertEquals("crud.speaker.add",result);
 
     }
@@ -159,7 +159,7 @@ public class CrudSpeakersControllerTest  extends PersistenceTestCase {
         ModelMap model = new ModelMap();
         controller.addSubmit(model,speaker.getId(),"Bernard", "Emmanuel", null, "", "emmanuelbernard");
 
-        String result = controller.addSubmit(model,"Bernard", "Emmanuel", null, "", "emmanuelbernard");
+        String result = controller.addSubmit(model,"Bernard", "Emmanuel", null, "", "emmanuelbernard",false);
         assertEquals("crud.speaker.add",result);
 
     }
