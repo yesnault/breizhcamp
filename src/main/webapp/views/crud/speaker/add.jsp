@@ -3,7 +3,7 @@
 <script type='text/javascript' charset='utf-8'>
          setActive('speakers');
 </script>
-<form action="/crud/speaker/add/submit.htm" method="post" class="form-horizontal span3">
+<form action="/crud/speaker/add/submit.htm<c:if test="${hide}">?hide=true</c:if>" method="post" class="form-horizontal span3">
 <fieldset>
     <legend><spring:message code="speaker.add.title"   /></legend>
     <div class="control-group <c:if test='${not empty firstNameError}'>error</c:if>">

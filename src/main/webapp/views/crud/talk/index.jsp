@@ -6,6 +6,12 @@
          setActive('talks');
 </script>
 <div class="row">
+<div class="span3">
+<a href="/crud/talk/add.htm" accesskey="a"><spring:message code="talk.action.add"   /></a>
+</div>
+</div>
+<br/>
+<div class="row">
 <table class="table  table-striped table-bordered table-condensed span12" id="talksTable">
 <tr>
 <th class="span1">Titre</th>

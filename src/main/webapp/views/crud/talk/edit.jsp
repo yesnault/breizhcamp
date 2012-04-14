@@ -6,6 +6,13 @@
 <script type='text/javascript' charset='utf-8'>
          setActive('talks');
 </script>
+<script>
+function popup() {
+   window.open('/crud/speaker/add.htm?hide=true','windowname1','width=500, height=480');
+}
+</script>
+
+
 <form action="/crud/talk/edit/submit.htm" method="post" class="form-horizontal span4">
 <fieldset>
     <legend><spring:message code="talk.edit.title"   /></legend>
@@ -82,7 +89,8 @@
                 <c:forEach var="speaker" items="${allSpeakers}">
                     <option value="${speaker.id}" <c:if test="${custo:contains(talk.speakers,speaker)}" >selected="selected"</c:if>>${speaker.firstName} ${speaker.lastName}</option>
                 </c:forEach>
-            </select>
+            </select> <br/> <br/>
+            <a accesskey="a" href="javascript: void(0)"   onclick="popup();"><spring:message code="speaker.action.add"/></a>
             <c:if test='${not empty speakersError}'>
                 <span class="help-inline">${speakersError}</span>
             </c:if>

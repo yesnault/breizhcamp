@@ -5,6 +5,12 @@
          setActive('schedules');
 </script>
 <div class="row">
+<div class="span3">
+<a href="/crud/schedule/add.htm" accesskey="a"><spring:message code="schedule.action.add" /></a>
+</div>
+</div>
+<br/>
+<div class="row">
 <table class="table table-striped table-bordered table-condensed span4">
 <tr>
 <th class="span1"><spring:message code="date.title"   /></th>

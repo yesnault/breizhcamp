@@ -31,18 +31,20 @@ public class CrudSpeakersController {
     private CrudService service;
 
     @RequestMapping("/index.htm")
-    public String index(ModelMap model) {
+    public String index(ModelMap model,@RequestParam(defaultValue = "false") boolean hide) {
+        model.put("hide", hide);
         model.put("speakers", speakerDao.findAll());
         return "crud.speaker.index";
     }
 
     @RequestMapping("/add.htm")
-    public String add(ModelMap model) {
+    public String add(ModelMap model,@RequestParam(defaultValue = "false") boolean hide) {
+        model.put("hide", hide);
         return "crud.speaker.add";
     }
 
     @RequestMapping("/add/submit.htm")
-    public String addSubmit(ModelMap model, @RequestParam String lastName, @RequestParam String firstName, @RequestParam String picture, @RequestParam String twitter, @RequestParam String description) {
+    public String addSubmit(ModelMap model, @RequestParam String lastName, @RequestParam String firstName, @RequestParam String picture, @RequestParam String twitter, @RequestParam String description,@RequestParam(defaultValue = "false") boolean hide) {
         boolean hasError = false;
         if (StringUtils.isEmpty(lastName)) {
             model.put("lastNameError", "Le nom est obligatoire");
@@ -75,7 +77,7 @@ public class CrudSpeakersController {
             return "crud.speaker.add";
         }
         service.addSpeaker(firstName, lastName, pictureUrl,twitter,description);
-        return "redirect:/crud/speaker/index.htm";
+        return "redirect:/crud/speaker/index.htm"+(hide?"?hide=true":"");
     }
 
     @RequestMapping("/delete/{id}.htm")
