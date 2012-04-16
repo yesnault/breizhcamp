@@ -30,7 +30,7 @@ public class TalkController {
     @RequestMapping(value = "/talks.json",method = RequestMethod.GET, produces="application/json")
     @ResponseBody
     public List<Talk> talks() {
-        return scheduleService.getSchedule();
+        return scheduleService.getTalks();
     }
 
     @RequestMapping(value = "/talk/{id}.htm", method = RequestMethod.GET)

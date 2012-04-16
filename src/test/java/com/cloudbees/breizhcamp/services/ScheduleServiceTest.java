@@ -2,7 +2,11 @@ package com.cloudbees.breizhcamp.services;
 
 import com.cloudbees.breizhcamp.PersistenceTestCase;
 import com.cloudbees.breizhcamp.controllers.Data;
-import com.cloudbees.breizhcamp.domain.*;
+import com.cloudbees.breizhcamp.domain.Room;
+import com.cloudbees.breizhcamp.domain.Schedule;
+import com.cloudbees.breizhcamp.domain.Speaker;
+import com.cloudbees.breizhcamp.domain.Talk;
+import com.cloudbees.breizhcamp.domain.Theme;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,7 +20,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.fest.assertions.Assertions.assertThat;
 
 /**
- * @author: <a hef="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
+ * @author <a hef="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
  */
 public class ScheduleServiceTest extends PersistenceTestCase {
 
@@ -55,7 +59,7 @@ public class ScheduleServiceTest extends PersistenceTestCase {
         em.persist(talk);
         em.flush();
 
-        List<Talk> talks = scheduleService.getSchedule();
+        List<Talk> talks = scheduleService.getTalks();
         assertThat(talks).isNotNull().hasSize(1).containsExactly(talk);
     }
 

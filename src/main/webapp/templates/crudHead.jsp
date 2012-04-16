@@ -29,6 +29,7 @@
   <li id="schedules"><a href="/crud/schedule/index.htm">Cr&eacute;neaux</a></li>
   <li id="talks"><a href="/crud/talk/index.htm">Talks</a></li>
   <li id="speakers"><a href="/crud/speaker/index.htm">Speakers</a></li>
+  <li id="programme"><a href="/crud/programme/index.htm">Programme</a></li>
 
 </ul>
 

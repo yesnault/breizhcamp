@@ -95,6 +95,10 @@
         <put-attribute name="content" value="/views/crud/speaker/edit.jsp" />
     </definition>
 
+    <definition name="crud.programme.index" extends=".crudTemplate">
+        <put-attribute name="content" value="/views/crud/programme/index.jsp" />
+    </definition>
+
 
     <!-- ERROR -->
 

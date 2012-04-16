@@ -1,10 +1,13 @@
 package com.cloudbees.breizhcamp.services;
 
 import com.cloudbees.breizhcamp.controllers.Data;
+import com.cloudbees.breizhcamp.controllers.crud.DataProgrammeForCrud;
 import com.cloudbees.breizhcamp.dao.impl.RoomDao;
+import com.cloudbees.breizhcamp.dao.impl.ScheduleDao;
 import com.cloudbees.breizhcamp.dao.impl.SpeakerDao;
 import com.cloudbees.breizhcamp.dao.impl.TalkDao;
 import com.cloudbees.breizhcamp.domain.Room;
+import com.cloudbees.breizhcamp.domain.Schedule;
 import com.cloudbees.breizhcamp.domain.Speaker;
 import com.cloudbees.breizhcamp.domain.Talk;
 import com.cloudbees.breizhcamp.domain.Theme;
@@ -38,8 +41,11 @@ public class ScheduleService {
     @Autowired
     private RoomDao roomDao;
 
-    public List<Talk> getSchedule() {
-        return talkDao.findAll();
+    @Autowired
+    private ScheduleDao scheduleDao;
+
+    public List<Schedule> getSchedule() {
+        return scheduleDao.findAll();
     }
 
     public List<Speaker> getSpeakers() {
@@ -65,6 +71,52 @@ public class ScheduleService {
 
     public List<Talk> getTalkByTheme(Theme theme) {
         return talkDao.findByTheme(theme);
+    }
+
+    public DataProgrammeForCrud getDataForCrud() {
+        DataProgrammeForCrud data = new DataProgrammeForCrud();
+        SimpleDateFormat sdfHeure = new SimpleDateFormat("HH:mm");
+        Set<Date> dates = new HashSet<Date>();
+        for (Schedule schedule : getSchedule()) {
+            String roomOfSchedule = schedule.getRoom() == null ? "sansRoom" : schedule.getRoom().getName();
+            Date date = DateUtils.truncate(schedule.getStart(), Calendar.DATE);
+            dates.add(date);
+            if (!data.getCreneaux().containsKey(date)) {
+                data.getCreneaux().put(date, new ArrayList<String>());
+                data.getSchedules().put(date, new HashMap<String, Map<String, Schedule>>());
+            }
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(schedule.getStart());
+                cal.add(Calendar.MINUTE, schedule.getDuree());
+            String creneau = sdfHeure.format(schedule.getStart()) + " - " + sdfHeure.format(cal.getTime());
+            if (!data.getCreneaux().get(date).contains(creneau)) {
+                data.getCreneaux().get(date).add(creneau);
+            }
+            if (!data.getSchedules().get(date).containsKey(creneau)) {
+                data.getSchedules().get(date).put(creneau, new HashMap<String, Schedule>());
+            }
+            data.getSchedules().get(date).get(creneau).put(roomOfSchedule, schedule);
+        }
+        data.getDatesOrdonnees().addAll(dates);
+        Collections.sort(data.getDatesOrdonnees());
+
+        for (List<String> creneauxForDate : data.getCreneaux().values()) {
+            Collections.sort(creneauxForDate);
+        }
+        data.setRooms(getRooms());
+
+        for (Talk talk : talkDao.findAll()) {
+            if (talk.getSchedule() != null) {
+                data.getTalksBySchedules().put(talk.getSchedule(), talk);
+            } else {
+                if (!data.getTalksNotScheduled().containsKey(talk.getDuree())) {
+                    data.getTalksNotScheduled().put(talk.getDuree(), new ArrayList<Talk>());
+                }
+                data.getTalksNotScheduled().put(talk.getDuree(), new ArrayList<Talk>());
+            }
+        }
+
+        return data;
     }
 
     public Data getData() {
