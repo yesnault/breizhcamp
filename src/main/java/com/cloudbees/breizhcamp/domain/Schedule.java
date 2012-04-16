@@ -21,6 +21,8 @@ public class Schedule {
 
     private Date start;
 
+    private int duree;
+
     public long getId() {
         return id;
     }
@@ -39,5 +41,13 @@ public class Schedule {
 
     public void setStart(Date start) {
         this.start = start;
+    }
+
+    public int getDuree() {
+        return duree;
+    }
+
+    public void setDuree(int duree) {
+        this.duree = duree;
     }
 }

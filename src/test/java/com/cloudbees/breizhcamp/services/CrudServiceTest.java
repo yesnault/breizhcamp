@@ -106,9 +106,10 @@ public class CrudServiceTest extends PersistenceTestCase {
         
         Date date = new Date();
         
-        service.addSchedule(date, room);
+        service.addSchedule(date, room, 1);
 
         Schedule schedule = em.createQuery("select s from Schedule s", Schedule.class).getSingleResult();
         assertThat(schedule).isNotNull();
+        assertThat(schedule.getDuree()).isEqualTo(1);
     }
 }

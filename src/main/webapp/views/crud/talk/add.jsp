@@ -43,7 +43,7 @@ function popup() {
             <select id="duree" name="duree" class="input-xlarge" tabindex="3">
                  <c:forEach var="uneDuree" items="${possibleDurees}">
                      <option id="${custo:getdureename(uneDuree)}" name="${custo:getdureename(uneDuree)}"
-                         <c:if test="${uneDuree.minute == talk.duree}">selected="selected"</c:if> value="${uneDuree.minute}">${uneDuree.html}</option>
+                         <c:if test="${uneDuree.minute == duree}">selected="selected"</c:if> value="${uneDuree.minute}">${uneDuree.html}</option>
                  </c:forEach>
              </select>
             <c:if test='${not empty dureeError}'>

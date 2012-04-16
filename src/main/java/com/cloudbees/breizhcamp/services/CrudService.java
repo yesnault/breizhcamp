@@ -85,10 +85,11 @@ public class CrudService {
     @Autowired
     private ScheduleDao scheduleDao;
 
-    public void addSchedule(Date start, Room room) {
+    public void addSchedule(Date start, Room room, int duree) {
         Schedule schedule = new Schedule();
         schedule.setRoom(room);
         schedule.setStart(start);
+        schedule.setDuree(duree);
         scheduleDao.save(schedule);
     }
 

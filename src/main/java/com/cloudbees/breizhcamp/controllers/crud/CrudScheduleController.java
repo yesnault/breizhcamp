@@ -3,6 +3,7 @@ package com.cloudbees.breizhcamp.controllers.crud;
 import com.cloudbees.breizhcamp.dao.impl.RoomDao;
 import com.cloudbees.breizhcamp.dao.impl.ScheduleDao;
 import com.cloudbees.breizhcamp.dao.impl.TalkDao;
+import com.cloudbees.breizhcamp.domain.Duree;
 import com.cloudbees.breizhcamp.domain.PossibleDates;
 import com.cloudbees.breizhcamp.domain.Room;
 import com.cloudbees.breizhcamp.domain.Schedule;
@@ -56,11 +57,12 @@ public class CrudScheduleController {
     public String add(ModelMap model) {
         model.put("allRooms", roomDao.findAll());
         model.put("possibleDates", PossibleDates.values());
+        model.put("possibleDurees", Duree.values());
         return "crud.schedule.add";
     }
 
     @RequestMapping("/add/submit.htm")
-    public String addSubmit(ModelMap model, @RequestParam String date, @RequestParam String startTime,
+    public String addSubmit(ModelMap model, @RequestParam int duree, @RequestParam String date, @RequestParam String startTime,
                             @RequestParam(required = false) Long room) {
         boolean hasError = false;
 
@@ -108,11 +110,12 @@ public class CrudScheduleController {
             model.put("startTime", startTime);
             model.put("allRooms", roomDao.findAll());
             model.put("possibleDates", PossibleDates.values());
+            model.put("possibleDurees", Duree.values());
             return "crud.schedule.add";
         }
 
 
-        service.addSchedule(startDate, maRoom);
+        service.addSchedule(startDate, maRoom, duree);
         return "redirect:/crud/schedule/index.htm";
     }
 
@@ -131,12 +134,14 @@ public class CrudScheduleController {
         model.put("schedule", scheduleDao.find(id));
         model.put("allRooms", roomDao.findAll());
         model.put("possibleDates", PossibleDates.values());
+        model.put("possibleDurees", Duree.values());
         return "crud.schedule.edit";
     }
 
     @RequestMapping("/edit/submit.htm")
     public String editSubmit(ModelMap model, @RequestParam Long id, @RequestParam String date,
-                            @RequestParam String startTime, @RequestParam(required = false) Long room) {
+                             @RequestParam String startTime, @RequestParam int duree,
+                             @RequestParam(required = false) Long room) {
         Schedule schedule = scheduleDao.find(id);
         model.put("schedule", schedule);
 
@@ -174,10 +179,12 @@ public class CrudScheduleController {
         if (hasError) {
             model.put("allRooms", roomDao.findAll());
             model.put("possibleDates", PossibleDates.values());
+            model.put("possibleDurees", Duree.values());
             model.put("schedule", schedule);
         }
         schedule.setStart(startDate);
         schedule.setRoom(maRoom);
+        schedule.setDuree(duree);
         return "redirect:/crud/schedule/index.htm";
     }
 

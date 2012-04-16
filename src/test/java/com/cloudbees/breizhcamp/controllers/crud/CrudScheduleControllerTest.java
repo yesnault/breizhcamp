@@ -68,7 +68,7 @@ public class CrudScheduleControllerTest extends PersistenceTestCase {
 
 
         ModelMap model = new ModelMap();
-        controller.addSubmit(model, "", "08:00", null);
+        controller.addSubmit(model, 1, "", "08:00", null);
 
         assertThat((String)model.get("dateError")).isEqualTo("La date est obligatoire");
 
@@ -84,7 +84,7 @@ public class CrudScheduleControllerTest extends PersistenceTestCase {
 
 
         ModelMap model = new ModelMap();
-        controller.addSubmit(model, "14/06/2012", "", null);
+        controller.addSubmit(model, 1, "14/06/2012", "", null);
 
         assertThat((String)model.get("startTimeError")).isEqualTo("L'heure est obligatoire");
 
@@ -100,7 +100,7 @@ public class CrudScheduleControllerTest extends PersistenceTestCase {
 
 
         ModelMap model = new ModelMap();
-        controller.addSubmit(model, "14/06/2012", "tutu", null);
+        controller.addSubmit(model, 1, "14/06/2012", "tutu", null);
 
         assertThat((String)model.get("startTimeError")).isEqualTo("Le format est incorrect");
 
@@ -121,7 +121,7 @@ public class CrudScheduleControllerTest extends PersistenceTestCase {
         em.flush();
         
         ModelMap model = new ModelMap();
-        String redirect = controller.addSubmit(model, "14/06/2012", "08:00", room.getId());
+        String redirect = controller.addSubmit(model, 1, "14/06/2012", "08:00", room.getId());
         assertThat(redirect).isEqualTo("redirect:/crud/schedule/index.htm");
         
         Schedule schedule = em.createQuery("select s from Schedule s", Schedule.class).getSingleResult();
@@ -157,14 +157,14 @@ public class CrudScheduleControllerTest extends PersistenceTestCase {
         em.flush();
 
         ModelMap model = new ModelMap();
-        String redirect = controller.editSubmit(model, schedule.getId(), "15/06/2012", "10:00", room2.getId());
+        String redirect = controller.editSubmit(model, schedule.getId(), "15/06/2012", "10:00", 30, room2.getId());
         assertThat(redirect).isEqualTo("redirect:/crud/schedule/index.htm");
 
         schedule = em.createQuery("select s from Schedule s", Schedule.class).getSingleResult();
         assertThat(schedule).isNotNull();
         assertThat(schedule.getStart()).isEqualTo(sdf.parse("15/06/2012 10:00"));
         assertThat(schedule.getRoom()).isSameAs(room2);
-        
+        assertThat(schedule.getDuree()).isEqualTo(30);
     }
 
 
