@@ -7,10 +7,10 @@
 </script>
 <form action="/crud/schedule/edit/submit.htm" method="post" class="form-horizontal span3">
 <fieldset>
-    <legend><spring:message code="schedule.edit.title" /></legend>
+    <legend>Modification d'un cr&eacute;neau</legend>
     <input type="hidden" id="id" name="id" value="${schedule.id}"/>
     <div class="control-group <c:if test='${not empty dateError}'>error</c:if>">
-        <label class="control-label" for="date"><spring:message code="schedule.add.date.label"   /></label>
+        <label class="control-label" for="date"><spring:message code="schedule.add.date.label" text="default text" /></label>
         <div class="controls">
             <c:set var="pattern" value="dd/MM/yyyy"/>
             <c:set var="date" value="${custo:format(schedule.start, pattern)}"/>
@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="control-group <c:if test='${not empty startTimeError}'>error</c:if>">
-        <label class="control-label" for="startTime"><spring:message code="schedule.add.heure.label"   /></label>
+        <label class="control-label" for="startTime"><spring:message code="schedule.add.heure.label" text="default text" /></label>
         <div class="controls">
             <c:set var="patternTime" value="HH:mm"/>
             <c:set var="start" value="${custo:format(schedule.start, patternTime)}"/>
@@ -36,25 +36,11 @@
             </c:if>
         </div>
     </div>
-     <div class="control-group <c:if test='${not empty dureeError}'>error</c:if>">
-            <label class="control-label" for=" duree"><spring:message code="schedule.add.duree.label"   /></label>
-            <div class="controls">
-                <select id="duree" name="duree" class="input-xlarge">
-                     <c:forEach var="uneDuree" items="${possibleDurees}">
-                        <option id="${custo:getdureename(uneDuree)}" name="${custo:getdureename(uneDuree)}"
-                           <c:if test="${uneDuree.minute == schedule.duree}">selected="selected"</c:if> value="${uneDuree.minute}">${uneDuree.html}</option>
-                      </c:forEach>
-                 </select>
-                <c:if test='${not empty dureeError}'>
-                    <span class="help-inline">${dureeError}</span>
-                </c:if>
-            </div>
-        </div>
     <div class="control-group <c:if test='${not empty roomError}'>error</c:if>">
-        <label class="control-label" for="theme"><spring:message code="schedule.add.salle.label"   /></label>
+        <label class="control-label" for="theme"><spring:message code="schedule.add.salle.label" text="default text" /></label>
         <div class="controls">
             <select id="room" name="room" class="input-xlarge">
-                <option value="-1" <c:if test="${empty schedule.room}">selected="selected"</c:if>><spring:message code="all.rooms"   /></option>
+                <option value="-1" <c:if test="${empty schedule.room}">selected="selected"</c:if>><spring:message code="all.rooms" text="default text" /></option>
                 <c:forEach var="aRoom" items="${allRooms}">
                     <option value="${aRoom.id}"
                         <c:if test="${aRoom.name == schedule.room.name}">selected="selected"</c:if>>${aRoom.name}</option>
@@ -66,7 +52,7 @@
         </div>
     </div>
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary"><spring:message code="action.submit"   /></button>
+        <button type="submit" class="btn btn-primary"><spring:message code="action.submit" text="default text" /></button>
     </div>
 </fieldset>
 </form>

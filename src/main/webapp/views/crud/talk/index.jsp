@@ -6,26 +6,20 @@
          setActive('talks');
 </script>
 <div class="row">
-<div class="span3">
-<a href="/crud/talk/add.htm" accesskey="a"><spring:message code="talk.action.add"   /></a>
-</div>
-</div>
-<br/>
-<div class="row">
 <table class="table  table-striped table-bordered table-condensed span12" id="talksTable">
 <tr>
 <th class="span1">Titre</th>
-<th class="span2"><spring:message code="resume.title"   /></th>
-<th class="span2"><spring:message code="date.title"   /></th>
-<th class="span2"><spring:message code="heure.title"   /></th>
-<th class="span2"><spring:message code="duree.title"   /></th>
-<th class="span1"><spring:message code="theme.title"   /></th>
-<th class="span1"><spring:message code="salle.title"   /></th>
-<th class="span2"><spring:message code="speakers.title"   /></th>
-<th class="span1"><spring:message code="actions.title"   /></th>
+<th class="span2"><spring:message code="resume.title" text="default text" /></th>
+<th class="span2"><spring:message code="date.title" text="default text" /></th>
+<th class="span2"><spring:message code="heure.title" text="default text" /></th>
+<th class="span2"><spring:message code="duree.title" text="default text" /></th>
+<th class="span1"><spring:message code="theme.title" text="default text" /></th>
+<th class="span1"><spring:message code="salle.title" text="default text" /></th>
+<th class="span2"><spring:message code="speakers.title" text="default text" /></th>
+<th class="span1"><spring:message code="actions.title" text="default text" /></th>
 </tr>
 <c:if test="${empty talks}">
-<tr><td colspan="9"><spring:message code="talk.edit.no.talk"   /></td></tr>
+<tr><td colspan="9">Aucun talk pour l'instant</td></tr>
 </c:if>
 <c:forEach var="talk" items="${talks}">
     <tr>
@@ -33,7 +27,7 @@
       <td>${talk.abstract}</td>
       <c:choose>
         <c:when test="${empty talk.schedule}">
-            <td colspan="2"><spring:message code="non.planifie" /></td>
+            <td colspan="2">Non planifi&eacute;</td>
         </c:when>
         <c:otherwise>
             <td><fmt:formatDate value="${talk.start}" type="both" pattern="dd/MM/yyyy" /></td>
@@ -44,10 +38,10 @@
       <td>${talk.theme.htmlValue}</td>
       <c:choose>
         <c:when test="${empty talk.schedule}">
-            <td ><spring:message code="non.planifie" /></td>
+            <td >Non planifi&eacute;</td>
         </c:when>
         <c:when test="${empty talk.schedule.room}">
-            <td><spring:message code="all.rooms"   /></td>
+            <td>Toutes salles</td>
         </c:when>
         <c:otherwise>
             <td>${talk.schedule.room.name}</td>
@@ -59,8 +53,8 @@
         </c:forEach>
       </td>
       <td>
-        <a href="/crud/talk/edit/${talk.id}.htm"><spring:message code="edit.title"   /></a><br/>
-        <a href="/crud/talk/delete/${talk.id}.htm"><spring:message code="delete.title"   /></a>
+        <a href="/crud/talk/edit/${talk.id}.htm"><spring:message code="edit.title" text="default text" /></a><br/>
+        <a href="/crud/talk/delete/${talk.id}.htm"><spring:message code="delete.title" text="default text" /></a>
       </td>
     </tr>
 	</c:forEach>
@@ -69,7 +63,7 @@
 </div>
 <div class="row">
 <div class="span3">
-<a href="/crud/talk/add.htm" accesskey="a"><spring:message code="talk.action.add"   /></a>
+<a href="/crud/talk/add.htm" accesskey="a">Ajouter un talk (ALT+a)</a>
 </div>
 </div>
 

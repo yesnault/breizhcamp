@@ -4,22 +4,16 @@
          setActive('speakers');
 </script>
 <div class="row">
-<div class="span3">
-<a href="/crud/speaker/add.htm" accesskey="a"><spring:message code="speaker.action.add"/></a>
-</div>
-</div>
-<br/>
-<div class="row">
 <table class="table  table-striped table-bordered table-condensed span6">
 <tr>
-<th class="span1"><spring:message code="image.title" /></th>
-<th class="span2"><spring:message code="nom.title" /></th>
-<th class="span2"><spring:message code="prenom.title" /></th>
-<th class="span2"><spring:message code="twitter.title" /></th>
-<th class="span1"><spring:message code="actions.title" /></th>
+<th class="span1">Image</th>
+<th class="span2">Nom</th>
+<th class="span2">Pr&eacute;nom</th>
+<th class="span2">Twitter</th>
+<th class="span1"><spring:message code="actions.title" text="default text" /></th>
 </tr>
 <c:if test="${empty speakers}">
-<tr><td colspan="5"><spring:message code="speaker.no.speaker" /></td></tr>
+<tr><td colspan="5">Aucun speaker pour l'instant</td></tr>
 </c:if>
 <c:forEach var="speaker" items="${speakers}">
     <tr>
@@ -28,8 +22,8 @@
       <td>${speaker.firstName}</td>
       <td>${speaker.twitter}</td>
       <td>
-        <a href="/crud/speaker/edit/${speaker.id}.htm"><spring:message code="edit.title"   /></a><br/>
-        <a href="/crud/speaker/delete/${speaker.id}.htm"><spring:message code="delete.title"   /></a>
+        <a href="/crud/speaker/edit/${speaker.id}.htm"><spring:message code="edit.title" text="default text" /></a><br/>
+        <a href="/crud/speaker/delete/${speaker.id}.htm"><spring:message code="delete.title" text="default text" /></a>
       </td>
     </tr>
 	</c:forEach>
@@ -38,7 +32,7 @@
 </div>
 <div class="row">
 <div class="span3">
-<a href="/crud/speaker/add.htm" accesskey="a"><spring:message code="speaker.action.add"/></a>
+<a href="/crud/speaker/add.htm" accesskey="a">Ajouter un speaker (ALT+a)</a>
 </div>
 </div>
 

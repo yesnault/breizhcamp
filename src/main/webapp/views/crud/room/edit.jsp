@@ -5,10 +5,10 @@
 </script>
 <form action="/crud/room/edit/submit.htm" method="post" class="form-horizontal span3">
 <fieldset>
-    <legend><spring:message code="room.edit.title"   /></legend>
+    <legend><spring:message code="room.edit.title" text="default text" /></legend>
     <div class="control-group <c:if test='${error}'>error</c:if>">
         <input type="hidden" id="id" name="id" value="${room.id}"/>
-        <label class="control-label" for="name"><spring:message code="room.add.salle.label"   /></label>
+        <label class="control-label" for="name"><spring:message code="room.add.salle.label" text="default text" /></label>
         <div class="controls">
             <input type="text" id="name" name="name" class="input-large" value="${room.name}"/>
             <c:if test='${not empty nameError}'>
@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary"><spring:message code="action.submit"   /></button>
+        <button type="submit" class="btn btn-primary"><spring:message code="action.submit" text="default text" /></button>
     </div>
 </fieldset>
 </form>

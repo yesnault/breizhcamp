@@ -6,19 +6,12 @@
 <script type='text/javascript' charset='utf-8'>
          setActive('talks');
 </script>
-<script>
-function popup() {
-   window.open('/crud/speaker/add.htm?hide=true','windowname1','width=500, height=480');
-}
-</script>
-
-
 <form action="/crud/talk/edit/submit.htm" method="post" class="form-horizontal span4">
 <fieldset>
-    <legend><spring:message code="talk.edit.title"   /></legend>
+    <legend>Modification d'un talk</legend>
     <input type="hidden" id="id" name="id" value="${talk.id}"/>
     <div class="control-group <c:if test='${not empty titleError}'>error</c:if>">
-        <label class="control-label" for="title"><spring:message code="talk.add.titre.label"   /></label>
+        <label class="control-label" for="title"><spring:message code="talk.add.titre.label" text="default text" /></label>
         <div class="controls">
             <input type="text" id="title" name="title" class="input-xlarge"
                 value="${talk.title}"/>
@@ -28,7 +21,7 @@ function popup() {
         </div>
     </div>
     <div class="control-group <c:if test='${not empty resumeError}'>error</c:if>">
-        <label class="control-label" for="resume"><spring:message code="talk.add.resume.label"   /></label>
+        <label class="control-label" for="resume"><spring:message code="talk.add.resume.label" text="default text" /></label>
         <div class="controls">
             <textarea type="textarea" id="resume" name="resume" rows="4" class="input-xlarge">${talk.abstract}</textarea>
             <c:if test='${not empty resumeError}'>
@@ -37,7 +30,7 @@ function popup() {
         </div>
     </div>
      <div class="control-group <c:if test='${not empty dureeError}'>error</c:if>">
-            <label class="control-label" for=" duree"><spring:message code="talk.add.duree.label"   /></label>
+            <label class="control-label" for=" duree"><spring:message code="talk.add.duree.label" text="default text" /></label>
             <div class="controls">
                 <select id="duree" name="duree" class="input-xlarge">
                      <c:forEach var="uneDuree" items="${possibleDurees}">
@@ -51,7 +44,7 @@ function popup() {
             </div>
         </div>
     <div class="control-group <c:if test='${not empty themeError}'>error</c:if>">
-        <label class="control-label" for="theme"><spring:message code="talk.add.theme.label"   /></label>
+        <label class="control-label" for="theme"><spring:message code="talk.add.theme.label" text="default text" /></label>
         <div class="controls">
             <select id="theme" name="theme" class="input-xlarge">
                 <c:forEach var="unTheme" items="${possibleThemes}">
@@ -65,10 +58,10 @@ function popup() {
         </div>
     </div>
     <div class="control-group <c:if test='${not empty scheduleError}'>error</c:if>">
-        <label class="control-label" for="schedule"><spring:message code="talk.add.creneau.label"   /></label>
+        <label class="control-label" for="schedule"><spring:message code="talk.add.creneau.label" text="default text" /></label>
         <div class="controls">
             <select id="schedule" name="schedule" class="input-xlarge" tabindex="5">
-                <option value="-1"><spring:message code="talk.unknown"   /></option>
+                <option value="-1">Je sais pas</option>
                 <c:forEach var="unSchedule" items="${allSchedules}">
                     <option value="${unSchedule.id}"
                         <c:if test="${unSchedule.id == talk.schedule.id}">selected="selected"</c:if>>
@@ -83,21 +76,20 @@ function popup() {
         </div>
     </div>
     <div class="control-group <c:if test='${not empty speakersError}'>error</c:if>">
-        <label class="control-label" for="speakers"><spring:message code="talk.add.speakers.label"   /></label>
+        <label class="control-label" for="speakers"><spring:message code="talk.add.speakers.label" text="default text" /></label>
         <div class="controls">
             <select id="speakers" name="speakers" class="input-xlarge" multiple="multiple">
                 <c:forEach var="speaker" items="${allSpeakers}">
                     <option value="${speaker.id}" <c:if test="${custo:contains(talk.speakers,speaker)}" >selected="selected"</c:if>>${speaker.firstName} ${speaker.lastName}</option>
                 </c:forEach>
-            </select> <br/> <br/>
-            <a accesskey="a" href="javascript: void(0)"   onclick="popup();"><spring:message code="speaker.action.add"/></a>
+            </select>
             <c:if test='${not empty speakersError}'>
                 <span class="help-inline">${speakersError}</span>
             </c:if>
         </div>
     </div>
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary"><spring:message code="action.submit"   /></button>
+        <button type="submit" class="btn btn-primary"><spring:message code="action.submit" text="default text" /></button>
     </div>
 </fieldset>
 </form>

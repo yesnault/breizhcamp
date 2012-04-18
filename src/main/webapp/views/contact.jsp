@@ -6,8 +6,8 @@
 <script type='text/javascript' charset='utf-8'>
          setActive('contact');
 </script>
-<h3><spring:message code="contact.title"   /></h3>
+<h3><spring:message code="contact.title" text="default text" /></h3>
 
-<spring:message code="contact.mail.label"   /> <a href="mailto:team@breizhcamp.org" >team@breizhcamp.org</a>    <br/>
+<spring:message code="contact.mail.label" text="default text" /> <a href="mailto:team@breizhcamp.org" >team@breizhcamp.org</a>    <br/>
 
-<spring:message code="contact.twitter.label"   /> <a href="https://twitter.com/#!/breizhcamp" >@breizhcamp</a>
+<spring:message code="contact.twitter.label" text="default text" /> <a href="https://twitter.com/#!/breizhcamp" >@breizhcamp</a>

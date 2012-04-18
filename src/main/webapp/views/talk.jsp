@@ -9,33 +9,33 @@
 
 <fieldset class="span8">
     <legend>${talk.title}</legend>
-    <table class="table  table-striped table-bordered table-condensed span21">
+    <table class="table  table-striped table-bordered table-condensed span6">
         <tr>
-            <td class="span2"><spring:message code="resume.title"   /></td>
+            <td class="span2"><spring:message code="resume.title" text="default text" /></td>
             <td class="span6">${talk.abstract}</td>
         </tr>
         <tr>
-            <td><spring:message code="date.title"   /></td>
+            <td><spring:message code="date.title" text="default text" /></td>
             <td><fmt:formatDate value="${talk.schedule.start}" type="both" pattern="dd/MM/yyyy" /></td>
         </tr>
         <tr>
-            <td><spring:message code="heure.title"   /></td>
+            <td><spring:message code="heure.title" text="default text" /></td>
             <td>${custo:getdebut(talk.schedule.start)}</td>
         </tr>
         <tr>
-            <td><spring:message code="duree.title"   /></td>
+            <td><spring:message code="duree.title" text="default text" /></td>
             <td>${custo:getduree(talk.duree)}</td>
         </tr>
         <tr>
-            <td><spring:message code="theme.title"   /></td>
+            <td><spring:message code="theme.title" text="default text" /></td>
             <td><a href='/theme/${talk.theme}.htm<c:if test="${hide == true}">?hide=${hide}</c:if>'>${talk.theme.htmlValue}</a></td>
         </tr>
         <tr>
-            <td><spring:message code="salle.title"   /></td>
-            <td><c:if test="${empty talk.schedule.room}"><spring:message code="talk.all.rooms"   /></c:if>${talk.schedule.room.name}</td>
+            <td><spring:message code="salle.title" text="default text" /></td>
+            <td><c:if test="${empty talk.schedule.room}"><spring:message code="talk.all.room" text="default text" /></c:if>${talk.schedule.room.name}</td>
         </tr>
         <tr>
-            <td><spring:message code="speakers.title"   /></td>
+            <td><spring:message code="speakers.title" text="default text" /></td>
             <td>
                 <c:forEach var="speaker" items="${talk.speakers}">
                     <a href='/speaker/${speaker.id}.htm<c:if test="${hide == true}">?hide=${hide}</c:if>'>${speaker.firstName} ${speaker.lastName}</a><br/>
