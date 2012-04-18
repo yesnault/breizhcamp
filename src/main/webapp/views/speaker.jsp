@@ -3,20 +3,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="custo" uri="/WEB-INF/custom-functions.tld" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="custo" uri="/WEB-INF/custom-functions.tld" %>
 <script type='text/javascript' charset='utf-8'>
          setActive('speakers');
 </script>
 
 <fieldset class="span12">
-    <legend>${speaker.firstName} ${speaker.lastName}</legend>
     <table class="table  table-striped table-bordered table-condensed span12">
         <tr >
-                <td class="span2" ROWSPAN=4><a href="https://twitter.com/#!/${speaker.twitter}" imageanchor="1">
+                <td class="span2" ROWSPAN=4><a href="${custo:getprofilurl(speaker.twitter)}" imageanchor="1">
                       <img border="0" src="${speaker.picture}" style="height:128px;width:128px;" height="128px" width="128px"></a>
                 </td>
         </tr>
         <tr>
-           <td class="span6" COLSPAN=2><a href="https://twitter.com/#!/${speaker.twitter}" imageanchor="1">${speaker.twitter}</a></td>
+           <td class="span6" COLSPAN=2><a href="${custo:getprofilurl(speaker.twitter)}" imageanchor="1">${speaker.firstName} ${speaker.lastName}</a></td>
         </tr>
         <tr>
             <td class="span6" COLSPAN=2>${speaker.description}</td>

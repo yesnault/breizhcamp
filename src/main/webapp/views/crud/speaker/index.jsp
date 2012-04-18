@@ -4,6 +4,12 @@
          setActive('speakers');
 </script>
 <div class="row">
+<div class="span3">
+<a href="/crud/speaker/add.htm" accesskey="a">Ajouter un speaker (ALT+a)</a>
+</div>
+</div>
+<br/>
+<div class="row">
 <table class="table  table-striped table-bordered table-condensed span6">
 <tr>
 <th class="span1">Image</th>

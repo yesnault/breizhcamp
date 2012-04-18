@@ -20,7 +20,7 @@
                             <img border="0" src="${speaker.picture}" style="height:128px;width:128px;" height="128px" width="128px">
                         </a>
                     </div>
-                    <div style="text-align:center;display:block;font: normal 10pt Arial,sans-serif;">@${speaker.twitter}</div>
+                    <div style="text-align:center;display:block;font: normal 10pt Arial,sans-serif;">${speaker.firstName} ${speaker.lastName}</div>
                 </td>
                 <c:set var="count" value="${count+1}"/>
             </c:forEach>

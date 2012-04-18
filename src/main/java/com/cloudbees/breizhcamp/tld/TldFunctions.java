@@ -9,11 +9,11 @@ import java.util.Collection;
 import java.util.Date;
 
 public class TldFunctions {
-    
+
     public static boolean contains(Collection list, Object object) {
         return list != null && list.contains(object);
     }
-    
+
     public static String getThemeName(Theme theme) {
         if (theme == null) {
             return null;
@@ -28,6 +28,18 @@ public class TldFunctions {
         return duree.name();
     }
 
+    public static String getProfilUrl(String profil) {
+        if (profil == null || profil.length() == 0) {
+            return null;
+        }
+        if (profil.startsWith("+")) {
+            return "https://plus.google.com/" + profil.substring(1);
+        } else {
+            return "https://twitter.com/#!/" + profil;
+        }
+
+    }
+
     public static String getDebut(Date startTime) {
         SimpleDateFormat sdfHeure = new SimpleDateFormat("HH:mm");
 
@@ -35,7 +47,7 @@ public class TldFunctions {
             return "";
         }
         String start = sdfHeure.format(startTime);
-        if(start.equals("00:00")){
+        if (start.equals("00:00")) {
             return "";
         }
         return start;
@@ -43,13 +55,13 @@ public class TldFunctions {
 
 
     public static String getDuree(int minute) {
-        Duree duree= Duree.fromTime(minute);
+        Duree duree = Duree.fromTime(minute);
         if (duree == null) {
             return null;
         }
         return duree.getHtml();
     }
-    
+
     public static String format(Date date, String pattern) {
         if (date == null) {
             return "";

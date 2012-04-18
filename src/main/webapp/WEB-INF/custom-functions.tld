@@ -25,6 +25,11 @@
         <function-signature>String getDuree(int)</function-signature>
     </function>
     <function>
+        <name>getprofilurl</name>
+        <function-class>com.cloudbees.breizhcamp.tld.TldFunctions</function-class>
+        <function-signature>String getProfilUrl(java.lang.String)</function-signature>
+    </function>
+    <function>
         <name>getdebut</name>
         <function-class>com.cloudbees.breizhcamp.tld.TldFunctions</function-class>
         <function-signature>String getDebut(java.util.Date)</function-signature>

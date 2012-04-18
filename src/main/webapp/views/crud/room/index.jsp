@@ -4,6 +4,12 @@
          setActive('rooms');
 </script>
 <div class="row">
+<div class="span3">
+<a href="/crud/room/add.htm" accesskey="a">Ajouter une salle (ALT+a)</a>
+</div>
+</div>
+<br/>
+<div class="row">
 <table class="table table-striped table-bordered table-condensed span3">
 <tr>
 <th class="span2"><spring:message code="room.add.salle.label" text="default text" /></th>
