@@ -2,15 +2,17 @@ package com.cloudbees.breizhcamp.tld;
 
 
 import com.cloudbees.breizhcamp.domain.Duree;
+import com.cloudbees.breizhcamp.domain.Room;
 import com.cloudbees.breizhcamp.domain.Theme;
 import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class TldFunctionsTest {
 
@@ -29,6 +31,27 @@ public class TldFunctionsTest {
         assertEquals("T_60", TldFunctions.getDureeName(Duree.T_60));
         assertEquals("T_180", TldFunctions.getDureeName(Duree.T_180));
         assertNull(TldFunctions.getDureeName(null));
+    }
+
+    @Test
+    public void contains() {
+        List<Room> rooms = new ArrayList<Room>();
+        Room room = new Room();
+        room.setName("Amphi");
+        rooms.add(room);
+
+        Room room2 = new Room();
+        room2.setName("I50");
+
+        assertTrue(TldFunctions.contains(rooms, room));
+        assertFalse(TldFunctions.contains(rooms, room2));
+        assertFalse(TldFunctions.contains(null, null));
+    }
+
+    @Test
+    public void getProfilUrl() {
+        assertEquals("https://twitter.com/#!/sguernion", TldFunctions.getProfilUrl("sguernion"));
+        assertEquals("https://plus.google.com/123456789456", TldFunctions.getProfilUrl("+123456789456"));
     }
 
     @Test
@@ -51,7 +74,7 @@ public class TldFunctionsTest {
         assertEquals("", TldFunctions.getDebut(null));
         assertEquals("10:00", TldFunctions.getDebut(sdfDateHeure.parse("10/11/2012 10:00")));
     }
-    
+
     @Test
     public void format() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

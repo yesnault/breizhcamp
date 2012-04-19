@@ -1,4 +1,4 @@
-package com.cloudbees.breizhcamp;
+package com.cloudbees.breizhcamp.view;
 
 import com.cloudbees.breizhcamp.controllers.Data;
 import com.cloudbees.breizhcamp.domain.Room;
