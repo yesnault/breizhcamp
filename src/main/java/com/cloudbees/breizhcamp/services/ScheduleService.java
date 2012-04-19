@@ -112,11 +112,18 @@ public class ScheduleService {
                 if (!data.getTalksNotScheduled().containsKey(talk.getDuree())) {
                     data.getTalksNotScheduled().put(talk.getDuree(), new ArrayList<Talk>());
                 }
-                data.getTalksNotScheduled().put(talk.getDuree(), new ArrayList<Talk>());
+                data.getTalksNotScheduled().get(talk.getDuree()).add(talk);
             }
         }
 
         return data;
+    }
+
+    public Talk associateScheduleAndTalk(long idSchedule, long idTalk) {
+        Schedule schedule = scheduleDao.find(idSchedule);
+        Talk talk = talkDao.find(idTalk);
+        talk.setSchedule(schedule);
+        return talk;
     }
 
     public Data getData() {
