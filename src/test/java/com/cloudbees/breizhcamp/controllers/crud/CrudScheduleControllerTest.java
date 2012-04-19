@@ -3,7 +3,6 @@ package com.cloudbees.breizhcamp.controllers.crud;
 import com.cloudbees.breizhcamp.PersistenceTestCase;
 import com.cloudbees.breizhcamp.domain.Room;
 import com.cloudbees.breizhcamp.domain.Schedule;
-import com.cloudbees.breizhcamp.domain.Talk;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -134,6 +133,36 @@ public class CrudScheduleControllerTest extends PersistenceTestCase {
     }
 
     @Test
+    public void addSubmit_exist() throws Exception {
+        em.createQuery("delete from Schedule").executeUpdate();
+        em.createQuery("delete from Room").executeUpdate();
+        em.flush();
+
+        Room room = new Room();
+        room.setName("Une Salle");
+
+        em.persist(room);
+        em.flush();
+
+        ModelMap model = new ModelMap();
+        String redirect = controller.addSubmit(model, 1, "14/06/2012", "08:00", room.getId());
+        assertThat(redirect).isEqualTo("redirect:/crud/schedule/index.htm");
+
+        redirect = controller.addSubmit(model, 1, "14/06/2012", "08:00", room.getId());
+        assertThat(redirect).isEqualTo("crud.schedule.add");
+
+        Schedule schedule = em.createQuery("select s from Schedule s", Schedule.class).getSingleResult();
+        assertThat(schedule).isNotNull();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        assertThat(schedule.getStart()).isEqualTo(sdf.parse("14/06/2012 08:00"));
+        assertThat(schedule.getRoom()).isSameAs(room);
+
+        assertThat(model.get("startTimeError")).isEqualTo("Il existe déjà un créneau pour cette date et cette salle.");
+        assertThat(model.get("dateError")).isEqualTo("Il existe déjà un créneau pour cette date et cette salle.");
+
+    }
+
+    @Test
     public void editubmit() throws Exception {
         em.createQuery("delete from Schedule").executeUpdate();
         em.createQuery("delete from Room").executeUpdate();
@@ -182,7 +211,7 @@ public class CrudScheduleControllerTest extends PersistenceTestCase {
 
         controller.delete(schedule.getId());
 
-        em.createQuery("select s from Schedule s where s.id="+schedule.getId()+"", Schedule.class).getSingleResult();
+        em.createQuery("select s from Schedule s where s.id=" + schedule.getId() + "", Schedule.class).getSingleResult();
     }
 
 
