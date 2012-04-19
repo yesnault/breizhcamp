@@ -36,6 +36,20 @@
             </c:if>
         </div>
     </div>
+    <div class="control-group <c:if test='${not empty dureeError}'>error</c:if>">
+                <label class="control-label" for=" duree"><spring:message code="schedule.add.duree.label"   /></label>
+                <div class="controls">
+                    <select id="duree" name="duree" class="input-xlarge">
+                         <c:forEach var="uneDuree" items="${possibleDurees}">
+                            <option id="${custo:getdureename(uneDuree)}" name="${custo:getdureename(uneDuree)}"
+                               <c:if test="${uneDuree.minute == schedule.duree}">selected="selected"</c:if> value="${uneDuree.minute}">${uneDuree.html}</option>
+                          </c:forEach>
+                     </select>
+                    <c:if test='${not empty dureeError}'>
+                        <span class="help-inline">${dureeError}</span>
+                    </c:if>
+                </div>
+            </div>
     <div class="control-group <c:if test='${not empty roomError}'>error</c:if>">
         <label class="control-label" for="theme"><spring:message code="schedule.add.salle.label" text="default text" /></label>
         <div class="controls">

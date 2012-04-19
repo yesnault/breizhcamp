@@ -30,6 +30,13 @@ public class PdfReportView extends AbstractPdfView {
             FontFactory.getFont(FontFactory.HELVETICA, 8,
                     Font.ITALIC, Color.GRAY);
 
+    Font presentFont =
+                FontFactory.getFont(FontFactory.HELVETICA, 13,
+                        Font.BOLD, Color.GRAY);
+
+    Font talkFontTitle =
+                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 17, Font.UNDERLINE, Color.darkGray);
+
     private PdfPCell createHeaderCell(String content) throws BadElementException {
         Paragraph paragraph = new Paragraph();
         Font font = new Font();
@@ -142,10 +149,12 @@ public class PdfReportView extends AbstractPdfView {
         document.add(paragraph);
         
         for (Talk talk : talkToExplain) {
-            Chunk titleTalk = new Chunk(talk.getTitle());
+            Chunk titleTalk = new Chunk(talk.getTitle(),talkFontTitle);
             titleTalk.setLocalDestination("talk" + talk.getId());
             document.add(new Paragraph(titleTalk));
+            document.add(new Paragraph(" "));
             document.add(new Paragraph(talk.getAbstract()));
+            document.add(new Paragraph(" "));
             StringBuilder textSpeakers = new StringBuilder("Présenté par ");
             List<Speaker> speakers = new ArrayList<Speaker>(talk.getSpeakers());
             for (int countSpeakers = 0 ; countSpeakers < speakers.size(); countSpeakers++) {
@@ -158,7 +167,8 @@ public class PdfReportView extends AbstractPdfView {
                 textSpeakers.append(' ');
                 textSpeakers.append(speakers.get(countSpeakers).getLastName());
             }
-            document.add(new Paragraph(textSpeakers.toString()));
+            Paragraph presentBy = new Paragraph(textSpeakers.toString(),presentFont);
+            document.add(presentBy);
             document.add(new Paragraph(" "));
         }
         

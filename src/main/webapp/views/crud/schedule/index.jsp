@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="custo" uri="/WEB-INF/custom-functions.tld" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <script type='text/javascript' charset='utf-8'>
          setActive('schedules');
@@ -11,10 +12,11 @@
 </div>
 <br/>
 <div class="row">
-<table class="table table-striped table-bordered table-condensed span4">
+<table class="table table-striped table-bordered table-condensed span5">
 <tr>
 <th class="span1"><spring:message code="date.title" text="default text" /></th>
 <th class="span1"><spring:message code="heure.title" text="default text" /></th>
+<th class="span1"><spring:message code="duree.title"   /></th>
 <th class="span1"><spring:message code="salle.title" text="default text" /></th>
 <th class="span1"><spring:message code="actions.title" text="default text" /></th>
 </tr>
@@ -25,6 +27,7 @@
     <tr>
       <td><fmt:formatDate value="${schedule.start}" type="both" pattern="dd/MM/yyyy" /></td>
       <td><fmt:formatDate value="${schedule.start}" type="both" pattern="HH:mm" /></td>
+      <td>${custo:getduree(schedule.duree)}</td>
       <td><c:if test="${empty schedule.room}"><spring:message code="all.rooms" text="default text" /></c:if>${schedule.room.name}</td>
       <td>
         <a href="/crud/schedule/edit/${schedule.id}.htm"><spring:message code="edit.title" text="default text" /></a>
