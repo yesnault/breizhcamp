@@ -3,11 +3,13 @@ package com.cloudbees.breizhcamp.controllers.crud;
 import com.cloudbees.breizhcamp.PersistenceTestCase;
 import com.cloudbees.breizhcamp.domain.Room;
 import com.cloudbees.breizhcamp.domain.Schedule;
+import com.cloudbees.breizhcamp.domain.Talk;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 
 import javax.persistence.NoResultException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -32,24 +34,24 @@ public class CrudScheduleControllerTest extends PersistenceTestCase {
         room.setName("Une Salle");
 
         em.persist(room);
-        
+
         Schedule schedule1 = new Schedule();
         schedule1.setStart(new Date());
         schedule1.setRoom(room);
-        
+
         em.persist(schedule1);
-        
+
         Schedule schedule2 = new Schedule();
         schedule2.setStart(new Date());
         schedule2.setRoom(room);
-        
+
         em.persist(schedule2);
 
         em.flush();
 
         ModelMap model = new ModelMap();
         controller.index(model);
-        
+
         List<Schedule> schedules = (List<Schedule>) model.get("schedules");
         assertThat(schedules.size()).isEqualTo(2);
 
@@ -70,7 +72,7 @@ public class CrudScheduleControllerTest extends PersistenceTestCase {
         ModelMap model = new ModelMap();
         controller.addSubmit(model, 1, "", "08:00", null);
 
-        assertThat((String)model.get("dateError")).isEqualTo("La date est obligatoire");
+        assertThat((String) model.get("dateError")).isEqualTo("La date est obligatoire");
 
         em.createQuery("select s from Schedule s", Schedule.class).getSingleResult();
 
@@ -86,7 +88,7 @@ public class CrudScheduleControllerTest extends PersistenceTestCase {
         ModelMap model = new ModelMap();
         controller.addSubmit(model, 1, "14/06/2012", "", null);
 
-        assertThat((String)model.get("startTimeError")).isEqualTo("L'heure est obligatoire");
+        assertThat((String) model.get("startTimeError")).isEqualTo("L'heure est obligatoire");
 
         em.createQuery("select s from Schedule s", Schedule.class).getSingleResult();
 
@@ -102,7 +104,7 @@ public class CrudScheduleControllerTest extends PersistenceTestCase {
         ModelMap model = new ModelMap();
         controller.addSubmit(model, 1, "14/06/2012", "tutu", null);
 
-        assertThat((String)model.get("startTimeError")).isEqualTo("Le format est incorrect");
+        assertThat((String) model.get("startTimeError")).isEqualTo("Le format est incorrect");
 
         em.createQuery("select s from Schedule s", Schedule.class).getSingleResult();
 
@@ -116,14 +118,14 @@ public class CrudScheduleControllerTest extends PersistenceTestCase {
 
         Room room = new Room();
         room.setName("Une Salle");
-        
+
         em.persist(room);
         em.flush();
-        
+
         ModelMap model = new ModelMap();
         String redirect = controller.addSubmit(model, 1, "14/06/2012", "08:00", room.getId());
         assertThat(redirect).isEqualTo("redirect:/crud/schedule/index.htm");
-        
+
         Schedule schedule = em.createQuery("select s from Schedule s", Schedule.class).getSingleResult();
         assertThat(schedule).isNotNull();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -144,11 +146,11 @@ public class CrudScheduleControllerTest extends PersistenceTestCase {
         Room room2 = new Room();
         room2.setName("Salle2");
         em.persist(room2);
-        
+
         em.flush();
-        
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        
+
         Schedule schedule = new Schedule();
         schedule.setStart(sdf.parse("14/06/2012 08:00"));
         schedule.setRoom(room1);
@@ -165,6 +167,22 @@ public class CrudScheduleControllerTest extends PersistenceTestCase {
         assertThat(schedule.getStart()).isEqualTo(sdf.parse("15/06/2012 10:00"));
         assertThat(schedule.getRoom()).isSameAs(room2);
         assertThat(schedule.getDuree()).isEqualTo(30);
+    }
+
+    @Test(expected = NoResultException.class)
+    public void delete() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        Schedule schedule = new Schedule();
+        schedule.setStart(sdf.parse("14/06/2012 08:00"));
+
+        em.persist(schedule);
+        em.flush();
+
+
+        controller.delete(schedule.getId());
+
+        em.createQuery("select s from Schedule s where s.id="+schedule.getId()+"", Schedule.class).getSingleResult();
     }
 
 

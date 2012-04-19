@@ -205,4 +205,20 @@ public class CrudTalkControllerTest extends PersistenceTestCase {
 
     }
 
+    @Test(expected = NoResultException.class)
+    public void deleteTalk() {
+        Talk talk = new Talk();
+        talk.setTitle("GWT");
+        talk.setTheme(Theme.PRATIQUER);
+        talk.setDuree(60);
+
+        em.persist(talk);
+        em.flush();
+
+
+        controller.deleteTalk(talk.getId());
+
+        em.createQuery("select t from Talk t where t.title='GWT'", Talk.class).getSingleResult();
+    }
+
 }
