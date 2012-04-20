@@ -1,7 +1,6 @@
 package com.cloudbees.breizhcamp.controllers.crud;
 
 import com.cloudbees.breizhcamp.domain.Duree;
-import com.cloudbees.breizhcamp.domain.Talk;
 import com.cloudbees.breizhcamp.services.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,13 +37,14 @@ public class CrudProgrammeController {
         DataTalks talks = new DataTalks();
         talks.setTalksBySchedules(scheduleService.getTalksBySchedule());
         talks.setTalksNotScheduled(scheduleService.getTalksNotScheduled());
+        talks.setDureeBySchedule(scheduleService.getDureeBySchedule());
         return talks;
     }
 
     @RequestMapping("/addTalk.htm")
     @ResponseBody
     public String add(@RequestParam long idSchedule, @RequestParam long idTalk) {
-        Talk talk = scheduleService.associateScheduleAndTalk(idSchedule, idTalk);
-        return talk.getTitle() + " ajouté au créneau";
+        scheduleService.associateScheduleAndTalk(idSchedule, idTalk);
+        return "OK";
     }
 }

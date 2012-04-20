@@ -134,11 +134,24 @@ public class ScheduleService {
         return talksNotScheduled;
     }
 
-    public Talk associateScheduleAndTalk(long idSchedule, long idTalk) {
+    public Map<Long, Integer> getDureeBySchedule() {
+        Map<Long, Integer> dureeBySchedule = new HashMap<Long, Integer>();
+        for (Schedule schedule : scheduleDao.findAll()) {
+            dureeBySchedule.put(schedule.getId(), schedule.getDuree());
+        }
+        return dureeBySchedule;
+    }
+
+    public void associateScheduleAndTalk(long idSchedule, long idTalk) {
         Schedule schedule = scheduleDao.find(idSchedule);
-        Talk talk = talkDao.find(idTalk);
-        talk.setSchedule(schedule);
-        return talk;
+        if (idTalk == -1) {
+            for (Talk talk : talkDao.findBySchedule(schedule)) {
+                talk.setSchedule(null);
+            }
+        } else {
+            Talk talk = talkDao.find(idTalk);
+            talk.setSchedule(schedule);
+        }
     }
 
     public Data getData() {

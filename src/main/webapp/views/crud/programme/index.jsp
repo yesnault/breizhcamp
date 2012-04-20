@@ -7,40 +7,14 @@
 </script>
 
 <script type='text/javascript' charset='utf-8'>
-
-    var talks = {
-        <c:forEach var="duree" items="${allDurees}" varStatus="status">
-            <c:if test="${not empty data.talksNotScheduled[duree.minute]}">
-                ${duree.minute} : {
-                    <c:forEach var="talk" items="${data.talksNotScheduled[duree.minute]}" varStatus="status">
-                        ${talk.id} : '${talk.title}'<c:if test="${not status.last}">,</c:if>
-                    </c:forEach>
-                },
-            </c:if>
-        </c:forEach>
-    };
-
-    function addTalkToSelect(duree, idSelect) {
-        // On vide le select
-        while ($('#talk' + idSelect + '>option').length > 0) {
-            $('#talk' + idSelect).get(0).remove();
-        }
-        $('#talk'+idSelect).append('<option value="-1">Pas de talk</option')
-        for (id in talks[duree]) {
-            titre = talks[duree][id];
-            $('#talk'+idSelect).append('<option value="'+id+'">'+titre+'</option')
-        }
-    }
-
     function selectTalk(idSelect) {
         idSchedule = idSelect;
         idTalk = $('#talk' + idSelect + ' option:selected').val();
-        $('#talk' + idSelect).attr('disabled', 'disabled');
         url = "/crud/programme/addTalk.htm?idSchedule=" + idSchedule
                 + "&idTalk=" + idTalk;
 
         $.get(url, function(data) {
-            alert(data);
+            refreshJson();
         });
     }
 </script>
@@ -61,39 +35,19 @@
                     <c:choose>
                         <c:when test="${not empty data.schedules[date][creneau][sansRoom]}">
                             <td id="${data.schedules[date][creneau][sansRoom].id}" colspan="${fn:length(data.rooms)}" style="text-align:center">
-                                <c:if test="${not empty data.talksBySchedules[data.schedules[date][creneau][sansRoom]]}">
-                                    ${data.talksBySchedules[data.schedules[date][creneau][sansRoom]].title}
-                                </c:if>
-                                <c:if test="${empty data.talksBySchedules[data.schedules[date][creneau][sansRoom]]}">
-                                    <select id="talk${data.schedules[date][creneau][sansRoom].id}" class="span2"
-                                                onChange="javascript:selectTalk(${data.schedules[date][creneau][sansRoom].id})">
+                                <select id="talk${data.schedules[date][creneau][sansRoom].id}" class="span2 selectTalk"
+                                            onChange="javascript:selectTalk(${data.schedules[date][creneau][sansRoom].id})">
 
-                                    </select>
-                                    <script type='text/javascript' charset='utf-8'>
-                                        addTalkToSelect(
-                                            ${data.schedules[date][creneau][sansRoom].duree},
-                                            ${data.schedules[date][creneau][sansRoom].id});
-                                    </script>
-                                </c:if>
+                                </select>
                             </td>
                         </c:when>
                         <c:otherwise>
                             <c:forEach var="room" items="${data.rooms}">
                                 <c:if test="${not empty data.schedules[date][creneau][room.name].id}">
                                     <td id="${data.schedules[date][creneau][room.name].id}" style="text-align:center">
-                                        <c:if test="${not empty data.talksBySchedules[data.schedules[date][creneau][room.name]]}">
-                                            ${data.talksBySchedules[data.schedules[date][creneau][room.name]].title}
-                                        </c:if>
-                                        <c:if test="${empty data.talksBySchedules[data.schedules[date][creneau][room.name]]}">
-                                            <select id="talk${data.schedules[date][creneau][room.name].id}" class="span2"
-                                                onChange="javascript:selectTalk(${data.schedules[date][creneau][room.name].id})">
-                                            </select>
-                                            <script type='text/javascript' charset='utf-8'>
-                                                addTalkToSelect(
-                                                    ${data.schedules[date][creneau][room.name].duree},
-                                                    ${data.schedules[date][creneau][room.name].id});
-                                            </script>
-                                        </c:if>
+                                        <select id="talk${data.schedules[date][creneau][room.name].id}" class="span2 selectTalk"
+                                            onChange="javascript:selectTalk(${data.schedules[date][creneau][room.name].id})">
+                                        </select>
                                     </td>
                                 </c:if>
                                 <c:if test="${empty data.schedules[date][creneau][room.name].id}">
@@ -109,4 +63,37 @@
 </c:forEach>
 <fieldset  class="span${fn:length(rooms)*2+2} baspage" >
 </fieldset>
+
+
+<script type='text/javascript' charset='utf-8'>
+    function refreshJson() {
+
+        $.getJSON('/crud/programme/talks.json', function(data) {
+            var talksBySchedules = data.talksBySchedules;
+            var talksNotScheduled = data.talksNotScheduled;
+            var dureeBySchedule = data.dureeBySchedule;
+
+            $('.selectTalk').each(function(index) {
+                idSelect = $(this).attr('id');
+                idSchedule = $(this).attr('id').substring(4, 100);
+                talkOfSchedule = talksBySchedules[idSchedule];
+                // On vide le select
+                while ($('#' + idSelect + '>option').length > 0) {
+                    $('#' + idSelect).get(0).remove();
+                }
+                $('#'+idSelect).append('<option value="-1">Pas de talk</option')
+                if (typeof(talksNotScheduled[dureeBySchedule[idSchedule]]) != 'undefined') {
+                    $.each(talksNotScheduled[dureeBySchedule[idSchedule]], function(index, talk) {
+                        $('#' + idSelect).append('<option value="'+talk.id+'">'+talk.title+'</option')
+                    });
+                }
+                if (typeof(talkOfSchedule) != 'undefined') {
+                    $('#' + idSelect).append('<option value="'+talkOfSchedule.id+'" selected="selected">'+talkOfSchedule.title+'</option')
+                }
+            });
+        });
+    }
+
+    refreshJson();
+</script>
 
