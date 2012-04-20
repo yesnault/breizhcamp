@@ -16,6 +16,9 @@
      text-align: center;
      font-size:30px;
    }
+    .baspage {
+        margin-bottom:35px;
+    }
   </style>
          <script type='text/javascript' charset='utf-8'>
                   function setActive(id){

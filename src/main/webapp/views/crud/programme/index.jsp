@@ -6,8 +6,29 @@
          setActive('programme');
 </script>
 
+<style type="text/css">
+    #masque {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        background: url('/static/transparent.png');
+        background-size: 100% 100%;
+    }
+
+    #masque h1 {
+        text-align: center;
+        margin-top:100px;
+        width: 100%;
+        height: 100%;
+        color: white;
+    }
+</style>
+
 <script type='text/javascript' charset='utf-8'>
     function selectTalk(idSelect) {
+        $('#masque').show();
         idSchedule = idSelect;
         idTalk = $('#talk' + idSelect + ' option:selected').val();
         url = "/crud/programme/addTalk.htm?idSchedule=" + idSchedule
@@ -91,9 +112,15 @@
                     $('#' + idSelect).append('<option value="'+talkOfSchedule.id+'" selected="selected">'+talkOfSchedule.title+'</option')
                 }
             });
+
+            $('#masque').hide();
         });
     }
 
     refreshJson();
 </script>
+
+<div id="masque">
+    <h1>Requ&egrave;te en cours</h1>
+</div>
 
