@@ -21,6 +21,7 @@ public class Talk {
 
     @Id
     @GeneratedValue
+    @JsonProperty("id")
     private long id;
 
     @JsonProperty("title")

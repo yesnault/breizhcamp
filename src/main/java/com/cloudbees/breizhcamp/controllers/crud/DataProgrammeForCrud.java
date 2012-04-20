@@ -19,8 +19,8 @@ public class DataProgrammeForCrud {
     private List<Date> datesOrdonnees = new ArrayList<Date>();
     private List<Room> rooms = null;
 
-    private Map<Schedule, Talk> talksBySchedules = new HashMap<Schedule, Talk>();
-    private Map<Integer, List<Talk>> talksNotScheduled = new HashMap<Integer, List<Talk>>();
+    private Map<Schedule, Talk> talksBySchedules = null;
+    private Map<Integer, List<Talk>> talksNotScheduled = null;
 
     public Map<Date, List<String>> getCreneaux() {
         return creneaux;
@@ -44,6 +44,14 @@ public class DataProgrammeForCrud {
 
     public Map<Schedule, Talk> getTalksBySchedules() {
         return talksBySchedules;
+    }
+
+    public void setTalksBySchedules(Map<Schedule, Talk> talksBySchedules) {
+        this.talksBySchedules = talksBySchedules;
+    }
+
+    public void setTalksNotScheduled(Map<Integer, List<Talk>> talksNotScheduled) {
+        this.talksNotScheduled = talksNotScheduled;
     }
 
     public Map<Integer, List<Talk>> getTalksNotScheduled() {

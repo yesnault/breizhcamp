@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,6 +30,15 @@ public class CrudProgrammeController {
         model.put("sansRoom", "sansRoom");
         model.put("allDurees", Duree.values());
         return "crud.programme.index";
+    }
+
+    @RequestMapping(value = "/talks.json", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public DataTalks getTalks() {
+        DataTalks talks = new DataTalks();
+        talks.setTalksBySchedules(scheduleService.getTalksBySchedule());
+        talks.setTalksNotScheduled(scheduleService.getTalksNotScheduled());
+        return talks;
     }
 
     @RequestMapping("/addTalk.htm")

@@ -105,18 +105,33 @@ public class ScheduleService {
         }
         data.setRooms(getRooms());
 
-        for (Talk talk : talkDao.findAll()) {
-            if (talk.getSchedule() != null) {
-                data.getTalksBySchedules().put(talk.getSchedule(), talk);
-            } else {
-                if (!data.getTalksNotScheduled().containsKey(talk.getDuree())) {
-                    data.getTalksNotScheduled().put(talk.getDuree(), new ArrayList<Talk>());
-                }
-                data.getTalksNotScheduled().get(talk.getDuree()).add(talk);
-            }
-        }
+        data.setTalksNotScheduled(getTalksNotScheduled());
+        data.setTalksBySchedules(getTalksBySchedule());
 
         return data;
+    }
+
+    public Map<Schedule, Talk> getTalksBySchedule() {
+        Map<Schedule, Talk> talksBySchedule = new HashMap<Schedule, Talk>();
+        for (Talk talk : talkDao.findAll()) {
+            if (talk.getSchedule() != null) {
+                talksBySchedule.put(talk.getSchedule(), talk);
+            }
+        }
+        return talksBySchedule;
+    }
+
+    public Map<Integer, List<Talk>> getTalksNotScheduled() {
+        Map<Integer, List<Talk>> talksNotScheduled = new HashMap<Integer, List<Talk>>();
+        for (Talk talk : talkDao.findAll()) {
+            if (talk.getSchedule() == null) {
+                if (!talksNotScheduled.containsKey(talk.getDuree())) {
+                    talksNotScheduled.put(talk.getDuree(), new ArrayList<Talk>());
+                }
+                talksNotScheduled.get(talk.getDuree()).add(talk);
+            }
+        }
+        return talksNotScheduled;
     }
 
     public Talk associateScheduleAndTalk(long idSchedule, long idTalk) {
