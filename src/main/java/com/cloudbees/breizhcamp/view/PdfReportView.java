@@ -5,6 +5,9 @@ import com.cloudbees.breizhcamp.domain.Room;
 import com.cloudbees.breizhcamp.domain.Speaker;
 import com.cloudbees.breizhcamp.domain.Talk;
 import com.lowagie.text.*;
+import com.lowagie.text.Font;
+import com.lowagie.text.Image;
+import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
@@ -12,13 +15,14 @@ import org.springframework.web.servlet.view.document.AbstractPdfView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.Color;
+import java.awt.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.List;
 
 
 public class PdfReportView extends AbstractPdfView {
@@ -31,11 +35,11 @@ public class PdfReportView extends AbstractPdfView {
                     Font.ITALIC, Color.GRAY);
 
     Font presentFont =
-                FontFactory.getFont(FontFactory.HELVETICA, 13,
-                        Font.BOLD, Color.GRAY);
+            FontFactory.getFont(FontFactory.HELVETICA, 13,
+                    Font.BOLD, Color.GRAY);
 
     Font talkFontTitle =
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 17, Font.UNDERLINE, Color.darkGray);
+            FontFactory.getFont(FontFactory.HELVETICA_BOLD, 17, Font.UNDERLINE, Color.darkGray);
 
     private PdfPCell createHeaderCell(String content) throws BadElementException {
         Paragraph paragraph = new Paragraph();
@@ -77,18 +81,23 @@ public class PdfReportView extends AbstractPdfView {
                                     HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws Exception {
         Data data = (Data) model.get("data");
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-        String sansRoom = "sansRoom";
+        List<Talk> talkToExplain = new ArrayList<Talk>();
 
         HeaderFooter footer = new HeaderFooter(new Phrase("BreizhCamp 2012"), false);
         document.setFooter(footer);
 
         createFirstPage(document);
-        document.newPage();
 
-        List<Talk> talkToExplain = new ArrayList<Talk>();
+        createProgrammePages(document, data, talkToExplain);
+
+        createTalksPages(document, talkToExplain);
+
+    }
+
+    private void createProgrammePages(Document document, Data data, List<Talk> talkToExplain) throws DocumentException {
+        String sansRoom = "sansRoom";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        document.newPage();
 
         for (Date date : data.getDatesOrdonnees()) {
             Paragraph titre = new Paragraph();
@@ -138,7 +147,9 @@ public class PdfReportView extends AbstractPdfView {
             }
             document.add(table);
         }
-        
+    }
+
+    private void createTalksPages(Document document, List<Talk> talkToExplain) throws DocumentException {
         document.setPageSize(PageSize.A4);
         document.newPage();
 
@@ -147,17 +158,31 @@ public class PdfReportView extends AbstractPdfView {
         paragraph.getFont().setSize(25);
         paragraph.setAlignment(Element.ALIGN_CENTER);
         document.add(paragraph);
-        
+
         for (Talk talk : talkToExplain) {
-            Chunk titleTalk = new Chunk(talk.getTitle(),talkFontTitle);
+            Paragraph empty = new Paragraph(" ");
+            PdfPTable table = new PdfPTable(1);
+            table.setWidthPercentage(100);
+            table.setKeepTogether(true);
+            PdfPCell cell = null;
+            Chunk titleTalk = new Chunk(talk.getTitle(), talkFontTitle);
             titleTalk.setLocalDestination("talk" + talk.getId());
-            document.add(new Paragraph(titleTalk));
-            document.add(new Paragraph(" "));
-            document.add(new Paragraph(talk.getAbstract()));
-            document.add(new Paragraph(" "));
+
+            cell = new PdfPCell(new Paragraph(titleTalk));
+            cell.setBorder(0);
+            table.addCell(cell);
+            cell = new PdfPCell(empty);
+            cell.setBorder(0);
+            table.addCell(cell);
+            cell = new PdfPCell(new Paragraph(talk.getAbstract()));
+            cell.setBorder(0);
+            table.addCell(cell);
+            cell = new PdfPCell(empty);
+            cell.setBorder(0);
+            table.addCell(cell);
             StringBuilder textSpeakers = new StringBuilder("Présenté par ");
             List<Speaker> speakers = new ArrayList<Speaker>(talk.getSpeakers());
-            for (int countSpeakers = 0 ; countSpeakers < speakers.size(); countSpeakers++) {
+            for (int countSpeakers = 0; countSpeakers < speakers.size(); countSpeakers++) {
                 if (countSpeakers != 0 && countSpeakers == speakers.size() - 1) {
                     textSpeakers.append(" et ");
                 } else if (countSpeakers != 0) {
@@ -167,11 +192,15 @@ public class PdfReportView extends AbstractPdfView {
                 textSpeakers.append(' ');
                 textSpeakers.append(speakers.get(countSpeakers).getLastName());
             }
-            Paragraph presentBy = new Paragraph(textSpeakers.toString(),presentFont);
-            document.add(presentBy);
-            document.add(new Paragraph(" "));
+            Paragraph presentBy = new Paragraph(textSpeakers.toString(), presentFont);
+            cell = new PdfPCell(presentBy);
+            cell.setBorder(0);
+            table.addCell(cell);
+            cell = new PdfPCell(empty);
+            cell.setBorder(0);
+            table.addCell(cell);
+            document.add(table);
         }
-        
     }
 
     private PdfPCell createCellCentree(String content) {

@@ -135,17 +135,4 @@ public class CrudSpeakersController {
         return "redirect:/crud/speaker/index.htm";
     }
 
-
-    /**
-     * Launched if an error appears
-     * @param e Exception raised
-     * @return Error message
-     */
-    @ExceptionHandler
-    public @ResponseBody
-    Map<String, String> handleException(Exception e) {
-        Map<String, String> res = new HashMap<String, String>();
-        res.put("error", e.getLocalizedMessage());
-        return res;
-    }
 }

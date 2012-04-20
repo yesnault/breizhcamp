@@ -19,6 +19,14 @@
     <!-- Default handlers (with annotations) -->
     <mvc:annotation-driven/>
 
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" p:defaultErrorView="error">
+        	<property name="exceptionMappings">
+        	<props>
+        		<prop key="java.lang.Exception">error</prop>
+        	</props>
+        	</property>
+    </bean>
+
     <!-- I18N -->
     <bean id="localeResolver"
           class="org.springframework.web.servlet.i18n.SessionLocaleResolver">

@@ -25,17 +25,5 @@ public class ReportController {
 
     }
     
-    /**
-     * Launched if an error appears
-     * @param e Exception raised
-     * @return Error message
-     */
-    @ExceptionHandler
-    @ResponseBody
-    public Map<String, String> handleException(Exception e) {
-        e.printStackTrace();
-        Map<String, String> res = new HashMap<String, String>();
-        res.put("error", e.getLocalizedMessage());
-        return res;
-    }
+
 }

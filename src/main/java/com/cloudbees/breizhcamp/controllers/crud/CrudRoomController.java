@@ -94,16 +94,4 @@ public class CrudRoomController {
         return "redirect:/crud/room/index.htm";
     }
 
-    /**
-     * Launched if an error appears
-     * @param e Exception raised
-     * @return Error message
-     */
-    @ExceptionHandler
-    public @ResponseBody
-    Map<String, String> handleException(Exception e) {
-        Map<String, String> res = new HashMap<String, String>();
-        res.put("error", e.getLocalizedMessage());
-        return res;
-    }
 }
