@@ -375,4 +375,34 @@ public class ScheduleServiceTest extends PersistenceTestCase {
 
         assertThat(talk.getSchedule()).isNull();
     }
+
+    @Test
+    public void associateScheduleAndTalk_should_associate_just_a_talk_with_a_schedule() {
+        Schedule schedule = new Schedule();
+        schedule.setDuree(3);
+
+        em.persist(schedule);
+
+        Talk talk = new Talk();
+        talk.setTitle("Titre");
+        talk.setSchedule(schedule);
+
+        em.persist(talk);
+
+        Talk talk2 = new Talk();
+        talk2.setTitle("Titre2");
+        talk2.setSchedule(null);
+
+        em.persist(talk2);
+
+        em.flush();
+
+        scheduleService.associateScheduleAndTalk(schedule.getId(), talk2.getId());
+
+        talk = em.find(Talk.class, talk.getId());
+        talk2 = em.find(Talk.class, talk2.getId());
+
+        assertThat(talk.getSchedule()).isNull();
+        assertThat(talk2.getSchedule()).isSameAs(schedule);
+    }
 }

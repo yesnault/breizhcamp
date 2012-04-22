@@ -144,12 +144,11 @@ public class ScheduleService {
 
     public void associateScheduleAndTalk(long idSchedule, long idTalk) {
         Schedule schedule = scheduleDao.find(idSchedule);
-        if (idTalk == -1) {
-            for (Talk talk : talkDao.findBySchedule(schedule)) {
-                talk.setSchedule(null);
-            }
-        } else {
-            Talk talk = talkDao.find(idTalk);
+        for (Talk talk : talkDao.findBySchedule(schedule)) {
+            talk.setSchedule(null);
+        }
+        Talk talk = talkDao.find(idTalk);
+        if (talk != null) {
             talk.setSchedule(schedule);
         }
     }
@@ -163,7 +162,8 @@ public class ScheduleService {
                 continue;
             }
 
-            String roomOfTalk = talk.getSchedule().getRoom() == null ? "sansRoom" : talk.getSchedule().getRoom().getName();
+            String roomOfTalk =
+                    talk.getSchedule().getRoom() == null ? "sansRoom" : talk.getSchedule().getRoom().getName();
             Date date = DateUtils.truncate(new Date(), Calendar.DATE);
             if (talk.getStart() != null) {
                 date = DateUtils.truncate(talk.getStart(), Calendar.DATE);
