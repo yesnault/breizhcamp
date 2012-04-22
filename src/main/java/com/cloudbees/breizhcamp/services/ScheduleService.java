@@ -85,9 +85,9 @@ public class ScheduleService {
                 data.getCreneaux().put(date, new ArrayList<String>());
                 data.getSchedules().put(date, new HashMap<String, Map<String, Schedule>>());
             }
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(schedule.getStart());
-                cal.add(Calendar.MINUTE, schedule.getDuree());
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(schedule.getStart());
+            cal.add(Calendar.MINUTE, schedule.getDuree());
             String creneau = sdfHeure.format(schedule.getStart()) + " - " + sdfHeure.format(cal.getTime());
             if (!data.getCreneaux().get(date).contains(creneau)) {
                 data.getCreneaux().get(date).add(creneau);
