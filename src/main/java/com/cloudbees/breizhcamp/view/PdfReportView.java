@@ -4,6 +4,7 @@ import com.cloudbees.breizhcamp.controllers.Data;
 import com.cloudbees.breizhcamp.domain.Room;
 import com.cloudbees.breizhcamp.domain.Speaker;
 import com.cloudbees.breizhcamp.domain.Talk;
+import com.cloudbees.breizhcamp.domain.Theme;
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
 import com.lowagie.text.Image;
@@ -160,46 +161,48 @@ public class PdfReportView extends AbstractPdfView {
         document.add(paragraph);
 
         for (Talk talk : talkToExplain) {
-            Paragraph empty = new Paragraph(" ");
-            PdfPTable table = new PdfPTable(1);
-            table.setWidthPercentage(100);
-            table.setKeepTogether(true);
-            PdfPCell cell = null;
-            Chunk titleTalk = new Chunk(talk.getTitle(), talkFontTitle);
-            titleTalk.setLocalDestination("talk" + talk.getId());
+            if (!talk.getTheme().equals(Theme.BREAK)) {
+                Paragraph empty = new Paragraph(" ");
+                PdfPTable table = new PdfPTable(1);
+                table.setWidthPercentage(100);
+                table.setKeepTogether(true);
+                PdfPCell cell = null;
+                Chunk titleTalk = new Chunk(talk.getTitle(), talkFontTitle);
+                titleTalk.setLocalDestination("talk" + talk.getId());
 
-            cell = new PdfPCell(new Paragraph(titleTalk));
-            cell.setBorder(0);
-            table.addCell(cell);
-            cell = new PdfPCell(empty);
-            cell.setBorder(0);
-            table.addCell(cell);
-            cell = new PdfPCell(new Paragraph(talk.getAbstract()));
-            cell.setBorder(0);
-            table.addCell(cell);
-            cell = new PdfPCell(empty);
-            cell.setBorder(0);
-            table.addCell(cell);
-            StringBuilder textSpeakers = new StringBuilder("Présenté par ");
-            List<Speaker> speakers = new ArrayList<Speaker>(talk.getSpeakers());
-            for (int countSpeakers = 0; countSpeakers < speakers.size(); countSpeakers++) {
-                if (countSpeakers != 0 && countSpeakers == speakers.size() - 1) {
-                    textSpeakers.append(" et ");
-                } else if (countSpeakers != 0) {
-                    textSpeakers.append(", ");
+                cell = new PdfPCell(new Paragraph(titleTalk));
+                cell.setBorder(0);
+                table.addCell(cell);
+                cell = new PdfPCell(empty);
+                cell.setBorder(0);
+                table.addCell(cell);
+                cell = new PdfPCell(new Paragraph(talk.getAbstract()));
+                cell.setBorder(0);
+                table.addCell(cell);
+                cell = new PdfPCell(empty);
+                cell.setBorder(0);
+                table.addCell(cell);
+                StringBuilder textSpeakers = new StringBuilder("Présenté par ");
+                List<Speaker> speakers = new ArrayList<Speaker>(talk.getSpeakers());
+                for (int countSpeakers = 0; countSpeakers < speakers.size(); countSpeakers++) {
+                    if (countSpeakers != 0 && countSpeakers == speakers.size() - 1) {
+                        textSpeakers.append(" et ");
+                    } else if (countSpeakers != 0) {
+                        textSpeakers.append(", ");
+                    }
+                    textSpeakers.append(speakers.get(countSpeakers).getFirstName());
+                    textSpeakers.append(' ');
+                    textSpeakers.append(speakers.get(countSpeakers).getLastName());
                 }
-                textSpeakers.append(speakers.get(countSpeakers).getFirstName());
-                textSpeakers.append(' ');
-                textSpeakers.append(speakers.get(countSpeakers).getLastName());
+                Paragraph presentBy = new Paragraph(textSpeakers.toString(), presentFont);
+                cell = new PdfPCell(presentBy);
+                cell.setBorder(0);
+                table.addCell(cell);
+                cell = new PdfPCell(empty);
+                cell.setBorder(0);
+                table.addCell(cell);
+                document.add(table);
             }
-            Paragraph presentBy = new Paragraph(textSpeakers.toString(), presentFont);
-            cell = new PdfPCell(presentBy);
-            cell.setBorder(0);
-            table.addCell(cell);
-            cell = new PdfPCell(empty);
-            cell.setBorder(0);
-            table.addCell(cell);
-            document.add(table);
         }
     }
 
@@ -222,7 +225,9 @@ public class PdfReportView extends AbstractPdfView {
         cell.addElement(titleTalk);
         Paragraph theme = new Paragraph(new Phrase(talk.getTheme().getHtmlValue(), themeFont));
         theme.setAlignment(Paragraph.ALIGN_CENTER);
-        cell.addElement(theme);
+        if (!talk.getTheme().equals(Theme.BREAK)) {
+            cell.addElement(theme);
+        }
         for (Speaker speaker : talk.getSpeakers()) {
             if (speaker.getPicture() != null) {
                 Paragraph speakerText =

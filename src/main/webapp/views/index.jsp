@@ -46,10 +46,14 @@
                     title: "<c:if test="${not empty talk.schedule.room}">Salle ${talk.schedule.room.name}</c:if><c:if test="${empty talk.schedule.room}">Toutes salles</c:if> <c:if test="${talk.schedule.duree >= 60}">\n</c:if>${custo:formatchaine(talk.title)}",
 					start: new Date(y, m, d, <fmt:formatDate value="${talk.schedule.start}" type="both" pattern="HH,mm"/>),
 					end: new Date(y, m, d, <fmt:formatDate value="${custo:getfin(talk.schedule.start, talk.schedule.duree)}" type="both" pattern="HH,mm"/>),
-                    allDay: false,
-                    url: '/talk/${talk.id}.htm<c:if test="${hide}">?hide=true</c:if>'
+                    allDay: false
+                    <c:if test="${talk.theme != 'BREAK'}">
+                        ,url: '/talk/${talk.id}.htm<c:if test="${hide}">?hide=true</c:if>'
+                    </c:if>
                     <c:if test="${talk.theme == 'DECOUVRIR'}">,color:'green'</c:if>
                     <c:if test="${talk.theme == 'PRATIQUER'}">,color:'#F89E0D'</c:if>
+                    <c:if test="${talk.theme == 'BREAK'}">,color:'#F9F7B8',
+                                                    textColor:'#000000'</c:if>
                 }<c:if test="${not status.last}">,</c:if>
                 </c:forEach>
             ]

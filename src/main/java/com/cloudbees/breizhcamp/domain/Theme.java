@@ -10,7 +10,8 @@ public enum Theme {
 
     DECOUVRIR("Découvrir"),
     PRATIQUER("Pratiquer"),
-    APPROFONDIR("Approfondir");
+    APPROFONDIR("Approfondir"),
+    BREAK("Break");
     
     private String htmlValue;
 
