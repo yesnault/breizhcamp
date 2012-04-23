@@ -49,4 +49,9 @@
         <function-class>com.cloudbees.breizhcamp.tld.TldFunctions</function-class>
         <function-signature>java.util.Date getFin(java.util.Date, int)</function-signature>
     </function>
+    <function>
+        <name>formatchaine</name>
+        <function-class>com.cloudbees.breizhcamp.tld.TldFunctions</function-class>
+        <function-signature>java.lang.String formatChaine(java.lang.String)</function-signature>
+    </function>
 </taglib>

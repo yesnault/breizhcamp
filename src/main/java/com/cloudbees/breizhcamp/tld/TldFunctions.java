@@ -76,4 +76,18 @@ public class TldFunctions {
         }
         return new SimpleDateFormat(pattern).format(date);
     }
+    
+    public static String formatChaine(String chaine) {
+        if (chaine == null) {
+            return "";
+        }
+        StringBuilder builder = new StringBuilder();
+        for (char car : chaine.toCharArray()) {
+            if (car == '\'' || car == '"') {
+                builder.append('\\');
+            }
+            builder.append(car);
+        }
+        return builder.toString();
+    }
 }
