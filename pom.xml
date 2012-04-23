@@ -208,6 +208,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                     <instrumentation>
                         <excludes>
                             <exclude>com/cloudbees/**/*PersistenceTestCase.class</exclude>
+                            <exclude>com/cloudbees/**/*PdfReportView.class</exclude>
                         </excludes>
                     </instrumentation>
                     <formats>
