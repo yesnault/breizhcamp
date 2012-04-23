@@ -39,7 +39,7 @@ public class IndexController {
     @RequestMapping("/index.htm")
     public String index(ModelMap model, @RequestParam(defaultValue = "false") boolean hide) {
         model.put("hide", hide);
-        Data data = scheduleService.getData();
+        Data data = scheduleService.getDataWithCache();
         model.put("dates", data.getDatesOrdonnees());
         model.put("talks", data.getNewTalks());
         model.put("sansRoom", "sansRoom");
