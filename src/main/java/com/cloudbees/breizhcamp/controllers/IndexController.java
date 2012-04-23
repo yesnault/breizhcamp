@@ -41,10 +41,7 @@ public class IndexController {
         model.put("hide", hide);
         Data data = scheduleService.getData();
         model.put("dates", data.getDatesOrdonnees());
-        model.put("rooms", data.getRooms());
-        model.put("creneaux", data.getCreneaux());
-        model.put("talks", data.getTalks());
-        model.put("newTalks", data.getNewTalks());
+        model.put("talks", data.getNewTalks());
         model.put("sansRoom", "sansRoom");
         return "index";
     }
