@@ -38,6 +38,8 @@
 					end: new Date(y, m, d, <fmt:formatDate value="${custo:getfin(talk.schedule.start, talk.schedule.duree)}" type="both" pattern="HH,mm"/>),
                     allDay: false,
                     url: '/talk/${talk.id}.htm<c:if test="${hide}">?hide=true</c:if>'
+                    <c:if test="${talk.theme == 'DECOUVRIR'}">,color:'green'</c:if>
+                    <c:if test="${talk.theme == 'PRATIQUER'}">,color:'#F89E0D'</c:if>
                 }<c:if test="${not status.last}">,</c:if>
                 </c:forEach>
             ]
