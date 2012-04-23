@@ -19,6 +19,7 @@
 
 		$('#calendar<fmt:formatDate value="${date}" type="both" pattern="ddMMyyyy" />').fullCalendar({
             defaultView: 'agendaDay',
+            slotMinutes: 15,
             header: {
                 left:   '',
                 center: '',
@@ -36,7 +37,7 @@
             events: [
                 <c:forEach var="talk" items="${talks[date]}" varStatus="status">
                 {
-                    title: "<c:if test="${not empty talk.schedule.room}">Salle ${talk.schedule.room.name}</c:if><c:if test="${empty talk.schedule.room}">Toutes salles</c:if>\n${custo:formatchaine(talk.title)}",
+                    title: "<c:if test="${not empty talk.schedule.room}">Salle ${talk.schedule.room.name}</c:if><c:if test="${empty talk.schedule.room}">Toutes salles</c:if> <c:if test="${talk.schedule.duree >= 60}">\n</c:if>${custo:formatchaine(talk.title)}",
 					start: new Date(y, m, d, <fmt:formatDate value="${talk.schedule.start}" type="both" pattern="HH,mm"/>),
 					end: new Date(y, m, d, <fmt:formatDate value="${custo:getfin(talk.schedule.start, talk.schedule.duree)}" type="both" pattern="HH,mm"/>),
                     allDay: false,

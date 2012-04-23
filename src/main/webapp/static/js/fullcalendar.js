@@ -3868,6 +3868,7 @@ function AgendaEventRenderer() {
 					// not enough room for title, put it in the time header
 					eventElement.find('div.fc-event-time')
 						.text(formatDate(event.start, opt('timeFormat')) + ' - ' + event.title);
+				    eventElement.find('div.fc-event-time').attr('title', event.title);
 					eventElement.find('div.fc-event-title')
 						.remove();
 				}
@@ -3913,7 +3914,7 @@ function AgendaEventRenderer() {
 			"</div>" +
 			"</div>" +
 			"<div class='fc-event-content'>" +
-			"<div class='fc-event-title'>" +
+			"<div class='fc-event-title' title='" + event.title  + "'>" +
 			htmlEscape(event.title) +
 			"</div>" +
 			"</div>" +
@@ -4662,7 +4663,7 @@ function DayEventRenderer() {
 					"</span>";
 			}
 			html +=
-				"<span class='fc-event-title'>" + htmlEscape(event.title) + "</span>" +
+				"<span class='fc-event-title' title='" + event.title  + "'>" + htmlEscape(event.title) + "</span>" +
 				"</div>";
 			if (seg.isEnd && isEventResizable(event)) {
 				html +=
