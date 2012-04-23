@@ -24,11 +24,14 @@
                 center: '',
                 right: ''
             },
+            allDaySlot: false,
             minTime: ${bornes[date].min},
             maxTime: ${bornes[date].max},
-	        axisFormat: 'hh:mm',
+	        axisFormat: 'HH:mm',
+	        contentHeight:10000,
+	        height:10000,
             timeFormat: {
-                agenda: 'hh:mm{ - hh:mm}'
+                agenda: 'HH:mm{ - HH:mm}'
             },
             events: [
                 <c:forEach var="talk" items="${talks[date]}" varStatus="status">
