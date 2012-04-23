@@ -21,15 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
@@ -234,6 +226,27 @@ public class ScheduleService {
 
         for (List<String> creneauxForDate : data.getCreneaux().values()) {
             Collections.sort(creneauxForDate);
+        }
+        for (List<Talk> talks : data.getNewTalks().values()) {
+            Collections.sort(talks, new Comparator<Talk>() {
+                @Override
+                public int compare(Talk talk1, Talk talk2) {
+                    if (talk1.getStart() == null || talk2.getStart() == null) {
+                        return 0;
+                    }
+                    int dateCompare = talk1.getStart().compareTo(talk2.getStart());
+                    if (dateCompare == 0) {
+                        if (talk1.getSchedule().getRoom() == null) {
+                            return -1;
+                        } else if (talk2.getSchedule().getRoom() == null) {
+                            return 1;
+                        } else {
+                            return talk1.getRoomName().compareTo(talk2.getRoomName());
+                        }
+                    }
+                    return dateCompare;
+                }
+            });
         }
         data.setRooms(getRooms());
         return data;
