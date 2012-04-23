@@ -18,6 +18,33 @@ public class Data {
     private Map<Date, List<Talk>> newTalks = new HashMap<Date, List<Talk>>();
     private List<Date> datesOrdonnees = new ArrayList<Date>();
     private List<Room> rooms = null;
+    private Map<Date, Borne> bornes = new HashMap<Date, Borne>();
+
+    public static class Borne {
+        private int min;
+        private int max;
+
+        public int getMin() {
+            return min;
+        }
+
+        public int getMax() {
+            return max;
+        }
+
+        public void setMin(int min) {
+            this.min = min;
+        }
+
+        public void setMax(int max) {
+            this.max = max;
+        }
+
+        public Borne(int min, int max) {
+            this.min = min;
+            this.max = max;
+        }
+    }
 
     public Map<Date, List<String>> getCreneaux() {
         return creneaux;
@@ -41,5 +68,9 @@ public class Data {
 
     public Map<Date, List<Talk>> getNewTalks() {
         return newTalks;
+    }
+
+    public Map<Date, Borne> getBornes() {
+        return bornes;
     }
 }

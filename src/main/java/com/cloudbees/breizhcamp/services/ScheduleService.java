@@ -203,13 +203,22 @@ public class ScheduleService {
                 data.getCreneaux().put(date, new ArrayList<String>());
                 data.getTalks().put(date, new HashMap<String, Map<String, Talk>>());
                 data.getNewTalks().put(date, new ArrayList<Talk>());
+                data.getBornes().put(date, new Data.Borne(24, 0));
             }
             String creneau = "non programmé";
             if (talk.getStart() != null && !sdfHeure.format(talk.getStart()).equals("00:00")) {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(talk.getStart());
+                int minTalk = cal.get(Calendar.HOUR_OF_DAY);
                 cal.add(Calendar.MINUTE, talk.getDuree());
+                int maxTalk = cal.get(Calendar.HOUR_OF_DAY);
                 creneau = sdfHeure.format(talk.getStart()) + " - " + sdfHeure.format(cal.getTime());
+                if (data.getBornes().get(date).getMin() > minTalk) {
+                    data.getBornes().get(date).setMin(minTalk);
+                }
+                if (data.getBornes().get(date).getMax() < maxTalk) {
+                    data.getBornes().get(date).setMax(maxTalk);
+                }
             }
             if (!data.getCreneaux().get(date).contains(creneau)) {
                 data.getCreneaux().get(date).add(creneau);

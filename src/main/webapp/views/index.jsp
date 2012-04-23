@@ -24,8 +24,8 @@
                 center: '',
                 right: ''
             },
-            minTime: 8,
-            maxTime: 20,
+            minTime: ${bornes[date].min},
+            maxTime: ${bornes[date].max},
 	        axisFormat: 'hh:mm',
             timeFormat: {
                 agenda: 'hh:mm{ - hh:mm}'

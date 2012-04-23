@@ -42,6 +42,7 @@ public class IndexController {
         Data data = scheduleService.getDataWithCache();
         model.put("dates", data.getDatesOrdonnees());
         model.put("talks", data.getNewTalks());
+        model.put("bornes", data.getBornes());
         model.put("sansRoom", "sansRoom");
         return "index";
     }
