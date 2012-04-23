@@ -15,6 +15,7 @@ import java.util.Map;
 public class Data {
     private Map<Date, List<String>> creneaux = new HashMap<Date, List<String>>();
     private Map<Date, Map<String, Map<String, Talk>>> talks = new HashMap<Date, Map<String, Map<String, Talk>>>();
+    private Map<Date, List<Talk>> newTalks = new HashMap<Date, List<Talk>>();
     private List<Date> datesOrdonnees = new ArrayList<Date>();
     private List<Room> rooms = null;
 
@@ -36,5 +37,9 @@ public class Data {
 
     public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
+    }
+
+    public Map<Date, List<Talk>> getNewTalks() {
+        return newTalks;
     }
 }

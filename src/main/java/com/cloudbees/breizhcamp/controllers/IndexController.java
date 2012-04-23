@@ -44,6 +44,7 @@ public class IndexController {
         model.put("rooms", data.getRooms());
         model.put("creneaux", data.getCreneaux());
         model.put("talks", data.getTalks());
+        model.put("newTalks", data.getNewTalks());
         model.put("sansRoom", "sansRoom");
         return "index";
     }

@@ -5,6 +5,7 @@ import com.cloudbees.breizhcamp.domain.Duree;
 import com.cloudbees.breizhcamp.domain.Theme;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
@@ -51,6 +52,13 @@ public class TldFunctions {
             return "";
         }
         return start;
+    }
+    
+    public static Date getFin(Date startTime, int duree) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(startTime);
+        cal.add(Calendar.MINUTE, duree);
+        return cal.getTime();
     }
 
 

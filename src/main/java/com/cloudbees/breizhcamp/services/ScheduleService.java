@@ -172,6 +172,7 @@ public class ScheduleService {
             if (!data.getCreneaux().containsKey(date)) {
                 data.getCreneaux().put(date, new ArrayList<String>());
                 data.getTalks().put(date, new HashMap<String, Map<String, Talk>>());
+                data.getNewTalks().put(date, new ArrayList<Talk>());
             }
             String creneau = "non programmé";
             if (talk.getStart() != null && !sdfHeure.format(talk.getStart()).equals("00:00")) {
@@ -187,6 +188,7 @@ public class ScheduleService {
                 data.getTalks().get(date).put(creneau, new HashMap<String, Talk>());
             }
             data.getTalks().get(date).get(creneau).put(roomOfTalk, talk);
+            data.getNewTalks().get(date).add(talk);
         }
         data.getDatesOrdonnees().addAll(dates);
         Collections.sort(data.getDatesOrdonnees());
