@@ -3,7 +3,7 @@ package com.cloudbees.breizhcamp.domain;
 
 public enum Duree {
 
-    T_15(15, "Quickies(15 min)"), T_30(30, "Tools in action(30 min)"), T_60(60, "Conférence(1 heure)"), T_180(180, "Université(3 heures)");
+    T_15(15, "Quickies(15 min)"), T_30(30, "Tools in action(30 min)"), T_60(60, "Conférence(1 heure)"), T_120(120, "Lab (2 heures)"), T_180(180, "Université(3 heures)");
 
     private int minute;
     private String htmlValeur;
