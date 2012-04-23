@@ -83,6 +83,9 @@ public class TldFunctions {
         }
         StringBuilder builder = new StringBuilder();
         for (char car : chaine.toCharArray()) {
+            if (car == '\\') {
+                continue;
+            }
             if (car == '\'' || car == '"') {
                 builder.append('\\');
             }
