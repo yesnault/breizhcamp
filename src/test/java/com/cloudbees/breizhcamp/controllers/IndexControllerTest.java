@@ -121,9 +121,6 @@ public class IndexControllerTest extends PersistenceTestCase {
         ModelMap model = new ModelMap();
         controller.index(model,false);
 
-        assertTrue(model.containsKey("rooms"));
-        assertEquals(2,((List) model.get("rooms")).size());
-
         assertEquals(2, ((Map) model.get("talks")).size());
         assertEquals(2, ((List) model.get("dates")).size());
     }
