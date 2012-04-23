@@ -25,6 +25,12 @@
                 center: '',
                 right: ''
             },
+            titleFormat: {
+                day: ''
+            },
+            columnFormat: {
+                day: ''
+            },
             allDaySlot: false,
             minTime: ${bornes[date].min},
             maxTime: ${bornes[date].max},
