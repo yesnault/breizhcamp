@@ -204,6 +204,9 @@ public class ScheduleService {
                 int minTalk = cal.get(Calendar.HOUR_OF_DAY);
                 cal.add(Calendar.MINUTE, talk.getDuree());
                 int maxTalk = cal.get(Calendar.HOUR_OF_DAY);
+                if (cal.get(Calendar.MINUTE) >0) {
+                    maxTalk++;
+                }
                 creneau = sdfHeure.format(talk.getStart()) + " - " + sdfHeure.format(cal.getTime());
                 if (data.getBornes().get(date).getMin() > minTalk) {
                     data.getBornes().get(date).setMin(minTalk);
