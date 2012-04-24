@@ -588,8 +588,8 @@ table.fc-border-separate {
 	width: 100%;
 	height: 100%;
 	background: #fff;
-	opacity: .3;
-	filter: alpha(opacity=30);
+	opacity: 0.5;
+	filter: alpha(opacity=50);
 	}
 	
 .fc .ui-draggable-dragging .fc-event-bg, /* TODO: something nicer like .fc-opacity */
