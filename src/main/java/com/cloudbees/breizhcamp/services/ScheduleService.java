@@ -11,19 +11,12 @@ import com.cloudbees.breizhcamp.domain.Schedule;
 import com.cloudbees.breizhcamp.domain.Speaker;
 import com.cloudbees.breizhcamp.domain.Talk;
 import com.cloudbees.breizhcamp.domain.Theme;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.ListenableFutureTask;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author <a hef="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
@@ -152,28 +145,6 @@ public class ScheduleService {
         }
     }
 
-
-    LoadingCache<String, Data> cache = CacheBuilder.newBuilder() //
-            .refreshAfterWrite(5, TimeUnit.MINUTES).build(new CacheLoader<String, Data>() {
-                @Override
-                public Data load(String key) throws Exception {
-                    return getData();
-                }
-
-                @Override
-                public ListenableFuture<Data> reload(final String key, Data oldValue) throws Exception {
-                    return ListenableFutureTask.create(new Callable<Data>() {
-                        @Override
-                        public Data call() throws Exception {
-                            return load(key);
-                        }
-                    });
-                }
-            });
-
-    public Data getDataWithCache() {
-        return cache.getUnchecked("KEY");
-    }
 
     public Data getData() {
         Data data = new Data();

@@ -52,7 +52,7 @@
                     </c:if>
                     <c:if test="${talk.theme == 'DECOUVRIR'}">,color:'green'</c:if>
                     <c:if test="${talk.theme == 'PRATIQUER'}">,color:'#F89E0D'</c:if>
-                    <c:if test="${talk.theme == 'BREAK'}">,color:'#F9F7B8',
+                    <c:if test="${talk.theme == 'BREAK'}">,color:'#EEEEEE',
                                                     textColor:'#000000'</c:if>
                 }<c:if test="${not status.last}">,</c:if>
                 </c:forEach>
