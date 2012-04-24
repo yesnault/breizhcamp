@@ -3801,8 +3801,13 @@ function AgendaEventRenderer() {
 			left = leftmost +                                  // leftmost possible
 				(availWidth / (levelI + forward + 1) * levelI) // indentation
 				* dis + (rtl ? availWidth - outerWidth : 0);   // rtl
+
 			seg.top = top;
 			seg.left = left;
+			// YBO : solution crade...
+			if (availWidth != outerWidth) {
+			    outerWidth = availWidth / 5;
+			}
 			seg.outerWidth = outerWidth;
 			seg.outerHeight = bottom - top;
 			html += slotSegHtml(event, seg);
