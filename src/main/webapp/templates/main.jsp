@@ -24,7 +24,13 @@ if ( NavName == "Microsoft Internet Explorer") {
 
 <body>
     <c:if test="${hide!=true}">
-	<tiles:insertAttribute name="header" />
+	    <tiles:insertAttribute name="header" />
+	</c:if>
+	<c:if test="${hide==true}">
+        <script type='text/javascript' charset='utf-8'>
+            function setActive(id){
+            }
+        </script>
 	</c:if>
 	<tiles:insertAttribute name="content" />
 
