@@ -18,11 +18,21 @@ if ( NavName == "Microsoft Internet Explorer") {
   <link href='http://fonts.googleapis.com/css?family=Sonsie+One' rel='stylesheet' type='text/css'>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><tiles:getAsString name="title" /></title>
-
 	
 </head>
 
 <body>
+    <script type='text/javascript' charset='utf-8'>
+        $(document).ready(function() {
+             if (document.all){
+                 document.body.scrollLeft = 0;
+                 document.body.scrollTop = 0;
+             } else {
+                 window.pageXOffset = 0;
+                 window.pageYOffset = 0;
+             }
+        });
+    </script>
     <c:if test="${hide!=true}">
 	    <tiles:insertAttribute name="header" />
 	</c:if>
