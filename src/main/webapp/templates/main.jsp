@@ -24,7 +24,7 @@ if ( NavName == "Microsoft Internet Explorer") {
 <body>
     <script type='text/javascript' charset='utf-8'>
         $(document).ready(function() {
-             $('html,body').animate({scrollTop: 0}, 0);
+             parent.scrollTo(0, 0);
         });
     </script>
     <c:if test="${hide!=true}">
