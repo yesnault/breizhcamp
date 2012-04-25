@@ -16,14 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Handle request for index page
@@ -37,9 +32,12 @@ public class IndexController {
     private ScheduleService scheduleService;
 
     @RequestMapping("/index.htm")
-    public String index(ModelMap model, @RequestParam(defaultValue = "false") boolean hide) {
+    public String index(ModelMap model, @RequestParam(defaultValue = "") String jour, @RequestParam(defaultValue = "false") boolean hide){
         model.put("hide", hide);
-        Data data = scheduleService.getData();
+        Data data = null;
+
+        data = scheduleService.getData(jour);
+
         model.put("dates", data.getDatesOrdonnees());
         model.put("talks", data.getNewTalks());
         model.put("bornes", data.getBornes());
@@ -105,13 +103,13 @@ public class IndexController {
         event.getDays().addAll(days);
         return event;
     }
-    
+
     @RequestMapping("/gettwitter.htm")
-    @ResponseBody 
+    @ResponseBody
     public String getTwitter(@RequestParam String twitter) throws IOException {
         URL url = new URL("http://api.twitter.com/1/users/profile_image?screen_name="
                 + twitter + "&size=bigger");
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setInstanceFollowRedirects(false);
         String result = conn.getHeaderField("Location");
         conn.disconnect();

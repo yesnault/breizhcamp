@@ -6,15 +6,12 @@ import com.cloudbees.breizhcamp.dao.impl.RoomDao;
 import com.cloudbees.breizhcamp.dao.impl.ScheduleDao;
 import com.cloudbees.breizhcamp.dao.impl.SpeakerDao;
 import com.cloudbees.breizhcamp.dao.impl.TalkDao;
-import com.cloudbees.breizhcamp.domain.Room;
-import com.cloudbees.breizhcamp.domain.Schedule;
-import com.cloudbees.breizhcamp.domain.Speaker;
-import com.cloudbees.breizhcamp.domain.Talk;
-import com.cloudbees.breizhcamp.domain.Theme;
+import com.cloudbees.breizhcamp.domain.*;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -145,10 +142,15 @@ public class ScheduleService {
         }
     }
 
-
     public Data getData() {
+        return getData("");
+    }
+
+
+    public Data getData(String jour) {
         Data data = new Data();
         SimpleDateFormat sdfHeure = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
         Set<Date> dates = new HashSet<Date>();
         for (Talk talk : getTalks()) {
             if (talk.getSchedule() == null) {
@@ -161,68 +163,79 @@ public class ScheduleService {
             if (talk.getStart() != null) {
                 date = DateUtils.truncate(talk.getStart(), Calendar.DATE);
             }
-            dates.add(date);
-            if (!data.getCreneaux().containsKey(date)) {
-                data.getCreneaux().put(date, new ArrayList<String>());
-                data.getTalks().put(date, new HashMap<String, Map<String, Talk>>());
-                data.getNewTalks().put(date, new ArrayList<Talk>());
-                data.getBornes().put(date, new Data.Borne(24, 0));
-            }
-            String creneau = "non programmé";
-            if (talk.getStart() != null && !sdfHeure.format(talk.getStart()).equals("00:00")) {
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(talk.getStart());
-                int minTalk = cal.get(Calendar.HOUR_OF_DAY);
-                cal.add(Calendar.MINUTE, talk.getDuree());
-                int maxTalk = cal.get(Calendar.HOUR_OF_DAY);
-                if (cal.get(Calendar.MINUTE) >0) {
-                    maxTalk++;
-                }
-                creneau = sdfHeure.format(talk.getStart()) + " - " + sdfHeure.format(cal.getTime());
-                if (data.getBornes().get(date).getMin() > minTalk) {
-                    data.getBornes().get(date).setMin(minTalk);
-                }
-                if (data.getBornes().get(date).getMax() < maxTalk) {
-                    data.getBornes().get(date).setMax(maxTalk);
-                }
-            }
-            if (!data.getCreneaux().get(date).contains(creneau)) {
-                data.getCreneaux().get(date).add(creneau);
-            }
-            if (!data.getTalks().get(date).containsKey(creneau)) {
-                data.getTalks().get(date).put(creneau, new HashMap<String, Talk>());
-            }
-            data.getTalks().get(date).get(creneau).put(roomOfTalk, talk);
-            data.getNewTalks().get(date).add(talk);
-        }
-        data.getDatesOrdonnees().addAll(dates);
-        Collections.sort(data.getDatesOrdonnees());
+            boolean isJour = true;
 
-        for (List<String> creneauxForDate : data.getCreneaux().values()) {
-            Collections.sort(creneauxForDate);
-        }
-        for (List<Talk> talks : data.getNewTalks().values()) {
-            Collections.sort(talks, new Comparator<Talk>() {
-                @Override
-                public int compare(Talk talk1, Talk talk2) {
-                    if (talk1.getStart() == null || talk2.getStart() == null) {
-                        return 0;
-                    }
-                    int dateCompare = talk1.getStart().compareTo(talk2.getStart());
-                    if (dateCompare == 0) {
-                        if (talk1.getSchedule().getRoom() == null) {
-                            return -1;
-                        } else if (talk2.getSchedule().getRoom() == null) {
-                            return 1;
-                        } else {
-                            return talk1.getRoomName().compareTo(talk2.getRoomName());
-                        }
-                    }
-                    return dateCompare;
+            try {
+                isJour = date.equals(sdfDate.parse(jour));
+            } catch (ParseException e) {
+
+            }
+            if (jour.equals("") || isJour) {
+                dates.add(date);
+            }
+
+                if (!data.getCreneaux().containsKey(date)) {
+                    data.getCreneaux().put(date, new ArrayList<String>());
+                    data.getTalks().put(date, new HashMap<String, Map<String, Talk>>());
+                    data.getNewTalks().put(date, new ArrayList<Talk>());
+                    data.getBornes().put(date, new Data.Borne(24, 0));
                 }
-            });
-        }
-        data.setRooms(getRooms());
+                String creneau = "non programmé";
+                if (talk.getStart() != null && !sdfHeure.format(talk.getStart()).equals("00:00")) {
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(talk.getStart());
+                    int minTalk = cal.get(Calendar.HOUR_OF_DAY);
+                    cal.add(Calendar.MINUTE, talk.getDuree());
+                    int maxTalk = cal.get(Calendar.HOUR_OF_DAY);
+                    if (cal.get(Calendar.MINUTE) > 0) {
+                        maxTalk++;
+                    }
+                    creneau = sdfHeure.format(talk.getStart()) + " - " + sdfHeure.format(cal.getTime());
+                    if (data.getBornes().get(date).getMin() > minTalk) {
+                        data.getBornes().get(date).setMin(minTalk);
+                    }
+                    if (data.getBornes().get(date).getMax() < maxTalk) {
+                        data.getBornes().get(date).setMax(maxTalk);
+                    }
+                }
+                if (!data.getCreneaux().get(date).contains(creneau)) {
+                    data.getCreneaux().get(date).add(creneau);
+                }
+                if (!data.getTalks().get(date).containsKey(creneau)) {
+                    data.getTalks().get(date).put(creneau, new HashMap<String, Talk>());
+                }
+                data.getTalks().get(date).get(creneau).put(roomOfTalk, talk);
+                data.getNewTalks().get(date).add(talk);
+            }
+            data.getDatesOrdonnees().addAll(dates);
+            Collections.sort(data.getDatesOrdonnees());
+
+            for (List<String> creneauxForDate : data.getCreneaux().values()) {
+                Collections.sort(creneauxForDate);
+            }
+            for (List<Talk> talks : data.getNewTalks().values()) {
+                Collections.sort(talks, new Comparator<Talk>() {
+                    @Override
+                    public int compare(Talk talk1, Talk talk2) {
+                        if (talk1.getStart() == null || talk2.getStart() == null) {
+                            return 0;
+                        }
+                        int dateCompare = talk1.getStart().compareTo(talk2.getStart());
+                        if (dateCompare == 0) {
+                            if (talk1.getSchedule().getRoom() == null) {
+                                return -1;
+                            } else if (talk2.getSchedule().getRoom() == null) {
+                                return 1;
+                            } else {
+                                return talk1.getRoomName().compareTo(talk2.getRoomName());
+                            }
+                        }
+                        return dateCompare;
+                    }
+                });
+            }
+            data.setRooms(getRooms());
+
         return data;
     }
 }
