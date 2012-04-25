@@ -22,11 +22,6 @@ if ( NavName == "Microsoft Internet Explorer") {
 </head>
 
 <body>
-    <script type='text/javascript' charset='utf-8'>
-        $(document).ready(function() {
-             parent.scrollTo(0, 0);
-        });
-    </script>
     <c:if test="${hide!=true}">
 	    <tiles:insertAttribute name="header" />
 	</c:if>
