@@ -27,6 +27,10 @@ public class PdfReportView extends AbstractPdfView {
 
     Font talkFont =
             FontFactory.getFont(FontFactory.HELVETICA, Font.DEFAULTSIZE, Font.NORMAL, Color.BLACK);
+    Font speakerFont =
+            FontFactory.getFont(FontFactory.HELVETICA, 9,
+                    Font.NORMAL, Color.BLACK);
+
     Font themeFont =
             FontFactory.getFont(FontFactory.HELVETICA, 8,
                     Font.ITALIC, Color.GRAY);
@@ -94,9 +98,11 @@ public class PdfReportView extends AbstractPdfView {
     private void createProgrammePages(Document document, Data data, List<Talk> talkToExplain) throws DocumentException {
         String sansRoom = "sansRoom";
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        document.newPage();
+        document.setPageSize(PageSize.A3);
+
 
         for (Date date : data.getDatesOrdonnees()) {
+            document.newPage();
             Paragraph titre = new Paragraph();
             Font font = new Font();
             font.setStyle(Font.BOLD);
@@ -227,7 +233,7 @@ public class PdfReportView extends AbstractPdfView {
         for (Speaker speaker : talk.getSpeakers()) {
             if (speaker.getPicture() != null) {
                 Paragraph speakerText =
-                        new Paragraph(speaker.getFirstName() + " " + speaker.getLastName());
+                        new Paragraph(speaker.getFirstName() + " " + speaker.getLastName(),speakerFont);
                 speakerText.setAlignment(Paragraph.ALIGN_CENTER);
                 cell.addElement(speakerText);
             }
