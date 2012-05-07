@@ -12,7 +12,7 @@
     <table class="table  table-striped table-bordered table-condensed span6">
         <tr>
             <td class="span2"><spring:message code="resume.title" text="default text" /></td>
-            <td class="span6">${talk.abstract}</td>
+            <td class="span6">${talk.description}</td>
         </tr>
         <tr>
             <td><spring:message code="date.title" text="default text" /></td>

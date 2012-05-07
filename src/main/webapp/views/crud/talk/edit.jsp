@@ -38,7 +38,7 @@
     <div class="control-group <c:if test='${not empty resumeError}'>error</c:if>">
         <label class="control-label" for="resume"><spring:message code="talk.add.resume.label" text="default text" /></label>
         <div class="controls">
-            <textarea type="textarea" id="resume" name="resume" rows="4" class="input-xlarge">${talk.abstract}</textarea>
+            <textarea type="textarea" id="resume" name="resume" rows="4" class="input-xlarge">${talk.description}</textarea>
             <c:if test='${not empty resumeError}'>
                 <span class="help-inline">${resumeError}</span>
             </c:if>

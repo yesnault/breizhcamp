@@ -30,7 +30,7 @@
 <c:forEach var="talk" items="${talks}">
     <tr>
       <td>${talk.title}</td>
-      <td>${talk.abstract}</td>
+      <td>${talk.description}</td>
       <c:choose>
         <c:when test="${empty talk.schedule}">
             <td colspan="2">Non planifi&eacute;</td>

@@ -28,8 +28,8 @@ public class Talk {
     private String title;
 
     @Column(name = "abstract",length = 4000)
-    @JsonProperty("abstract")
-    private String abstract_;
+    @JsonProperty("description")
+    private String description;
 
     @JsonProperty("duree")
     private int duree;
@@ -87,12 +87,12 @@ public class Talk {
         return speakers;
     }
 
-    public String getAbstract() {
-        return abstract_;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAbstract(String abstract_) {
-        this.abstract_ = abstract_;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getTitle() {

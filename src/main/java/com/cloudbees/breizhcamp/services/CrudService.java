@@ -71,7 +71,7 @@ public class CrudService {
     public void addTalk(String title, String resume, int duree, Theme theme, List<Speaker> speakers, Schedule schedule) {
         Talk talk = new Talk();
         talk.setTitle(title);
-        talk.setAbstract(resume);
+        talk.setDescription(resume);
         talk.setSchedule(schedule);
         talk.setDuree(duree);
         talk.setTheme(theme);

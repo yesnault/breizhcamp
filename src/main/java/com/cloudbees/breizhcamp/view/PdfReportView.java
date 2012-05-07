@@ -6,9 +6,6 @@ import com.cloudbees.breizhcamp.domain.Speaker;
 import com.cloudbees.breizhcamp.domain.Talk;
 import com.cloudbees.breizhcamp.domain.Theme;
 import com.lowagie.text.*;
-import com.lowagie.text.Font;
-import com.lowagie.text.Image;
-import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
@@ -16,14 +13,13 @@ import org.springframework.web.servlet.view.document.AbstractPdfView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
+import java.awt.Color;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.List;
 
 
 public class PdfReportView extends AbstractPdfView {
@@ -176,7 +172,7 @@ public class PdfReportView extends AbstractPdfView {
                 cell = new PdfPCell(empty);
                 cell.setBorder(0);
                 table.addCell(cell);
-                cell = new PdfPCell(new Paragraph(talk.getAbstract()));
+                cell = new PdfPCell(new Paragraph(talk.getDescription()));
                 cell.setBorder(0);
                 table.addCell(cell);
                 cell = new PdfPCell(empty);
