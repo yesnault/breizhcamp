@@ -117,7 +117,11 @@ public class PdfReportView extends AbstractPdfView {
         if (modelA3 && roomSelected == null) {
             document.setPageSize(PageSize.A3);
         } else {
-            document.setPageSize(PageSize.A4);
+            if(roomSelected == null){
+                document.setPageSize(PageSize.A4.rotate());
+            } else{
+                document.setPageSize(PageSize.A4);
+            }
         }
         Font font = new Font();
         font.setStyle(Font.BOLD);
