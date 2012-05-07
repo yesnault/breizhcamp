@@ -162,9 +162,10 @@ public class PdfReportView extends AbstractPdfView {
                 }
             }
             for (String creneau : data.getCreneaux().get(date)) {
-                table.addCell(createCellCentree(creneau));
+
                 if (data.getTalks().get(date).get(creneau).containsKey(sansRoom)) {
                     if (roomSelected == null) {
+                        table.addCell(createCellCentree(creneau));
                         PdfPCell cell = new PdfPCell();
                         cell.setPaddingBottom(10);
                         cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
@@ -173,14 +174,11 @@ public class PdfReportView extends AbstractPdfView {
                         talkToExplain.add(talk);
                         remplirCellWithTalk(cell, talk);
                         table.addCell(cell);
-                    } else {
-                        PdfPCell cell = new PdfPCell();
-                        cell.setPaddingBottom(10);
-                        cell.setColspan(data.getRooms().size());
-                        cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
-                        table.addCell(cell);
                     }
                 } else {
+                    if (roomSelected == null) {
+                     table.addCell(createCellCentree(creneau));
+                    }
                     for (Room room : data.getRooms()) {
                         if (roomSelected == null || room.equals(roomSelected)) {
                             PdfPCell cell = new PdfPCell();
@@ -194,10 +192,14 @@ public class PdfReportView extends AbstractPdfView {
                             if (talk != null) {
                                 if (roomSelected == null) {
                                     talkToExplain.add(talk);
+                                }else{
+                                    table.addCell(createCellCentree(creneau));
                                 }
                                 remplirCellWithTalk(cell, talk);
                             }
-                            table.addCell(cell);
+                            if((talk!= null && roomSelected!=null) || roomSelected == null){
+                                table.addCell(cell);
+                            }
                         }
                     }
                 }
