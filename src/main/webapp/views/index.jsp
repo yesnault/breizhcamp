@@ -50,8 +50,10 @@
                     <c:if test="${talk.theme != 'BREAK'}">
                         ,url: '/talk/${talk.id}.htm<c:if test="${hide}">?hide=true</c:if>'
                     </c:if>
-                    <c:if test="${talk.theme == 'DECOUVRIR'}">,color:'green'</c:if>
-                    <c:if test="${talk.theme == 'PRATIQUER'}">,color:'#e55c0c'</c:if>
+                    <c:if test="${talk.duree == 15}">,color:'green'</c:if>
+                    <c:if test="${talk.duree == 30}">,color:'#1010CA'</c:if>
+                    <c:if test="${talk.duree == 60}">,color:'#e55c0c'</c:if>
+                    <c:if test="${talk.duree == 180}">,color:'#870E83'</c:if>
                     <c:if test="${talk.theme == 'BREAK'}">,color:'#EEEEEE',
                                                     textColor:'#000000'</c:if>
                 }<c:if test="${not status.last}">,</c:if>
