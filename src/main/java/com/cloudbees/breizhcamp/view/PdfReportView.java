@@ -46,6 +46,9 @@ public class PdfReportView extends AbstractPdfView {
     Font talkFontTitle =
             FontFactory.getFont(FontFactory.HELVETICA_BOLD, 17, Font.UNDERLINE, Color.darkGray);
 
+
+
+
     private PdfPCell createHeaderCell(String content) throws BadElementException {
         Paragraph paragraph = new Paragraph();
         Font font = new Font();
@@ -285,6 +288,9 @@ public class PdfReportView extends AbstractPdfView {
     }
 
     private void remplirCellWithTalk(PdfPCell cell, Talk talk) {
+
+
+
         Chunk chunk = new Chunk(talk.getTitle(), talkFont);
         chunk.setLocalGoto("talk" + talk.getId());
         Paragraph titleTalk = new Paragraph(chunk);
@@ -292,7 +298,20 @@ public class PdfReportView extends AbstractPdfView {
         cell.addElement(titleTalk);
         Paragraph theme = new Paragraph(new Phrase(talk.getTheme().getHtmlValue(), themeFont));
         theme.setAlignment(Paragraph.ALIGN_CENTER);
+
+
+
+
         if (!talk.getTheme().equals(Theme.BREAK)) {
+            if (talk.getDuree() == 15) {
+                cell.setBackgroundColor(Color.GREEN);
+            } else if (talk.getDuree() == 30) {
+                cell.setBackgroundColor(Color.decode("#B0C4DE"));
+            } else if (talk.getDuree() == 60) {
+                cell.setBackgroundColor(Color.decode("#FF8C00"));
+            }  else if (talk.getDuree() == 180) {
+                cell.setBackgroundColor(Color.decode("#D8BFD8"));
+            }
             cell.addElement(theme);
         }
         for (Speaker speaker : talk.getSpeakers()) {
