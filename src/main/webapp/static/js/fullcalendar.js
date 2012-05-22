@@ -3915,7 +3915,7 @@ function AgendaEventRenderer() {
 			">" +
 			"<div class='fc-event-inner fc-event-skin'" + skinCssAttr + ">" +
 			"<div class='fc-event-head fc-event-skin'" + skinCssAttr + ">" +
-			"<div class='fc-event-time'>" +
+			"<div class='fc-event-time' id='" + event.id + "'>" +
 			htmlEscape(formatDates(event.start, event.end, opt('timeFormat'))) +
 			"</div>" +
 			"</div>" +
@@ -3932,7 +3932,7 @@ function AgendaEventRenderer() {
 		}
 		html +=
 			"</" + (url ? "a" : "div") + ">";
-		return html;
+	    return html;
 	}
 	
 	
@@ -4664,7 +4664,7 @@ function DayEventRenderer() {
 				">";
 			if (!event.allDay && seg.isStart) {
 				html +=
-					"<span class='fc-event-time'>" +
+					"<span class='fc-event-time' id='" + event.id + "'>" +
 					htmlEscape(formatDates(event.start, event.end, opt('timeFormat'))) +
 					"</span>";
 			}
