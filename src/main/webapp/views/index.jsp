@@ -5,6 +5,7 @@
 <%@ taglib uri="/WEB-INF/custom-functions.tld" prefix="custo" %>
 
 <link rel='stylesheet' type='text/css' href='static/css/fullcalendar.css' />
+<script type='text/javascript' src='/static/js/breizhcamp.js'></script>
 <script type='text/javascript' src='static/js/fullcalendar.js'></script>
 
 <script type='text/javascript' charset='utf-8'>
@@ -46,6 +47,7 @@
                     title: "<c:if test="${not empty talk.schedule.room}">${talk.schedule.room.name}</c:if><c:if test="${empty talk.schedule.room}">Toutes salles</c:if> <c:if test="${talk.schedule.duree >= 60}">\n</c:if>${custo:formatchaine(talk.title)}",
 					start: new Date(y, m, d, <fmt:formatDate value="${talk.schedule.start}" type="both" pattern="HH,mm"/>),
 					end: new Date(y, m, d, <fmt:formatDate value="${custo:getfin(talk.schedule.start, talk.schedule.duree)}" type="both" pattern="HH,mm"/>),
+					id : "${talk.id}",
                     allDay: false
                     <c:if test="${talk.theme != 'BREAK'}">
                         ,url: '/talk/${talk.id}.htm<c:if test="${hide}">?hide=true</c:if>'
@@ -71,6 +73,7 @@
         </c:forEach>
 
     });
+
 </script>
 
 <c:forEach var="date" items="${dates}">

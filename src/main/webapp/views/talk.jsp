@@ -3,8 +3,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="custo" uri="/WEB-INF/custom-functions.tld" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
+<script type='text/javascript' src='/static/js/breizhcamp.js'></script>
+
 <script type='text/javascript' charset='utf-8'>
+     $(document).ready(function() {
          setActive('programme');
+         initFavoris();
+         initTalkOnTalkPage(${talk.id});
+     });
 </script>
 
 <fieldset class="span8">
@@ -40,6 +47,11 @@
                 <c:forEach var="speaker" items="${talk.speakers}">
                     <a href='/speaker/${speaker.id}.htm<c:if test="${hide == true}">?hide=${hide}</c:if>'>${speaker.firstName} ${speaker.lastName}</a><br/>
                 </c:forEach>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button id="talk" id_talk="${talk.id}" class="btn btn-success" href="#"></button>
             </td>
         </tr>
     </table>
